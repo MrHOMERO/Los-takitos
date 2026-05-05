@@ -1,190 +1,362 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tacos El Sabor | Auténtica Pasión</title>
+    <title>Tacos El Sabor | La Mejor Taquería de Paysandú</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos Generales */
         :root {
             --primario: #e63946;
             --secundario: #ffb703;
             --oscuro: #1d3557;
             --claro: #f1faee;
+            --whatsapp: #25d366;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             margin: 0;
-            padding: 0;
             background-color: var(--claro);
             color: var(--oscuro);
+            line-height: 1.6;
         }
 
-        /* Hero Section */
-        header {
+        /* NAVBAR PROFESIONAL */
+        .navbar {
+            background: white;
+            padding: 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-img {
+            height: 90px;
+            width: auto;
+            transition: transform 0.3s;
+        }
+
+        .logo-img:hover { transform: scale(1.05); }
+
+        /* HERO LANDING */
+        .hero {
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://i.ibb.co/JFcF07rd/tacos1.jpg'); /* Imagen principal */
+                        url('https://i.ibb.co/JFcF07rd/tacos1.jpg');
             background-size: cover;
             background-position: center;
-            height: 60vh;
+            height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             color: white;
             text-align: center;
-        }
-
-        header h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        /* Galería de Menú */
-        .container {
-            max-width: 1200px;
-            margin: 50px auto;
             padding: 0 20px;
         }
 
-        .menu-grid {
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 20px 0;
+        }
+
+        /* SECCIÓN DE VALORES (Basada en las fotos) */
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 60px 20px;
+            background: white;
+        }
+
+        .feature-item {
+            text-align: center;
+            max-width: 250px;
+        }
+
+        .feature-item i {
+            font-size: 2.5rem;
+            color: var(--primario);
+            margin-bottom: 15px;
+        }
+
+        /* MENÚ ESTILIZADO */
+        .menu-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: var(--secundario);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
         }
 
         .card {
             background: white;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: 0.4s;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-        }
+        .card:hover { transform: translateY(-15px); }
 
-        .card img {
-            width: 100%;
+        .card-img-wrapper {
+            position: relative;
             height: 250px;
-            object-fit: cover;
+            overflow: hidden;
         }
 
-        .card-info {
-            padding: 20px;
-            text-align: center;
+        .card img { width: 100%; height: 100%; object-fit: cover; }
+
+        .tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--secundario);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
         }
 
-        .btn-pedido {
-            background-color: var(--primario);
+        .card-body { padding: 30px; }
+
+        .card-body h3 { margin: 0 0 10px 0; color: var(--primario); }
+
+        .card-body p { font-size: 0.9rem; color: #666; margin-bottom: 20px; }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-order {
+            background: var(--oscuro);
             color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
+            padding: 12px 25px;
+            border-radius: 30px;
             text-decoration: none;
             font-weight: bold;
+            transition: 0.3s;
         }
 
-        /* Botón WhatsApp Flotante */
-        .whatsapp-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #25d366;
-            color: white;
-            border-radius: 50px;
-            width: 60px;
-            height: 60px;
+        .btn-order:hover { background: var(--primario); }
+
+        /* WHATSAPP FLOTANTE */
+        .wa-container { position: fixed; bottom: 30px; right: 30px; z-index: 2000; }
+
+        .wa-button {
+            width: 65px; height: 65px;
+            background: var(--whatsapp);
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 30px;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-            z-index: 1000;
-            transition: all 0.3s ease;
+            color: white;
+            font-size: 35px;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+            cursor: pointer;
         }
 
-        .whatsapp-btn:hover {
-            background-color: #128c7e;
-            transform: scale(1.1);
+        .wa-chat-box {
+            width: 320px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+            margin-bottom: 20px;
+            display: none;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        .wa-header {
+            background: var(--whatsapp);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .wa-body { padding: 25px; }
+
+        .wa-link {
+            background: var(--primario);
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            display: block;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        .show { display: block !important; animation: slideUp 0.4s ease; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         footer {
-            background-color: var(--oscuro);
+            background: var(--oscuro);
             color: white;
+            padding: 50px 20px;
             text-align: center;
-            padding: 20px 0;
-            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>TACOS EL SABOR</h1>
-        <p>Los mejores tacos de la ciudad directo a tu mesa</p>
-    </header>
+    <nav class="navbar">
+        <img src="watermarked_img_10662591543165237822.png" alt="Tacos El Sabor Logo" class="logo-img">
+    </nav>
 
-    <div class="container">
-        <h2 style="text-align: center; margin-bottom: 40px;">Nuestro Menú</h2>
-        
-        <div class="menu-grid">
-            <!-- Plato 1 -->
+    <section class="hero">
+        <h1>Auténtica Pasión</h1>
+        <p>Llevamos el verdadero sabor de la taquería artesanal a Paysandú. Ingredientes frescos, carne de primera y nuestras salsas secretas.</p>
+        <a href="#menu" class="btn-order" style="background: var(--secundario); color: var(--oscuro);">VER EL MENÚ</a>
+    </section>
+
+    <section class="features">
+        <div class="feature-item">
+            <i class="fas fa-leaf"></i>
+            <h4>Ingredientes Frescos</h4>
+            <p>Cilantro, cebolla morada y limones seleccionados cada mañana.</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-fire"></i>
+            <h4>Sabor a la Plancha</h4>
+            <p>Carne picada y cocida al punto exacto para mantener su jugo.</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-pepper-hot"></i>
+            <h4>Salsas Caseras</h4>
+            <p>Guacamole suave y salsas picantes hechas con recetas tradicionales.</p>
+        </div>
+    </section>
+
+    <section class="menu-section" id="menu">
+        <h2 class="section-title">Nuestras Especialidades</h2>
+        <div class="grid">
+            <!-- Item 1 -->
             <div class="card">
-                <img src="https://i.ibb.co/5Wck95fT/tacos2.jpg" alt="Tacos Variados">
-                <div class="card-info">
-                    <h3>Tacos Especiales</h3>
-                    <p>Tradición en cada bocado con ingredientes frescos.</p>
-                    <a href="https://wa.me/59899497546" class="btn-pedido">Ordenar Ahora</a>
+                <div class="card-img-wrapper">
+                    <span class="tag">Más Vendido</span>
+                    <img src="https://i.ibb.co/5Wck95fT/tacos2.jpg" alt="Tacos Variados">
+                </div>
+                <div class="card-body">
+                    <h3>Trío Clásico</h3>
+                    <p>Tres tacos con doble tortilla de maíz, coronados con cilantro fresco y un toque de nuestra crema especial.</p>
+                    <div class="price-row">
+                        <a href="javascript:void(0)" onclick="toggleChat()" class="btn-order">PEDIR AHORA</a>
+                    </div>
                 </div>
             </div>
 
-            <!-- Plato 2 -->
+            <!-- Item 2 -->
             <div class="card">
-                <img src="https://i.ibb.co/TD4FNmsy/tacos3.jpg" alt="Tacos al Pastor">
-                <div class="card-info">
-                    <h3>Promoción Familiar</h3>
-                    <p>Perfectos para compartir con amigos o familia.</p>
-                    <a href="https://wa.me/59899497546" class="btn-pedido">Ordenar Ahora</a>
+                <div class="card-img-wrapper">
+                    <img src="https://i.ibb.co/TD4FNmsy/tacos3.jpg" alt="Combo Familiar">
+                </div>
+                <div class="card-body">
+                    <h3>Bandeja Compartir</h3>
+                    <p>Una explosión de sabor con variedad de carnes, ideal para cenas en grupo o eventos especiales.</p>
+                    <div class="price-row">
+                        <a href="javascript:void(0)" onclick="toggleChat()" class="btn-order">PEDIR AHORA</a>
+                    </div>
                 </div>
             </div>
 
-            <!-- Plato 3 -->
+            <!-- Item 3 -->
             <div class="card">
-                <img src="https://i.ibb.co/rGPCqBsy/tacos4.jpg" alt="Tacos de Carne">
-                <div class="card-info">
-                    <h3>Tacos de la Casa</h3>
-                    <p>Nuestra receta secreta con el mejor sazón.</p>
-                    <a href="https://wa.me/59899497546" class="btn-pedido">Ordenar Ahora</a>
+                <div class="card-img-wrapper">
+                    <img src="https://i.ibb.co/rGPCqBsy/tacos4.jpg" alt="Tacos con Guacamole">
                 </div>
-            </div>
-
-            <!-- Plato 4 -->
-            <div class="card">
-                <img src="https://i.ibb.co/LhQ2GhNJ/tacos5.jpg" alt="Tacos Premium">
-                <div class="card-info">
-                    <h3>Combo Premium</h3>
-                    <p>Incluye guarnición y nuestra salsa especial.</p>
-                    <a href="https://wa.me/59899497546" class="btn-pedido">Ordenar Ahora</a>
+                <div class="card-body">
+                    <h3>Premium Guacamole</h3>
+                    <p>Servidos sobre una cama de guacamole artesanal y cebolla morada finamente picada para un contraste único.</p>
+                    <div class="price-row">
+                        <a href="javascript:void(0)" onclick="toggleChat()" class="btn-order">PEDIR AHORA</a>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <div class="wa-container">
+        <div class="wa-chat-box" id="chatBox">
+            <div class="wa-header">
+                <i class="fab fa-whatsapp"></i>
+                <div>
+                    <strong>Tacos El Sabor</strong><br>
+                    <small>En línea para atenderte</small>
+                </div>
+            </div>
+            <div class="wa-body">
+                <p>¡Hola Carlos! 🌮<br><br>¿Qué se te antoja hoy? Estamos listos para preparar tu pedido y enviarlo a cualquier parte de Paysandú.</p>
+                <a href="https://wa.me/59899497546?text=Hola!%20Quiero%20hacer%20un%20pedido%20de%20tacos" target="_blank" class="wa-link">Enviar mensaje por WhatsApp</a>
+            </div>
+        </div>
+        <div class="wa-button" onclick="toggleChat()">
+            <i class="fab fa-whatsapp"></i>
+        </div>
     </div>
 
-    <!-- Botón WhatsApp -->
-    <a href="https://wa.me/59899497546" class="whatsapp-btn" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
     <footer>
-        <p>&copy; 2026 Tacos El Sabor - Paysandú, Uruguay</p>
+        <img src="watermarked_img_10662591543165237822.png" style="height: 60px; filter: brightness(0) invert(1);" alt="Logo Blanco"><br><br>
+        <p><strong>Ubicación:</strong> Paysandú, Uruguay</p>
+        <p>Menos pantalla, más sabor. ¡Te esperamos!</p>
+        <div style="margin-top: 20px; opacity: 0.6; font-size: 0.8rem;">
+            &copy; 2026 Tacos El Sabor. Todos los derechos reservados.
+        </div>
     </footer>
 
+    <script>
+        function toggleChat() {
+            document.getElementById('chatBox').classList.toggle('show');
+        }
+    </script>
 </body>
 </html>
