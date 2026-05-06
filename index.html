@@ -10,20 +10,21 @@
     
     <style>
         :root {
-            --rosa: #f48fb1;
+            --rosa: #d81b60;
             --turquesa: #4dd0e1;
             --oscuro: #455a64;
             --whatsapp: #25d366;
+            --fondo: #fffafb;
         }
 
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
-            background-color: #fffafb;
+            background-color: var(--fondo);
             color: var(--oscuro);
         }
 
-        /* NAVBAR */
+        /* NAVBAR / LOGO CABECERA */
         .navbar {
             background: white;
             padding: 15px;
@@ -35,11 +36,14 @@
             z-index: 1000;
         }
 
-        .logo-img { height: 100px; width: auto; }
+        .logo-img { 
+            height: 120px; /* Tamaño del logo ajustado */
+            width: auto; 
+        }
 
-        /* HERO */
+        /* CABECERA PRINCIPAL (HERO) */
         .hero {
-            background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), 
+            background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), 
                         url('https://i.ibb.co/J6hX1rb/WA-1778028518945.png');
             background-size: cover;
             background-position: center;
@@ -49,18 +53,37 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            border-bottom: 6px dashed var(--rosa);
+            border-bottom: 6px dashed #f48fb1;
+            padding: 0 15px;
         }
 
         .hero h1 {
             font-family: 'Pacifico', cursive;
-            font-size: 3.5rem;
-            color: #d81b60;
+            font-size: 3.8rem;
+            color: var(--rosa);
             margin: 0;
+            text-shadow: 2px 2px 0px white;
         }
 
-        /* PRODUCTOS */
-        .container { max-width: 900px; margin: 50px auto; padding: 0 20px; }
+        /* SUBTÍTULO MEJORADO */
+        .hero p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            color: white;
+            background-color: var(--rosa);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.4);
+            margin-top: 15px;
+        }
+
+        /* SECCIÓN DE PRODUCTOS */
+        .container { 
+            max-width: 900px; 
+            margin: 50px auto; 
+            padding: 0 20px; 
+        }
 
         .card {
             background: white;
@@ -71,27 +94,52 @@
             border: 3px solid var(--turquesa);
         }
 
-        .product-img { width: 100%; height: auto; display: block; }
+        .product-img { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+        }
 
-        .info { padding: 40px; text-align: center; }
+        .info { 
+            padding: 40px; 
+            text-align: center; 
+        }
 
-        .info h2 { font-family: 'Pacifico', cursive; color: #d81b60; font-size: 2.2rem; }
+        .info h2 { 
+            font-family: 'Pacifico', cursive; 
+            color: var(--rosa); 
+            font-size: 2.2rem; 
+            margin-top: 0;
+        }
+
+        .info p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
 
         .price {
             display: inline-block;
             background: var(--turquesa);
             color: white;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 50px;
             font-weight: bold;
+            font-size: 1.1rem;
             margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(77, 208, 225, 0.3);
         }
 
         /* WHATSAPP FLOTANTE */
-        .wa-float { position: fixed; bottom: 30px; right: 30px; z-index: 2000; }
+        .wa-float { 
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            z-index: 2000; 
+        }
 
         .wa-btn {
-            width: 65px; height: 65px;
+            width: 65px; 
+            height: 65px;
             background: var(--whatsapp);
             border-radius: 50%;
             display: flex;
@@ -101,53 +149,91 @@
             font-size: 35px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .wa-btn:hover {
+            transform: scale(1.1);
         }
 
         .wa-card {
-            width: 280px; background: white; border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 15px; display: none; padding: 20px; text-align: center;
+            width: 280px; 
+            background: white; 
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            margin-bottom: 15px; 
+            display: none; 
+            padding: 20px; 
+            text-align: center;
+            border: 1px solid #eee;
         }
 
-        .wa-card.active { display: block; }
+        .wa-card.active { 
+            display: block; 
+        }
 
         .btn-send {
-            background: #d81b60; color: white; text-decoration: none;
-            padding: 10px; border-radius: 10px; display: block; font-weight: bold; margin-top: 10px;
+            background: var(--rosa); 
+            color: white; 
+            text-decoration: none;
+            padding: 12px; 
+            border-radius: 12px; 
+            display: block; 
+            font-weight: bold; 
+            margin-top: 15px;
         }
 
-        footer { background: #fce4ec; padding: 40px; text-align: center; border-top: 4px solid var(--turquesa); }
+        /* PIE DE PÁGINA */
+        footer { 
+            background: #fce4ec; 
+            padding: 40px; 
+            text-align: center; 
+            border-top: 4px solid var(--turquesa); 
+        }
+        
+        footer p {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .hero p { font-size: 1rem; }
+            .logo-img { height: 90px; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Logo Cabecera -->
     <nav class="navbar">
-        <img src="https://i.ibb.co/J6hX1rb/WA-1778028518945.png" alt="Logo" class="logo-img">
+        <img src="https://i.ibb.co/99NnCsWz/logo.png" alt="Logo Los Takitos" class="logo-img">
     </nav>
 
+    <!-- Bienvenida -->
     <header class="hero">
         <h1>Sabor que Encanta</h1>
-        <p>Los mejores tacos artesanales de Paysandú.</p>
+        <p>Los mejores tacos artesanales de Paysandú</p>
     </header>
 
     <div class="container">
-        <!-- CARNE -->
+        <!-- TACOS DE CARNE -->
         <div class="card">
-            <img src="https://i.ibb.co/J6hX1rb/WA-1778028518945.png" class="product-img">
+            <img src="https://i.ibb.co/J6hX1rb/WA-1778028518945.png" alt="Tacos de Carne" class="product-img">
             <div class="info">
                 <h2>Tacos de Carne</h2>
-                <p>Nuestra especialidad premium con carne seleccionada y sazón auténtico[cite: 1].</p>
-                <div class="price">1/2 Docena: $540 | 1 Docena: $960[cite: 1]</div>
+                <p>Nuestra especialidad premium con carne seleccionada y sazón auténtico.</p>
+                <div class="price">1/2 Docena: $540 | 1 Docena: $960</div>
             </div>
         </div>
 
-        <!-- POLLO -->
+        <!-- TACOS DE POLLO -->
         <div class="card">
-            <img src="https://i.ibb.co/J6hX1rb/WA-1778028518945.png" class="product-img" style="filter: hue-rotate(160deg);">
+            <img src="https://i.ibb.co/Ng2cQDN8/pollo.png" alt="Tacos de Pollo" class="product-img">
             <div class="info">
                 <h2>Tacos de Pollo</h2>
-                <p>Jugosa pechuga de pollo desmechada y cocida a fuego lento[cite: 1].</p>
-                <div class="price">1/2 Docena: $420 | 1 Docena: $720[cite: 1]</div>
+                <p>Jugosa pechuga de pollo desmechada y cocida a fuego lento.</p>
+                <div class="price">1/2 Docena: $420 | 1 Docena: $720</div>
             </div>
         </div>
     </div>
@@ -155,18 +241,22 @@
     <!-- WHATSAPP -->
     <div class="wa-float">
         <div class="wa-card" id="waCard">
-            <strong>Los Takitos</strong>
-            <p>¿Qué te gustaría pedir hoy?[cite: 1]</p>
-            <a href="https://wa.me/59899497546" class="btn-send">Hacer Pedido</a>
+            <strong>Los Takitos 🌮</strong>
+            <p style="margin-top: 10px;">¿Qué te gustaría pedir hoy?</p>
+            <a href="https://wa.me/59899497546" class="btn-send">Hacer mi pedido</a>
         </div>
         <div class="wa-btn" onclick="document.getElementById('waCard').classList.toggle('active')">
             <i class="fab fa-whatsapp"></i>
         </div>
     </div>
 
+    <!-- PIE DE PÁGINA -->
     <footer>
-        <p>📱 099 497 546 | 098 142 092[cite: 1]</p>
-        <p>📍 Paysandú, Uruguay[cite: 1]</p>
+        <p>📱 099 497 546 | 098 142 092</p>
+        <p>📍 Paysandú, Uruguay</p>
+        <div style="margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">
+            &copy; 2026 Los Takitos. ¡Gracias por elegirnos!
+        </div>
     </footer>
 
 </body>
