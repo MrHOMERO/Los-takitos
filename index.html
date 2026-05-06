@@ -37,7 +37,7 @@
         }
 
         .logo-img { 
-            height: 120px; /* Tamaño del logo ajustado */
+            height: 120px; 
             width: auto; 
         }
 
@@ -129,6 +129,16 @@
             box-shadow: 0 4px 10px rgba(77, 208, 225, 0.3);
         }
 
+        /* TÍTULO DE SECCIONES SECUNDARIAS */
+        .section-title {
+            text-align: center;
+            font-family: 'Pacifico', cursive;
+            color: var(--rosa);
+            font-size: 2.8rem;
+            margin: 70px 0 40px;
+            text-shadow: 1px 1px 0px white;
+        }
+
         /* WHATSAPP FLOTANTE */
         .wa-float { 
             position: fixed; 
@@ -200,6 +210,7 @@
             .hero h1 { font-size: 3rem; }
             .hero p { font-size: 1rem; }
             .logo-img { height: 90px; }
+            .section-title { font-size: 2.2rem; }
         }
     </style>
 </head>
@@ -236,9 +247,43 @@
                 <div class="price">1/2 Docena: $420 | 1 Docena: $720</div>
             </div>
         </div>
+
+        <!-- NUEVA SECCIÓN: DESCUBRE NUESTROS SABORES -->
+        <h2 class="section-title">Descubre nuestros sabores</h2>
+
+        <!-- SALSAS -->
+        <div class="card">
+            <img src="https://i.ibb.co/r2Ybd2dB/salsas.png" alt="Salsas Artesanales" class="product-img">
+            <div class="info">
+                <h2>Salsas Caseras</h2>
+                <p>Potencia tu pedido con nuestras salsas artesanales. Desde el frescor de los ingredientes naturales hasta el toque picante perfecto que desafía tu paladar.</p>
+                <div class="price">Salsa Extra: $20</div>
+            </div>
+        </div>
+
+        <!-- COMBOS -->
+        <div class="card">
+            <img src="https://i.ibb.co/Tq7tbTZ8/combos.png" alt="Combos Especiales" class="product-img">
+            <div class="info">
+                <h2>Combos para Compartir</h2>
+                <p>La opción perfecta para disfrutar en familia o con amigos. Combina nuestros clásicos y lleva más sabor para compartir la experiencia de Los Takitos.</p>
+                <div class="price" style="background-color: var(--rosa);">Consultar Promos</div>
+            </div>
+        </div>
+
+        <!-- DELIVERY -->
+        <div class="card">
+            <img src="https://i.ibb.co/S9kbg8B/delivery.png" alt="Delivery" class="product-img">
+            <div class="info">
+                <h2>Delivery a tu Puerta</h2>
+                <p>¡Llevamos el auténtico sabor mexicano hasta tu casa en Paysandú! Haz tu pedido por WhatsApp y relájate, nosotros nos encargamos de que llegue calentito.</p>
+                <a href="https://wa.me/59899497546" class="price" style="text-decoration: none; display: inline-block;">Hacer Pedido</a>
+            </div>
+        </div>
+
     </div>
 
-    <!-- WHATSAPP -->
+    <!-- WHATSAPP FLOTANTE -->
     <div class="wa-float">
         <div class="wa-card" id="waCard">
             <strong>Los Takitos 🌮</strong>
@@ -260,4 +305,4 @@
     </footer>
 
 </body>
-</html>
+    </html>
