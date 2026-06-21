@@ -2,76 +2,40 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Huerta Rangers</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
-        body { 
-            margin: 0; 
-            padding: 0;
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            background: linear-gradient(135deg, #2e7d32, #1b5e20); 
-            font-family: 'Press Start 2P', cursive;
-            color: white;
-            overflow: hidden;
-        }
-
-        .menu-container { 
-            text-align: center;
-            animation: fadeIn 2s ease-in;
-        }
-
-        h1 { 
-            font-size: 3rem; 
-            text-shadow: 4px 4px #000;
-            margin-bottom: 50px;
-            letter-spacing: 5px;
-        }
-
-        button { 
-            padding: 20px 40px; 
-            font-size: 1.2rem; 
-            background: #ffeb3b; 
-            border: 4px solid #f57f17; 
-            color: #d84315; 
-            cursor: pointer; 
-            font-family: 'Press Start 2P', cursive;
-            transition: 0.3s;
-            box-shadow: 0 10px #bf360c;
-        }
-
-        button:hover { 
-            background: #fff176; 
-            transform: translateY(-5px);
-            box-shadow: 0 15px #bf360c;
-        }
-
-        button:active {
-            transform: translateY(0);
-            box-shadow: 0 5px #bf360c;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        body { margin: 0; background: #1b5e20; font-family: 'Press Start 2P', cursive; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        .screen { display: none; text-align: center; width: 80%; }
+        .active { display: block; animation: fadeIn 0.5s; }
+        #logo { width: 150px; margin-bottom: 20px; }
+        h1 { font-size: 2.5rem; text-shadow: 4px 4px #000; }
+        button { padding: 20px 40px; font-size: 1rem; background: #ffeb3b; border: 4px solid #f57f17; color: #d84315; cursor: pointer; margin-top: 30px; }
     </style>
 </head>
 <body>
-    <div class="menu-container">
+
+    <!-- Pantalla 1: Menú -->
+    <div id="menu-screen" class="screen active">
+        <img id="logo" src="https://cdn-icons-png.flaticon.com/512/628/628315.png" alt="Logo">
         <h1>HUERTA<br>RANGERS</h1>
-        <button onclick="comenzarJuego()">START GAME</button>
+        <button onclick="iniciarHistoria()">START GAME</button>
     </div>
 
+    <!-- Pantalla 2: Historia -->
+    <div id="story-screen" class="screen">
+        <h2>EL DESPERTAR</h2>
+        <p style="line-height: 1.6; font-size: 0.8rem;">La energía cósmica despertó a la huerta. Los 'Marchitos' han llegado para secarlo todo. ¡Tú debes guiar a los héroes!</p>
+        <button onclick="alert('¡A luchar!')">CONTINUAR</button>
+    </div>
+
+    <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
+
     <script>
-        function comenzarJuego() {
-            document.body.style.opacity = 0;
-            setTimeout(() => {
-                alert("¡Cargando la aventura...");
-            }, 500);
+        function iniciarHistoria() {
+            document.getElementById('clickSound').play();
+            document.getElementById('menu-screen').classList.remove('active');
+            document.getElementById('story-screen').classList.add('active');
         }
     </script>
 </body>
