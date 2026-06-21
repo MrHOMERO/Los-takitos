@@ -2,25 +2,76 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Huerta Rangers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
-        body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #e0f7fa; font-family: 'Arial', sans-serif; }
-        .menu-container { text-align: center; }
-        h1 { color: #2e7d32; font-size: 3rem; }
-        button { padding: 15px 30px; font-size: 1.5rem; background: #8bc34a; border: none; border-radius: 10px; color: white; cursor: pointer; transition: 0.3s; }
-        button:hover { background: #689f38; transform: scale(1.1); }
+        body { 
+            margin: 0; 
+            padding: 0;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            background: linear-gradient(135deg, #2e7d32, #1b5e20); 
+            font-family: 'Press Start 2P', cursive;
+            color: white;
+            overflow: hidden;
+        }
+
+        .menu-container { 
+            text-align: center;
+            animation: fadeIn 2s ease-in;
+        }
+
+        h1 { 
+            font-size: 3rem; 
+            text-shadow: 4px 4px #000;
+            margin-bottom: 50px;
+            letter-spacing: 5px;
+        }
+
+        button { 
+            padding: 20px 40px; 
+            font-size: 1.2rem; 
+            background: #ffeb3b; 
+            border: 4px solid #f57f17; 
+            color: #d84315; 
+            cursor: pointer; 
+            font-family: 'Press Start 2P', cursive;
+            transition: 0.3s;
+            box-shadow: 0 10px #bf360c;
+        }
+
+        button:hover { 
+            background: #fff176; 
+            transform: translateY(-5px);
+            box-shadow: 0 15px #bf360c;
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 5px #bf360c;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
     <div class="menu-container">
-        <h1>Huerta Rangers</h1>
-        <button onclick="comenzarJuego()">Comenzar Juego</button>
+        <h1>HUERTA<br>RANGERS</h1>
+        <button onclick="comenzarJuego()">START GAME</button>
     </div>
 
     <script>
         function comenzarJuego() {
-            alert("¡Preparando la huerta! Cargando el juego...");
-            // Aquí luego cargaremos la lógica del simulador
+            document.body.style.opacity = 0;
+            setTimeout(() => {
+                alert("¡Cargando la aventura...");
+            }, 500);
         }
     </script>
 </body>
