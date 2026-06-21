@@ -2,40 +2,54 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Huerta Rangers</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
-        body { margin: 0; background: #1b5e20; font-family: 'Press Start 2P', cursive; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
-        .screen { display: none; text-align: center; width: 80%; }
-        .active { display: block; animation: fadeIn 0.5s; }
-        #logo { width: 150px; margin-bottom: 20px; }
-        h1 { font-size: 2.5rem; text-shadow: 4px 4px #000; }
-        button { padding: 20px 40px; font-size: 1rem; background: #ffeb3b; border: 4px solid #f57f17; color: #d84315; cursor: pointer; margin-top: 30px; }
+        body { margin: 0; background: #0a1a0a; font-family: 'Press Start 2P', cursive; color: #adff2f; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        
+        /* Efecto de Scanlines (Televisor viejo) */
+        body::before { content: " "; position: absolute; top: 0; left: 0; bottom: 0; right: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); z-index: 2; background-size: 100% 4px, 3px 100%; pointer-events: none; }
+
+        .screen { display: none; text-align: center; width: 90%; max-width: 400px; padding: 20px; z-index: 1; }
+        .active { display: block; }
+        
+        button { background: #000; color: #adff2f; border: 2px solid #adff2f; padding: 15px; width: 100%; cursor: pointer; font-family: inherit; font-size: 0.8rem; }
+        .character-card { border: 1px solid #adff2f; margin: 10px 0; padding: 10px; font-size: 0.6rem; }
     </style>
 </head>
 <body>
 
-    <!-- Pantalla 1: Menú -->
-    <div id="menu-screen" class="screen active">
-        <img id="logo" src="https://cdn-icons-png.flaticon.com/512/628/628315.png" alt="Logo">
-        <h1>HUERTA<br>RANGERS</h1>
-        <button onclick="iniciarHistoria()">START GAME</button>
+    <!-- Pantalla de Inicio -->
+    <div id="menu" class="screen active">
+        <h1 style="font-size: 1.5rem;">HUERTA<br>RANGERS</h1>
+        <button onclick="startExperience()">START GAME</button>
     </div>
 
-    <!-- Pantalla 2: Historia -->
-    <div id="story-screen" class="screen">
-        <h2>EL DESPERTAR</h2>
-        <p style="line-height: 1.6; font-size: 0.8rem;">La energía cósmica despertó a la huerta. Los 'Marchitos' han llegado para secarlo todo. ¡Tú debes guiar a los héroes!</p>
-        <button onclick="alert('¡A luchar!')">CONTINUAR</button>
+    <!-- Pantalla de Historia y Selección -->
+    <div id="story" class="screen">
+        <h2 style="font-size: 0.9rem;">LA AMENAZA</h2>
+        <p style="font-size: 0.6rem; line-height: 1.5;">Los 'Marchitos' invaden. Elige a tu Ranger para defender la granja:</p>
+        
+        <div class="character-card">BATATÍN - Fuerza Terrestre</div>
+        <div class="character-card">ZANAHORÍN - Velocidad Flash</div>
+        <div class="character-card">TOMATÓN - Artillería Roja</div>
+        <div class="character-card">BERENJENIO - Místico Oscuro</div>
+        
+        <button onclick="alert('¡Iniciando con tu Ranger!')">CONFIRMAR RANGER</button>
     </div>
 
-    <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
+    <!-- Audio épico -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.dl.dropboxusercontent.com/s/v2/44883461/epic-adventure.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
-        function iniciarHistoria() {
-            document.getElementById('clickSound').play();
-            document.getElementById('menu-screen').classList.remove('active');
-            document.getElementById('story-screen').classList.add('active');
+        function startExperience() {
+            const music = document.getElementById('bgMusic');
+            music.play();
+            document.getElementById('menu').classList.remove('active');
+            document.getElementById('story').classList.add('active');
         }
     </script>
 </body>
