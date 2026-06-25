@@ -10,13 +10,16 @@
     <div class="fondo-espacio"></div>
 
     <div id="pantalla-1" class="pantalla activa">
-        <!-- Nave espacial en video -->
+        <!-- Video de la nave -->
         <video class="nave-video" autoplay loop muted playsinline>
             <source src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/447c9412b17a4ec99c771f176605d8a7.mp4" type="video/mp4">
         </video>
         
-        <h1>EL CAMINO DEL TIEMPO</h1>
-        <button onclick="cambiarPantalla('pantalla-1', 'pantalla-2')">COMENZAR JUEGO</button>
+        <!-- Contenedor que oculta la marca de agua -->
+        <div class="contenedor-interfaz">
+            <h1>EL CAMINO DEL TIEMPO</h1>
+            <button onclick="cambiarPantalla('pantalla-1', 'pantalla-2')">COMENZAR JUEGO</button>
+        </div>
     </div>
 
     <div id="pantalla-2" class="pantalla">
