@@ -2,34 +2,41 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Los Takitos - El Camino del Tiempo</title>
-    <style>
-        /* Estilos base que ya tenías */
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'Arial', sans-serif; }
-        
-        /* Video de fondo (la nave) */
-        #video-fondo { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
-        
-        /* Contenedor principal */
-        #contenedor { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: #FFD700; text-align: center; }
-        
-        h1 { font-size: 4rem; text-shadow: 2px 2px 10px #000; }
-        
-        button { padding: 20px 40px; font-size: 1.5rem; cursor: pointer; background: rgba(255, 215, 0, 0.8); border: none; border-radius: 8px; font-weight: bold; transition: transform 0.3s; }
-        button:hover { transform: scale(1.1); background: #FFD700; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Camino del Tiempo</title>
+    
+    <!-- Fuente para el título -->
+    <link href="https://fonts.googleapis.com/css2?family=Ewert&display=swap" rel="stylesheet">
+    
+    <!-- Enlace al archivo CSS global -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <video autoplay muted loop id="video-fondo">
-        <source src="URL_DE_TU_VIDEO.mp4" type="video/mp4">
-    </video>
+    <!-- Capa de fondo fija -->
+    <div class="fondo-espacio"></div>
 
-    <div id="contenedor">
-        <h1>Los Takitos</h1>
-        <p>¿Qué harás con el tiempo que te queda?</p>
-        <button onclick="window.location.href='pagina2.html'">Comenzar a jugar</button>
-    </div>
+    <!-- Contenedor Principal -->
+    <main class="contenedor-principal">
+        
+        <!-- Título -->
+        <h1 class="titulo-dorado">El Camino del Tiempo</h1>
+        
+        <!-- Video de la nave (Centrado) -->
+        <div class="video-wrapper" style="width: 100%; display: flex; justify-content: center; flex-grow: 1; align-items: center;">
+            <video autoplay loop muted playsinline class="nave-video" style="width: 250px; mix-blend-mode: screen; pointer-events: none;">
+                <source src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/447c9412b17a4ec99c771f176605d8a7.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- Bloque inferior con el botón de inicio -->
+        <div class="bloque-inferior">
+            <button class="boton-jugar" onclick="window.location.href='pagina2.html'">
+                Comenzar a jugar
+            </button>
+        </div>
+
+    </main>
 
 </body>
 </html>
