@@ -2,55 +2,57 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Vital para móviles: impide el zoom y ajusta el tamaño -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>El Camino del Tiempo</title>
     <style>
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            overflow: hidden; /* Evita que la pantalla se mueva */
             background-color: #000;
-            font-family: 'Georgia', serif;
+            -webkit-tap-highlight-color: transparent; /* Quita el recuadro azul al tocar */
         }
 
         #game-container {
             width: 100vw;
             height: 100vh;
-            /* Enlace directo a tu imagen en GitHub */
             background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/portada.jpg');
             background-size: cover;
             background-position: center;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            justify-content: flex-end; /* Alinea los botones abajo */
             align-items: center;
-            padding-bottom: 80px;
+            padding-bottom: 15vh; /* Ajuste para que no quede muy pegado al borde */
         }
 
         .start-button {
-            padding: 20px 40px;
-            font-size: 1.5rem;
+            padding: 15px 40px;
+            font-size: 1.2rem;
             color: #fff;
-            background-color: rgba(0, 0, 0, 0.5);
-            border: 3px solid #c5a059;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 2px solid #c5a059;
+            border-radius: 8px; /* Bordes suaves para móvil */
             cursor: pointer;
             text-transform: uppercase;
+            letter-spacing: 1px;
             animation: pulse 2s infinite;
+            touch-action: manipulation; /* Optimiza respuesta al toque */
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7); }
-            50% { transform: scale(1.05); box-shadow: 0 0 20px 10px rgba(197, 160, 89, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
 <body>
 
     <div id="game-container">
-        <button class="start-button" onclick="alert('El viaje ha comenzado...');">Comenzar el Viaje</button>
+        <!-- El botón ahora es más fácil de presionar en pantallas pequeñas -->
+        <button class="start-button" onclick="window.location.href='juego.html'">COMENZAR EL VIAJE</button>
     </div>
 
 </body>
