@@ -2,47 +2,56 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Camino del Tiempo - Prólogo</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        body { background: #000; color: #FFD700; font-family: 'Arial', sans-serif; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0; }
+        /* Estilos específicos para el prólogo que heredan del fondo global */
+        #prologo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7); /* Capa oscura para leer mejor el texto */
+        }
         
-        #prologo { text-align: center; font-size: 1.5rem; line-height: 1.8; max-width: 70%; }
-        
-        #seleccion-personaje { display: none; text-align: center; animation: fadeIn 1s; }
-        
-        button { margin: 15px; padding: 15px 25px; cursor: pointer; background: #FFD700; border: none; border-radius: 5px; font-weight: bold; display: block; width: 300px; }
-        
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        #prologo { font-size: 1.5rem; line-height: 1.8; max-width: 80%; color: #FFD700; }
+        #seleccion-personaje { display: none; }
     </style>
 </head>
 <body>
 
-    <!-- Texto del Prólogo -->
-    <div id="prologo">
-        <p>"El tiempo es el único recurso que, una vez gastado, no puede recuperarse[cite: 1]."</p>
-        <p>Mientras muchos lo persiguen como si fuera dinero, olvidan que la verdadera riqueza es el presente[cite: 1].</p>
-        <p>Tú decides cómo habitar este mundo:</p>
-        <p>¿serás un esclavo del reloj o el arquitecto de tu propia existencia?[cite: 1]"</p>
-    </div>
+    <div class="fondo-espacio"></div>
 
-    <!-- Selección de Personaje -->
-    <div id="seleccion-personaje">
-        <h2>¿Qué haces con un día libre inesperado?</h2>
-        <button onclick="asignar('acumulador')">Busco monetizar mis habilidades.</button>
-        <button onclick="asignar('guardian')">Comparto el tiempo con alguien especial.</button>
-        <button onclick="asignar('equilibrista')">Dedico el tiempo a mi crecimiento personal.</button>
+    <div id="prologo-container">
+        <div id="prologo">
+            <p>"El tiempo es el único recurso que, una vez gastado, no puede recuperarse."</p>
+            <p>Mientras muchos lo persiguen como si fuera dinero, olvidan que la verdadera riqueza es el presente.</p>
+            <p>Tú decides cómo habitar este mundo:</p>
+            <p>¿serás un esclavo del reloj o el arquitecto de tu propia existencia?"</p>
+        </div>
+
+        <div id="seleccion-personaje">
+            <h2>¿Qué haces con un día libre inesperado?</h2>
+            <button class="boton-jugar" onclick="asignar('acumulador')">Busco monetizar mis habilidades.</button>
+            <button class="boton-jugar" onclick="asignar('guardian')">Comparto el tiempo con alguien especial.</button>
+            <button class="boton-jugar" onclick="asignar('equilibrista')">Dedico el tiempo a mi crecimiento personal.</button>
+        </div>
     </div>
 
     <script>
-        // Transición automática tras 11 segundos de lectura
         setTimeout(() => {
             document.getElementById('prologo').style.display = 'none';
             document.getElementById('seleccion-personaje').style.display = 'block';
         }, 11000);
 
         function asignar(tipo) {
-            alert("Has sido asignado como: " + tipo.toUpperCase() + ". Tu mapa del mundo ha sido creado.");
-            // Aquí se conectará la lógica de los mapas diferenciados en el futuro
+            localStorage.setItem('perfilJugador', tipo);
+            alert("Has sido asignado como: " + tipo.toUpperCase());
+            window.location.href = 'juego_principal.html';
         }
     </script>
 </body>
