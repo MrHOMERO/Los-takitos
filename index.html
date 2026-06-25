@@ -3,33 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ewert&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="style.css">
     <title>El Camino del Tiempo</title>
 </head>
 <body>
 
-    <div class="pantalla-inicio">
+    <div class="fondo-espacio"></div>
+
+    <main class="contenedor-principal">
+        <h1 class="titulo-dorado">El Camino del Tiempo</h1>
         
-        <h1 class="titulo-sofisticado">El Camino del Tiempo</h1>
-        
-        <div class="video-container">
+        <div class="video-wrapper">
             <video autoplay loop muted playsinline class="nave-video">
                 <source src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/447c9412b17a4ec99c771f176605d8a7.mp4" type="video/mp4">
             </video>
         </div>
-        
-        <button class="boton-comenzar" onclick="window.location.href='pagina2.html'">
-            Comenzar a jugar
-        </button>
-        
-        <div class="marca-de-agua">© 2026 Studio</div>
-        
-    </div>
+
+        <div class="bloque-inferior">
+            <button class="boton-jugar" onclick="window.location.href='pagina2.html'">
+                Comenzar a jugar
+            </button>
+        </div>
+    </main>
 
 </body>
 </html>
