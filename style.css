@@ -1,72 +1,85 @@
-/* Limpieza básica */
+/* Reseteo para evitar márgenes raros en móviles */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body, html { 
-    height: 100%; 
+
+body { 
     background: #000; 
     color: #fff; 
-    font-family: sans-serif;
-    overflow: hidden; /* Evita scroll innecesario */
+    font-family: sans-serif; 
+    overflow: hidden; /* Evita que el usuario haga scroll accidental */
+    height: 100vh; 
+    width: 100vw;
 }
 
-.pantalla-inicio {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
-    position: relative;
+/* Fondo espacial fijo */
+.fondo-espacio {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    z-index: -1;
+    background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/espacio2.jpg');
+    background-size: cover; 
+    background-position: center;
+}
+
+.contenedor-principal {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: space-between; /* Distribuye espacio vertical */
+    height: 100vh; 
     padding: 20px;
 }
 
-/* Título ajustado para que no rompa el diseño */
-.titulo-sofisticado {
+/* Título con estilo Dorado */
+.titulo-dorado {
     font-family: 'Ewert', cursive;
-    font-size: 2.2rem; /* Reducido para que quepa en cualquier móvil */
-    color: #fff;
-    margin-bottom: 20px;
+    font-size: 2.2rem;
+    color: #FFD700; /* Color Dorado */
     text-align: center;
-    line-height: 1;
+    margin-top: 40px;
     z-index: 10;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
 }
 
-/* Contenedor de la nave con tamaño fijo para que no empuje elementos */
-.nave-container {
+.video-wrapper { 
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+    margin: 20px 0;
+}
+
+.nave-video {
+    width: 280px; 
+    mix-blend-mode: screen; /* Fondo negro invisible */
+    pointer-events: none;
+}
+
+/* Bloque inferior: Tapa la marca de agua y sostiene el botón */
+.bloque-inferior {
     width: 100%;
+    /* Degradado oscuro para transición suave y tapar la marca de agua */
+    background: linear-gradient(to top, rgba(0,0,0,1) 70%, rgba(0,0,0,0));
+    padding: 40px 10px 50px 10px;
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    z-index: 20;
 }
 
-.nave-container img {
-    max-width: 250px; /* Tamaño máximo de la nave */
-    height: auto;
-}
-
-/* Botón estilizado */
-.boton-comenzar {
+.boton-jugar {
     font-family: 'Arial', sans-serif;
-    font-size: 0.9rem;
-    letter-spacing: 0.15em;
-    padding: 12px 30px;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: white;
-    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 15px 40px;
+    background: #FFD700; /* Fondo dorado */
+    color: #000; /* Letras negras para mejor contraste */
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
     text-transform: uppercase;
-    transition: all 0.3s ease;
-    z-index: 10;
+    cursor: pointer;
+    box-shadow: 0 0 15px #FFD700;
+    transition: transform 0.2s;
 }
 
-.boton-comenzar:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-/* Marca de agua protegida al final */
-.marca-de-agua {
-    position: absolute;
-    bottom: 15px;
-    font-size: 0.6rem;
-    opacity: 0.5;
-    z-index: 5;
-}
+.boton-jugar:active { transform: scale(0.95); }
