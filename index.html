@@ -2,43 +2,18 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Camino del Tiempo</title>
-    
-    <!-- Carga de la fuente Ewert -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ewert&display=swap" rel="stylesheet">
-    
-    <!-- Enlace al archivo CSS -->
-    <link rel="stylesheet" href="style.css">
+    <title>El Camino del Tiempo - Inicio</title>
+    <style>
+        body { background: #000; color: #FFD700; font-family: 'Arial', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; }
+        h1 { font-size: 3rem; margin-bottom: 20px; }
+        button { padding: 20px 40px; font-size: 1.2rem; cursor: pointer; background: #FFD700; border: none; border-radius: 8px; font-weight: bold; transition: transform 0.2s; }
+        button:hover { transform: scale(1.1); }
+    </style>
 </head>
 <body>
-
-    <!-- Capa de fondo -->
-    <div class="fondo-espacio"></div>
-
-    <!-- Contenedor principal que organiza toda la pantalla -->
-    <main class="contenedor-principal">
-        
-        <!-- Título Dorado -->
-        <h1 class="titulo-dorado">El Camino del Tiempo</h1>
-        
-        <!-- Contenedor del video con centrado automático -->
-        <div class="video-wrapper">
-            <video autoplay loop muted playsinline class="nave-video">
-                <source src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/447c9412b17a4ec99c771f176605d8a7.mp4" type="video/mp4">
-            </video>
-        </div>
-
-        <!-- Bloque inferior: Fondo negro sólido que oculta la marca de agua -->
-        <div class="bloque-inferior">
-            <button class="boton-jugar" onclick="window.location.href='pagina2.html'">
-                Comenzar a jugar
-            </button>
-        </div>
-
-    </main>
-
+    <h1>El Camino del Tiempo</h1>
+    <p>¿Estás listo para descubrir cómo habitas tu propia vida?</p>
+    <br>
+    <button onclick="window.location.href='pagina2.html'">Comenzar a jugar</button>
 </body>
 </html>
