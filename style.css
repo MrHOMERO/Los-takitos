@@ -1,39 +1,23 @@
-/* Configuración Global */
 * { box-sizing: border-box; touch-action: manipulation; }
-body { margin: 0; padding: 0; height: 100vh; overflow: hidden; background: #000; font-family: 'Segoe UI', sans-serif; color: white; }
+body { margin: 0; padding: 0; height: 100vh; overflow: hidden; background: #000; font-family: sans-serif; color: white; }
 
-/* Fondo Espacial Animado - ACTUALIZADO A espacio2.jpg */
 .fondo-espacio {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
     background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/espacio2.jpg');
     background-size: cover; background-position: center;
-    animation: slowZoom 30s infinite linear;
 }
 
-@keyframes slowZoom {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
-/* Pantallas */
 .pantalla { display: none; width: 100vw; height: 100vh; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
 .activa { display: flex; }
 
-/* Elementos Portada */
-.relojes-pendulo {
-    width: 200px; transform-origin: top center;
-    animation: swing 3s ease-in-out infinite alternate;
+.nave-video {
+    width: 250px; 
+    height: auto;
+    margin-bottom: 20px;
+    pointer-events: none;
 }
 
-@keyframes swing {
-    0% { transform: rotate(-10deg); }
-    100% { transform: rotate(10deg); }
-}
-
-/* Estilo Historia */
 .texto-historia { font-size: 2rem; font-weight: bold; opacity: 0; animation: aparecer 3s forwards; padding: 20px; }
 @keyframes aparecer { to { opacity: 1; } }
 
-/* Botón de inicio */
 button { padding: 15px 30px; font-size: 1.2rem; cursor: pointer; background: rgba(255,255,255,0.2); border: 1px solid white; color: white; border-radius: 10px; margin-top: 20px; }
