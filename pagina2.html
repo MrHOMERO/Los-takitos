@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>El Camino del Tiempo - Prólogo</title>
+    <style>
+        body { background: #000; color: #FFD700; font-family: 'Arial', sans-serif; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0; }
+        
+        #prologo { text-align: center; font-size: 1.5rem; line-height: 1.8; max-width: 70%; }
+        
+        #seleccion-personaje { display: none; text-align: center; animation: fadeIn 1s; }
+        
+        button { margin: 15px; padding: 15px 25px; cursor: pointer; background: #FFD700; border: none; border-radius: 5px; font-weight: bold; display: block; width: 300px; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <!-- Texto del Prólogo -->
+    <div id="prologo">
+        <p>"El tiempo es el único recurso que, una vez gastado, no puede recuperarse[cite: 1]."</p>
+        <p>Mientras muchos lo persiguen como si fuera dinero, olvidan que la verdadera riqueza es el presente[cite: 1].</p>
+        <p>Tú decides cómo habitar este mundo:</p>
+        <p>¿serás un esclavo del reloj o el arquitecto de tu propia existencia?[cite: 1]"</p>
+    </div>
+
+    <!-- Selección de Personaje -->
+    <div id="seleccion-personaje">
+        <h2>¿Qué haces con un día libre inesperado?</h2>
+        <button onclick="asignar('acumulador')">Busco monetizar mis habilidades.</button>
+        <button onclick="asignar('guardian')">Comparto el tiempo con alguien especial.</button>
+        <button onclick="asignar('equilibrista')">Dedico el tiempo a mi crecimiento personal.</button>
+    </div>
+
+    <script>
+        // Transición automática tras 11 segundos de lectura
+        setTimeout(() => {
+            document.getElementById('prologo').style.display = 'none';
+            document.getElementById('seleccion-personaje').style.display = 'block';
+        }, 11000);
+
+        function asignar(tipo) {
+            alert("Has sido asignado como: " + tipo.toUpperCase() + ". Tu mapa del mundo ha sido creado.");
+            // Aquí se conectará la lógica de los mapas diferenciados en el futuro
+        }
+    </script>
+</body>
+</html>
