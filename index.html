@@ -11,15 +11,15 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            font-family: 'Georgia', serif;
             background-color: #000;
+            font-family: 'Georgia', serif;
         }
 
-        /* Contenedor con la imagen de portada */
         #game-container {
             width: 100vw;
             height: 100vh;
-            background-image: url('URL_DE_TU_PORTADA.jpg');
+            /* Enlace directo a tu imagen en GitHub */
+            background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/portada.jpg');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -29,7 +29,6 @@
             padding-bottom: 80px;
         }
 
-        /* Botón de inicio con efecto de pulso */
         .start-button {
             padding: 20px 40px;
             font-size: 1.5rem;
@@ -38,13 +37,7 @@
             border: 3px solid #c5a059;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 2px;
             animation: pulse 2s infinite;
-            transition: 0.3s;
-        }
-
-        .start-button:hover {
-            background-color: rgba(197, 160, 89, 0.3);
         }
 
         @keyframes pulse {
@@ -57,22 +50,8 @@
 <body>
 
     <div id="game-container">
-        <!-- Botón para iniciar el juego y el sonido -->
-        <button class="start-button" onclick="startGame()">Comenzar el Viaje</button>
+        <button class="start-button" onclick="alert('El viaje ha comenzado...');">Comenzar el Viaje</button>
     </div>
 
-    <!-- Elemento de audio con efecto Tic-Tac -->
-    <audio id="tick-tock-sound" loop>
-        <source src="URL_DE_TU_SONIDO.mp3" type="audio/mpeg">
-    </audio>
-
-    <script>
-        function startGame() {
-            const audio = document.getElementById('tick-tock-sound');
-            audio.play();
-            alert("El viaje a través del tiempo ha comenzado.");
-            // Aquí puedes añadir la redirección a tu siguiente pantalla de juego
-        }
-    </script>
 </body>
 </html>
