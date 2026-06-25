@@ -2,58 +2,25 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <!-- Vital para móviles: impide el zoom y ajusta el tamaño -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>El Camino del Tiempo</title>
-    <style>
-        body, html {
-            margin: 0; padding: 0;
-            width: 100%; height: 100%;
-            overflow: hidden; /* Evita que la pantalla se mueva */
-            background-color: #000;
-            -webkit-tap-highlight-color: transparent; /* Quita el recuadro azul al tocar */
-        }
-
-        #game-container {
-            width: 100vw;
-            height: 100vh;
-            background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/portada.jpg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end; /* Alinea los botones abajo */
-            align-items: center;
-            padding-bottom: 15vh; /* Ajuste para que no quede muy pegado al borde */
-        }
-
-        .start-button {
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            color: #fff;
-            background-color: rgba(0, 0, 0, 0.6);
-            border: 2px solid #c5a059;
-            border-radius: 8px; /* Bordes suaves para móvil */
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            animation: pulse 2s infinite;
-            touch-action: manipulation; /* Optimiza respuesta al toque */
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-    </style>
 </head>
 <body>
+    <div class="fondo-espacio"></div>
 
-    <div id="game-container">
-        <!-- El botón ahora es más fácil de presionar en pantallas pequeñas -->
-        <button class="start-button" onclick="window.location.href='juego.html'">COMENZAR EL VIAJE</button>
+    <div id="pantalla-1" class="pantalla activa">
+        <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/relojes.png" class="relojes-pendulo">
+        <h1>EL CAMINO DEL TIEMPO</h1>
+        <button onclick="cambiarPantalla('pantalla-1', 'pantalla-2')">COMENZAR JUEGO</button>
     </div>
 
+    <div id="pantalla-2" class="pantalla">
+        <div class="texto-historia">
+            Todo comenzó...
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
