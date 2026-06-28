@@ -1,18 +1,42 @@
+/* --- BASE --- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body, .pantalla { background-color: transparent !important; height: 100vh; overflow: hidden; }
+body, .pantalla { 
+    background-color: transparent !important; 
+    height: 100vh; 
+    overflow: hidden; 
+    font-family: Arial, sans-serif;
+}
 
+/* --- FONDO ESPACIO --- */
 .fondo-espacio {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
     background: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/espacio2.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
-.pantalla { display: none; flex-direction: column; align-items: center; justify-content: center; }
+/* --- NAVE (Sin fondo negro) --- */
+.nave-video { 
+    width: 300px; 
+    mix-blend-mode: screen; /* Elimina el fondo negro del video */
+}
+
+/* --- PANTALLAS --- */
+.pantalla { display: none; flex-direction: column; align-items: center; justify-content: center; position: absolute; width: 100%; height: 100%; }
 .pantalla.activa { display: flex; }
 
-.titulo-dorado { color: #FFD700; font-family: 'Ewert', cursive; font-size: 2.5rem; text-align: center; }
-.boton-jugar { padding: 15px 40px; background: #FFD700; border-radius: 50px; border: none; cursor: pointer; font-weight: bold; margin: 10px; }
+/* --- ANIMACIÓN PRÓLOGO --- */
+@keyframes moverCreditos { 
+    from { transform: translateY(100vh); opacity: 0; } 
+    50% { opacity: 1; }
+    to { transform: translateY(-50vh); opacity: 0; } 
+}
+#prologo { color: #FFD700; font-size: 1.5rem; text-align: center; animation: moverCreditos 15s linear forwards; width: 80%; }
 
+/* --- ELEMENTOS --- */
+.titulo-dorado { color: #FFD700; font-family: 'Ewert', cursive; font-size: 2.5rem; text-align: center; margin-bottom: 20px; }
+.boton-jugar { padding: 15px 40px; background: #FFD700; border-radius: 50px; border: none; cursor: pointer; font-weight: bold; margin: 10px; text-transform: uppercase; }
+
+/* --- PERSONAJE --- */
 @keyframes girarPersonaje { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(360deg); } }
-.personaje-img { width: 250px; border-radius: 20px; border: 3px solid #FFD700; animation: girarPersonaje 10s linear infinite; filter: drop-shadow(0 0 15px #FFD700); }
-.input-nombre { background: #222; color: #FFD700; border: 2px solid #FFD700; padding: 10px; text-align: center; }
+.personaje-img { width: 200px; border-radius: 20px; border: 3px solid #FFD700; animation: girarPersonaje 10s linear infinite; filter: drop-shadow(0 0 15px #FFD700); }
+.input-nombre { background: #222; color: #FFD700; border: 2px solid #FFD700; padding: 10px; text-align: center; font-size: 1.2rem; border-radius: 5px; margin: 10px; }
