@@ -9,67 +9,57 @@
 <body>
 
     <div class="fondo-espacio"></div>
-
-    <audio id="musica-fondo" loop>
-        <source src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/Audio%20pantalla%202.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="musica-fondo" loop src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/Audio%20pantalla%202.mp3"></audio>
 
     <div id="pantalla-1" class="pantalla activa">
         <h1 class="titulo-dorado">EL CAMINO DEL TIEMPO</h1>
-        <div class="video-wrapper">
-            <video autoplay loop muted playsinline class="nave-video">
-                <source src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/447c9412b17a4ec99c771f176605d8a7.mp4" type="video/mp4">
-            </video>
-        </div>
+        <video autoplay loop muted playsinline class="nave-video">
+            <source src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/447c9412b17a4ec99c771f176605d8a7.mp4" type="video/mp4">
+        </video>
         <button class="boton-jugar" onclick="iniciarJuego()">COMENZAR A JUGAR</button>
     </div>
 
     <div id="pantalla-2" class="pantalla">
         <div id="prologo">
-            <p>"El tiempo es el único recurso que, una vez gastado, no puede recuperarse."</p><br>
+            <p>"El tiempo es el único recurso que no puede recuperarse."</p><br>
             <p>Tú decides cómo habitar este mundo.</p>
         </div>
     </div>
 
     <div id="pantalla-3" class="pantalla">
         <h2 class="titulo-dorado">¿Qué haces con un día libre?</h2>
-        <button class="boton-jugar" onclick="asignar('acumulador')">Monetizar habilidades</button>
-        <button class="boton-jugar" onclick="asignar('guardian')">Tiempo especial</button>
-        <button class="boton-jugar" onclick="asignar('equilibrista')">Crecimiento personal</button>
+        <button class="boton-jugar" onclick="asignar('acumulador')">Monetizar</button>
+        <button class="boton-jugar" onclick="asignar('guardian')">Proteger</button>
+        <button class="boton-jugar" onclick="asignar('equilibrista')">Equilibrar</button>
     </div>
 
     <div id="pantalla-4" class="pantalla">
-        <h2 class="titulo-dorado">Personaliza a tu héroe</h2>
+        <h2 class="titulo-dorado">Tu Héroe</h2>
         <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/personaje1.jpg" class="personaje-img" alt="Personaje">
         <input type="text" id="nombre-input" placeholder="Nombre..." class="input-nombre">
-        <p id="descripcion-personaje" style="margin: 20px; font-size: 1.1rem; color: #fff;"></p>
-        <button class="boton-jugar" onclick="finalizarCreacion()">COMENZAR AVENTURA</button>
+        <p id="descripcion-personaje" style="color:#fff; margin:10px; font-size: 1.2rem;"></p>
+        <button class="boton-jugar" onclick="finalizarCreacion()">COMENZAR</button>
     </div>
 
     <script>
-        function cambiarPantalla(idDestino) {
+        function cambiarPantalla(id) {
             document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
-            document.getElementById(idDestino).classList.add('activa');
+            document.getElementById(id).classList.add('activa');
         }
-
         function iniciarJuego() {
-            document.getElementById('musica-fondo').play();
+            document.getElementById('musica-fondo').play().catch(e => console.log("Audio bloqueado"));
             cambiarPantalla('pantalla-2');
             setTimeout(() => { cambiarPantalla('pantalla-3'); }, 15000); 
         }
-
         function asignar(tipo) {
             localStorage.setItem('perfilJugador', tipo);
-            let desc = (tipo === 'acumulador') ? "Eres el estratega: tu meta es la eficiencia." : 
-                       (tipo === 'guardian') ? "Eres el protector: tu fuerza reside en los lazos." : "Eres el equilibrista: buscas la paz interior.";
-            document.getElementById('descripcion-personaje').innerText = desc;
+            document.getElementById('descripcion-personaje').innerText = "Has elegido ser: " + tipo;
             cambiarPantalla('pantalla-4');
         }
-
         function finalizarCreacion() {
-            let nombre = document.getElementById('nombre-input').value;
-            if(!nombre) { alert("¡Ingresa tu nombre!"); return; }
-            localStorage.setItem('nombreJugador', nombre);
+            let n = document.getElementById('nombre-input').value;
+            if(!n) return alert("Escribe tu nombre");
+            localStorage.setItem('nombreJugador', n);
             window.location.href = 'juego_principal.html'; 
         }
     </script>
