@@ -7,9 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="fondo-espacio"></div>
-    <!-- Audio sin loop: se reproducirá solo una vez -->
     <audio id="musica-fondo" src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/Audio%20pantalla%202.mp3"></audio>
 
     <div id="pantalla-1" class="pantalla activa">
@@ -37,37 +35,37 @@
     </div>
 
     <div id="pantalla-4" class="pantalla">
-        <h2 class="titulo-dorado">Personaliza a tu héroe</h2>
-        <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/personaje1.jpg" class="personaje-img" alt="Personaje">
+        <h2 class="titulo-dorado">Tu Héroe</h2>
+        <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/personaje1.jpg" class="personaje-img">
         <input type="text" id="nombre-input" placeholder="Nombre..." class="input-nombre">
-        <p id="descripcion-personaje" style="color:#fff; margin:20px;"></p>
-        <button class="boton-jugar" onclick="finalizarCreacion()">COMENZAR AVENTURA</button>
+        <div id="nombre-nivel-grande"></div>
+        <div id="mapa-evolucion" style="display:none;">
+            <div class="contenedor-puntos">
+                <div class="punto" onmouseover="mostrarNombre('La Recolección')" onmouseout="limpiarNombre()">1</div>
+                <div class="punto" onmouseover="mostrarNombre('Optimización Básica')" onmouseout="limpiarNombre()">2</div>
+                <div class="punto" onmouseover="mostrarNombre('El Ciclo de Inversión')" onmouseout="limpiarNombre()">3</div>
+                <div class="punto" onmouseover="mostrarNombre('Arquitectura de Escala')" onmouseout="limpiarNombre()">4</div>
+                <div class="punto" onmouseover="mostrarNombre('La Singularidad')" onmouseout="limpiarNombre()">5</div>
+                <div class="punto" onmouseover="mostrarNombre('Dominio del Capital')" onmouseout="limpiarNombre()">6</div>
+            </div>
+            <button class="boton-jugar" onclick="irAlJuego()">COMENZAR AVENTURA</button>
+        </div>
+        <button id="btn-confirmar" class="boton-jugar" onclick="mostrarMapa()">CONFIRMAR PERSONAJE</button>
     </div>
 
     <script>
-        function cambiarPantalla(id) {
-            document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
-            document.getElementById(id).classList.add('activa');
+        function cambiarPantalla(id) { document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa')); document.getElementById(id).classList.add('activa'); }
+        function iniciarJuego() { document.getElementById('musica-fondo').play(); cambiarPantalla('pantalla-2'); setTimeout(() => { cambiarPantalla('pantalla-3'); }, 15000); }
+        function mostrarNombre(n) { document.getElementById('nombre-nivel-grande').innerText = n; }
+        function limpiarNombre() { document.getElementById('nombre-nivel-grande').innerText = ""; }
+        function mostrarMapa() { 
+            let n = document.getElementById('nombre-input').value; 
+            if(!n) return alert("Escribe tu nombre"); 
+            localStorage.setItem('nombreJugador', n); 
+            document.getElementById('mapa-evolucion').style.display = 'block'; 
+            document.getElementById('btn-confirmar').style.display = 'none'; 
         }
-        function iniciarJuego() {
-            let audio = document.getElementById('musica-fondo');
-            audio.play();
-            cambiarPantalla('pantalla-2');
-            setTimeout(() => { cambiarPantalla('pantalla-3'); }, 15000); 
-        }
-        function asignar(tipo) {
-            localStorage.setItem('perfilJugador', tipo);
-            let desc = (tipo === 'acumulador') ? "Eres el estratega: tu meta es la eficiencia." : 
-                       (tipo === 'guardian') ? "Eres el protector: tu fuerza reside en los lazos." : "Eres el equilibrista: buscas la paz interior.";
-            document.getElementById('descripcion-personaje').innerText = desc;
-            cambiarPantalla('pantalla-4');
-        }
-        function finalizarCreacion() {
-            let n = document.getElementById('nombre-input').value;
-            if(!n) return alert("Escribe tu nombre");
-            localStorage.setItem('nombreJugador', n);
-            window.location.href = 'juego_principal.html'; 
-        }
+        function irAlJuego() { window.location.href = 'juego_principal.html'; }
     </script>
 </body>
 </html>
