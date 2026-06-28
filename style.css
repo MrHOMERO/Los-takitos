@@ -1,55 +1,162 @@
-/* 1. Reseteo y Base Global */
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* =========================================
+   1. RESETEO Y BASE GLOBAL
+   Elimina márgenes por defecto y asegura
+   que el fondo negro cubra todo.
+   ========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 body, html {
     width: 100%;
     height: 100%;
-    overflow-x: hidden;
-    font-family: 'Arial', sans-serif;
-    background-color: #000;
+    overflow: hidden; /* Evita scrolls innecesarios en la intro */
+    font-family: 'Arial', sans-serif; /* Tipografía base limpia */
+    background-color: #000; /* Negro absoluto de fondo */
+    color: #fff; /* Texto blanco por defecto */
 }
 
-/* 2. Capa de Fondo (La misma para todas las páginas) */
+/* =========================================
+   2. CAPA DE FONDO FIJA (Layer -1)
+   Este fondo se mantiene estático en todas
+   las pantallas del index.html.
+   ========================================= */
 .fondo-espacio {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: -1; /* Detrás de todo el contenido */
     background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/espacio2.jpg');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Mantiene la imagen estática al cambiar de página */
+    background-attachment: fixed; /* Clave para que no parpadee */
 }
 
-/* 3. Contenedor Maestro (Para centrar contenidos) */
-.contenedor-principal {
-    display: flex;
+/* =========================================
+   3. CONTENEDORES DE PANTALLA
+   Maneja la visibilidad de las secciones.
+   ========================================= */
+.pantalla {
+    display: none; /* Ocultas por defecto */
+    height: 100vh;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
     padding: 20px;
-    background: rgba(0, 0, 0, 0.4); /* Oscurece ligeramente para legibilidad */
 }
 
-/* 4. Tipografía y Estilos Dorado */
+/* Clase para activar la pantalla actual */
+.activa {
+    display: flex; /* Se muestra como flex al activarse */
+}
+
+/* =========================================
+   4. TIPOGRAFÍA Y ESTILOS DORADOS
+   ========================================= */
 .titulo-dorado {
-    font-family: 'Ewert', cursive;
-    font-size: 2.5rem;
-    color: #FFD700;
+    font-family: 'Ewert', cursive; /* Fuente especial cargada en HTML */
+    font-size: 2.2rem;
+    color: #FFD700; /* Dorado */
     text-align: center;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8); /* Sombra para legibilidad */
     margin-bottom: 20px;
 }
 
-/* 5. Botones (Estilo uniforme en todo el juego) */
+/* =========================================
+   5. COMPONENTES DE LA PANTALLA 1 (Inicio)
+   ========================================= */
+.video-wrapper {
+    width: 100%;
+    flex-grow: 1; /* Ocupa el espacio disponible */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nave-video {
+    width: 250px;
+    mix-blend-mode: screen; /* Efecto de transparencia profesional */
+    pointer-events: none; /* El usuario no puede interactuar con el video */
+}
+
+/* Bloque negro sólido inferior (opcional, para tapar marcas de agua) */
+.bloque-inferior {
+    width: 100%;
+    background-color: #000;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #333;
+}
+
+/* =========================================
+   6. COMPONENTES DE LA PANTALLA 2 (Prólogo)
+   ========================================= */
+#prologo {
+    text-align: center;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    max-width: 85%;
+    color: #FFD700;
+    /* Animación de subida tipo créditos */
+    animation: moverCreditos 15s linear forwards;
+}
+
+/* Definición de la animación de créditos */
+@keyframes moverCreditos {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-100vh); }
+}
+
+/* =========================================
+   7. COMPONENTES DE LA PANTALLA 4 (Creación)
+   Y ANIMACIÓN DE TU PERSONAJE
+   ========================================= */
+
+/* Definición de la animación de rotación 3D */
+@keyframes girarPersonaje {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
+}
+
+.personaje-img {
+    width: 250px;
+    height: auto;
+    border-radius: 20px;
+    border: 3px solid #FFD700;
+    /* APLICACIÓN DE LA ANIMACIÓN:
+       Giro continuo, dura 10s, movimiento lineal */
+    animation: girarPersonaje 10s linear infinite;
+    /* Efecto de brillo dorado alrededor */
+    filter: drop-shadow(0 0 15px rgba(255, 214, 0, 0.7));
+    margin-bottom: 20px;
+}
+
+/* Estilo para el campo de entrada de nombre */
+.input-nombre {
+    background: #222;
+    color: #FFD700;
+    border: 2px solid #FFD700;
+    padding: 10px;
+    width: 200px;
+    margin: 15px 0;
+    text-align: center;
+    font-size: 1.2rem;
+    border-radius: 5px;
+}
+
+/* =========================================
+   8. BOTONES UNIFICADOS
+   Estilo dorado para todos los botones.
+   ========================================= */
 .boton-jugar {
-    font-size: 1.1rem;
     padding: 15px 40px;
-    background: #FFD700;
-    color: #000;
+    background: #FFD700; /* Dorado */
+    color: #000; /* Texto negro */
     border: none;
     border-radius: 50px;
     font-weight: bold;
@@ -58,18 +165,12 @@ body, html {
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
     transition: transform 0.2s, box-shadow 0.2s;
     margin: 10px;
+    display: inline-block;
+    text-decoration: none; /* Por si se usa en un enlace <a> */
 }
 
+/* Efecto al pulsar el botón */
 .boton-jugar:active {
-    transform: scale(0.95);
-}
-
-/* 6. Bloque inferior (para tapar marcas de agua si las hay) */
-.bloque-inferior {
-    width: 100%;
-    background-color: #000;
-    padding: 30px;
-    display: flex;
-    justify-content: center;
-    border-top: 1px solid #333;
+    transform: scale(0.95); /* Se encoge ligeramente */
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
 }
