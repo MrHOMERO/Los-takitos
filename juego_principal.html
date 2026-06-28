@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>El Camino del Tiempo - Juego</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="display:flex; justify-content:center; align-items:center; height:100vh; color:#FFD700;">
+    <div class="fondo-espacio"></div>
+    <h1 id="mensaje-bienvenida">Cargando...</h1>
+
+    <script>
+        const nombre = localStorage.getItem('nombreJugador');
+        const tipo = localStorage.getItem('perfilJugador');
+        document.getElementById('mensaje-bienvenida').innerText = 
+            "Bienvenido al juego, " + nombre + ". Tu rol es: " + tipo;
+    </script>
+</body>
+</html>
