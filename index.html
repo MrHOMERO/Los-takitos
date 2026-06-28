@@ -9,7 +9,8 @@
 <body>
 
     <div class="fondo-espacio"></div>
-    <audio id="musica-fondo" loop src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/Audio%20pantalla%202.mp3"></audio>
+    <!-- Audio sin loop: se reproducirá solo una vez -->
+    <audio id="musica-fondo" src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/Audio%20pantalla%202.mp3"></audio>
 
     <div id="pantalla-1" class="pantalla activa">
         <h1 class="titulo-dorado">EL CAMINO DEL TIEMPO</h1>
@@ -21,24 +22,26 @@
 
     <div id="pantalla-2" class="pantalla">
         <div id="prologo">
-            <p>"El tiempo es el único recurso que no puede recuperarse."</p><br>
-            <p>Tú decides cómo habitar este mundo.</p>
+            <p>"El tiempo es el único recurso que, una vez gastado, no puede recuperarse."</p><br>
+            <p>Mientras muchos lo persiguen como si fuera dinero, olvidan que la verdadera riqueza es el presente.</p><br>
+            <p>Tú decides cómo habitar el mundo.</p><br>
+            <p>¿Serás esclavo del reloj o arquitecto de tu propia existencia?</p>
         </div>
     </div>
 
     <div id="pantalla-3" class="pantalla">
         <h2 class="titulo-dorado">¿Qué haces con un día libre?</h2>
-        <button class="boton-jugar" onclick="asignar('acumulador')">Monetizar</button>
-        <button class="boton-jugar" onclick="asignar('guardian')">Proteger</button>
-        <button class="boton-jugar" onclick="asignar('equilibrista')">Equilibrar</button>
+        <button class="boton-jugar" onclick="asignar('acumulador')">Monetizar habilidades</button>
+        <button class="boton-jugar" onclick="asignar('guardian')">Tiempo especial</button>
+        <button class="boton-jugar" onclick="asignar('equilibrista')">Crecimiento personal</button>
     </div>
 
     <div id="pantalla-4" class="pantalla">
-        <h2 class="titulo-dorado">Tu Héroe</h2>
+        <h2 class="titulo-dorado">Personaliza a tu héroe</h2>
         <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/personaje1.jpg" class="personaje-img" alt="Personaje">
         <input type="text" id="nombre-input" placeholder="Nombre..." class="input-nombre">
-        <p id="descripcion-personaje" style="color:#fff; margin:10px; font-size: 1.2rem;"></p>
-        <button class="boton-jugar" onclick="finalizarCreacion()">COMENZAR</button>
+        <p id="descripcion-personaje" style="color:#fff; margin:20px;"></p>
+        <button class="boton-jugar" onclick="finalizarCreacion()">COMENZAR AVENTURA</button>
     </div>
 
     <script>
@@ -47,13 +50,16 @@
             document.getElementById(id).classList.add('activa');
         }
         function iniciarJuego() {
-            document.getElementById('musica-fondo').play().catch(e => console.log("Audio bloqueado"));
+            let audio = document.getElementById('musica-fondo');
+            audio.play();
             cambiarPantalla('pantalla-2');
             setTimeout(() => { cambiarPantalla('pantalla-3'); }, 15000); 
         }
         function asignar(tipo) {
             localStorage.setItem('perfilJugador', tipo);
-            document.getElementById('descripcion-personaje').innerText = "Has elegido ser: " + tipo;
+            let desc = (tipo === 'acumulador') ? "Eres el estratega: tu meta es la eficiencia." : 
+                       (tipo === 'guardian') ? "Eres el protector: tu fuerza reside en los lazos." : "Eres el equilibrista: buscas la paz interior.";
+            document.getElementById('descripcion-personaje').innerText = desc;
             cambiarPantalla('pantalla-4');
         }
         function finalizarCreacion() {
