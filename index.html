@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Camino del Tiempo</title>
     <link href="https://fonts.googleapis.com/css2?family=Ewert&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -11,7 +10,10 @@
 
     <div class="fondo-espacio"></div>
 
-    <!-- PANTALLA 1: Inicio -->
+    <audio id="musica-fondo" loop>
+        <source src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/Audio%20pantalla%202.mp3" type="audio/mpeg">
+    </audio>
+
     <div id="pantalla-1" class="pantalla activa">
         <h1 class="titulo-dorado">EL CAMINO DEL TIEMPO</h1>
         <div class="video-wrapper">
@@ -22,17 +24,13 @@
         <button class="boton-jugar" onclick="iniciarJuego()">COMENZAR A JUGAR</button>
     </div>
 
-    <!-- PANTALLA 2: Prólogo (subiendo) -->
     <div id="pantalla-2" class="pantalla">
         <div id="prologo">
             <p>"El tiempo es el único recurso que, una vez gastado, no puede recuperarse."</p><br>
-            <p>Mientras muchos lo persiguen como si fuera dinero, olvidan que la verdadera riqueza es el presente.</p><br>
-            <p>Tú decides cómo habitar este mundo:</p><br>
-            <p>¿serás un esclavo del reloj o el arquitecto de tu propia existencia?</p>
+            <p>Tú decides cómo habitar este mundo.</p>
         </div>
     </div>
 
-    <!-- PANTALLA 3: Selección -->
     <div id="pantalla-3" class="pantalla">
         <h2 class="titulo-dorado">¿Qué haces con un día libre?</h2>
         <button class="boton-jugar" onclick="asignar('acumulador')">Monetizar habilidades</button>
@@ -40,7 +38,6 @@
         <button class="boton-jugar" onclick="asignar('equilibrista')">Crecimiento personal</button>
     </div>
 
-    <!-- PANTALLA 4: Creación -->
     <div id="pantalla-4" class="pantalla">
         <h2 class="titulo-dorado">Personaliza a tu héroe</h2>
         <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/personaje1.jpg" class="personaje-img" alt="Personaje">
@@ -56,29 +53,23 @@
         }
 
         function iniciarJuego() {
+            document.getElementById('musica-fondo').play();
             cambiarPantalla('pantalla-2');
             setTimeout(() => { cambiarPantalla('pantalla-3'); }, 15000); 
         }
 
         function asignar(tipo) {
             localStorage.setItem('perfilJugador', tipo);
-            let desc = "";
-            if(tipo === 'acumulador') desc = "Eres el estratega del tiempo. Tu meta es la eficiencia y el control.";
-            if(tipo === 'guardian') desc = "Tu fuerza reside en los lazos. Proteges lo que importa en este universo.";
-            if(tipo === 'equilibrista') desc = "Buscas la armonía. Tu poder es la paz interior y el balance perfecto.";
-            
+            let desc = (tipo === 'acumulador') ? "Eres el estratega: tu meta es la eficiencia." : 
+                       (tipo === 'guardian') ? "Eres el protector: tu fuerza reside en los lazos." : "Eres el equilibrista: buscas la paz interior.";
             document.getElementById('descripcion-personaje').innerText = desc;
             cambiarPantalla('pantalla-4');
         }
 
         function finalizarCreacion() {
             let nombre = document.getElementById('nombre-input').value;
-            if(!nombre || nombre.trim() === "") {
-                alert("¡Necesitas un nombre para ser reconocido en la historia!");
-                return;
-            }
+            if(!nombre) { alert("¡Ingresa tu nombre!"); return; }
             localStorage.setItem('nombreJugador', nombre);
-            alert("¡Bienvenido, " + nombre + "! El Camino del Tiempo comienza ahora.");
             window.location.href = 'juego_principal.html'; 
         }
     </script>
