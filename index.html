@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Camino del Tiempo</title>
     <link href="https://fonts.googleapis.com/css2?family=Ewert&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -29,42 +30,36 @@
 
     <div id="pantalla-3" class="pantalla">
         <h2 class="titulo-dorado">¿Qué haces con un día libre?</h2>
-        <button class="boton-jugar" onclick="asignar('acumulador')">Monetizar habilidades</button>
-        <button class="boton-jugar" onclick="asignar('guardian')">Tiempo especial</button>
-        <button class="boton-jugar" onclick="asignar('equilibrista')">Crecimiento personal</button>
+        <button class="boton-jugar" onclick="asignar('acumulador')">Monetizar</button>
+        <button class="boton-jugar" onclick="asignar('guardian')">Proteger</button>
+        <button class="boton-jugar" onclick="asignar('equilibrista')">Equilibrar</button>
     </div>
 
     <div id="pantalla-4" class="pantalla">
-        <h2 class="titulo-dorado">Tu Héroe</h2>
-        <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/personaje1.jpg" class="personaje-img">
+        <h2 class="titulo-dorado">Personaliza a tu héroe</h2>
         <input type="text" id="nombre-input" placeholder="Nombre..." class="input-nombre">
         <div id="nombre-nivel-grande"></div>
         <div id="mapa-evolucion" style="display:none;">
             <div class="contenedor-puntos">
                 <div class="punto" onmouseover="mostrarNombre('La Recolección')" onmouseout="limpiarNombre()">1</div>
-                <div class="punto" onmouseover="mostrarNombre('Optimización Básica')" onmouseout="limpiarNombre()">2</div>
-                <div class="punto" onmouseover="mostrarNombre('El Ciclo de Inversión')" onmouseout="limpiarNombre()">3</div>
-                <div class="punto" onmouseover="mostrarNombre('Arquitectura de Escala')" onmouseout="limpiarNombre()">4</div>
-                <div class="punto" onmouseover="mostrarNombre('La Singularidad')" onmouseout="limpiarNombre()">5</div>
-                <div class="punto" onmouseover="mostrarNombre('Dominio del Capital')" onmouseout="limpiarNombre()">6</div>
+                <div class="punto" onmouseover="mostrarNombre('Optimización')" onmouseout="limpiarNombre()">2</div>
+                <div class="punto" onmouseover="mostrarNombre('Inversión')" onmouseout="limpiarNombre()">3</div>
+                <div class="punto" onmouseover="mostrarNombre('Escala')" onmouseout="limpiarNombre()">4</div>
+                <div class="punto" onmouseover="mostrarNombre('Singularidad')" onmouseout="limpiarNombre()">5</div>
+                <div class="punto" onmouseover="mostrarNombre('Dominio')" onmouseout="limpiarNombre()">6</div>
             </div>
-            <button class="boton-jugar" onclick="irAlJuego()">COMENZAR AVENTURA</button>
+            <button class="boton-jugar" onclick="irAlJuego()">EMPEZAR</button>
         </div>
-        <button id="btn-confirmar" class="boton-jugar" onclick="mostrarMapa()">CONFIRMAR PERSONAJE</button>
+        <button id="btn-confirmar" class="boton-jugar" onclick="mostrarMapa()">CONFIRMAR</button>
     </div>
 
     <script>
         function cambiarPantalla(id) { document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa')); document.getElementById(id).classList.add('activa'); }
-        function iniciarJuego() { document.getElementById('musica-fondo').play(); cambiarPantalla('pantalla-2'); setTimeout(() => { cambiarPantalla('pantalla-3'); }, 15000); }
+        function iniciarJuego() { document.getElementById('musica-fondo').play(); cambiarPantalla('pantalla-2'); setTimeout(() => { cambiarPantalla('pantalla-3'); }, 20000); }
+        function asignar(tipo) { localStorage.setItem('perfilJugador', tipo); cambiarPantalla('pantalla-4'); }
         function mostrarNombre(n) { document.getElementById('nombre-nivel-grande').innerText = n; }
         function limpiarNombre() { document.getElementById('nombre-nivel-grande').innerText = ""; }
-        function mostrarMapa() { 
-            let n = document.getElementById('nombre-input').value; 
-            if(!n) return alert("Escribe tu nombre"); 
-            localStorage.setItem('nombreJugador', n); 
-            document.getElementById('mapa-evolucion').style.display = 'block'; 
-            document.getElementById('btn-confirmar').style.display = 'none'; 
-        }
+        function mostrarMapa() { let n = document.getElementById('nombre-input').value; if(!n) return alert("Escribe tu nombre"); localStorage.setItem('nombreJugador', n); document.getElementById('mapa-evolucion').style.display = 'block'; document.getElementById('btn-confirmar').style.display = 'none'; }
         function irAlJuego() { window.location.href = 'juego_principal.html'; }
     </script>
 </body>
