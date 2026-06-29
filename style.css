@@ -1,18 +1,11 @@
-body { margin: 0; font-family: sans-serif; overflow: hidden; }
-.fondo-espacio {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-    background: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/pagina1fondo.jpg') no-repeat center center;
-    background-size: cover;
-}
-.pantalla { display: none; text-align: center; padding-top: 50px; }
+body { margin: 0; font-family: sans-serif; background: black; color: white; overflow: hidden; }
+.fondo-espacio { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/pagina1fondo.jpg') no-repeat center center; background-size: cover; }
+.pantalla { display: none; text-align: center; padding-top: 50px; height: 100vh; }
 .pantalla.activa { display: block; }
-.titulo-dorado { color: #FFD700; font-size: 2rem; }
-.boton-jugar { display: block; margin: 20px auto; padding: 15px 30px; background: #FFD700; border: none; cursor: pointer; }
-
-/* 3D Visuals */
-.contenedor-personaje { position: relative; width: 300px; height: 300px; margin: 50px auto; }
+.titulo-dorado { color: #FFD700; font-size: 1.5rem; padding: 20px; }
+.boton-jugar { display: block; margin: 15px auto; padding: 15px 30px; background: #FFD700; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+.texto-intro { color: white; padding: 40px; font-size: 1.2rem; }
 .personaje-animado { width: 150px; border-radius: 50%; border: 4px solid #FFD700; animation: flotar 3s ease-in-out infinite; }
+.mapa-caminos { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.punto { width: 50px; height: 50px; border-radius: 50%; background: #FFD700; border: none; font-weight: bold; }
 @keyframes flotar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-.orbita { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; animation: girar 10s linear infinite; }
-.icono-orbita { position: absolute; top: -20px; left: 50%; width: 40px; margin-left: -20px; }
-@keyframes girar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
