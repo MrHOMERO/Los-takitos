@@ -1,35 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Camino del Tiempo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
     <div class="fondo-espacio"></div>
 
-    <!-- 1. Pantalla Inicial (Intro con texto que sube) -->
+    <!-- Pantalla 1: Intro -->
     <div id="pantalla-intro" class="pantalla activa">
-        <div class="texto-intro">"El tiempo es el único recurso..."</div>
+        <div class="texto-intro">"El tiempo es el único recurso que, una vez gastado, no puede recuperarse."</div>
         <button class="boton-jugar" onclick="cambiarFase('seleccion')">COMENZAR A JUGAR</button>
     </div>
 
-    <!-- 2. Pantalla Esencia (La Pregunta) -->
+    <!-- Pantalla 2: Esencia -->
     <div id="pantalla-seleccion" class="pantalla">
         <h2 class="titulo-dorado">¿Serás esclavo del reloj o arquitecto de tu existencia?</h2>
-        <button onclick="elegirEsencia('MONETIZAR')">MONETIZAR</button>
-        <button onclick="elegirEsencia('PROTEGER')">PROTEGER</button>
-        <button onclick="elegirEsencia('EQUILIBRAR')">EQUILIBRAR</button>
+        <button class="boton-jugar" onclick="elegirEsencia('MONETIZAR')">MONETIZAR</button>
+        <button class="boton-jugar" onclick="elegirEsencia('PROTEGER')">PROTEGER</button>
+        <button class="boton-jugar" onclick="elegirEsencia('EQUILIBRAR')">EQUILIBRAR</button>
     </div>
 
-    <!-- 3. Pantalla Nombre y Personaje -->
+    <!-- Pantalla 3: Nombre y Personaje -->
     <div id="pantalla-nombre" class="pantalla">
         <h2 class="titulo-dorado">Identifícate</h2>
         <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/personaje1.jpg" class="personaje-animado">
         <input type="text" id="input-nombre" placeholder="Nombre...">
-        <button onclick="confirmarNombre()">COMENZAR A EXPLORAR</button>
+        <button class="boton-jugar" onclick="confirmarNombre()">COMENZAR A EXPLORAR</button>
     </div>
 
-    <!-- 4. Pantalla Mapa (Los 6 círculos) -->
+    <!-- Pantalla 4: Mapa -->
     <div id="pantalla-mapa" class="pantalla">
+        <h2 class="titulo-dorado">TU RUTA</h2>
         <div class="mapa-caminos">
-            <div class="punto" onclick="iniciarNivel(1)">1</div>
-            <!-- ... tus otros puntos 2 al 6 ... -->
+            <button class="punto" onclick="alert('Iniciando nivel 1')">1</button>
+            <button class="punto">2</button>
+            <button class="punto">3</button>
+            <button class="punto">4</button>
+            <button class="punto">5</button>
+            <button class="punto">6</button>
         </div>
     </div>
 
     <script src="juego.js"></script>
 </body>
+</html>
