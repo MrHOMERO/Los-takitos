@@ -1,43 +1,35 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Camino del Tiempo</title>
-    <link rel="stylesheet" href="style.css">
-</head>
 <body>
     <div class="fondo-espacio"></div>
 
-    <!-- PANTALLA SELECCIÓN -->
-    <div id="fase-seleccion" class="pantalla activa">
-        <h2 class="titulo-dorado">ELIGE TU ESENCIA</h2>
-        <button class="boton-jugar" onclick="seleccionarEsencia('MONETIZAR')">MONETIZAR</button>
-        <button class="boton-jugar" onclick="seleccionarEsencia('PROTEGER')">PROTEGER</button>
-        <button class="boton-jugar" onclick="seleccionarEsencia('EQUILIBRAR')">EQUILIBRAR</button>
+    <!-- 1. Pantalla Inicial (Intro con texto que sube) -->
+    <div id="pantalla-intro" class="pantalla activa">
+        <div class="texto-intro">"El tiempo es el único recurso..."</div>
+        <button class="boton-jugar" onclick="cambiarFase('seleccion')">COMENZAR A JUGAR</button>
     </div>
 
-    <!-- PANTALLA EXPLORACIÓN (Personaje 3D) -->
-    <div id="fase-exploracion" class="pantalla">
-        <h2 class="titulo-dorado">Explora el Planeta</h2>
-        <div class="contenedor-personaje">
-            <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/personaje1.jpg" class="personaje-animado">
-            <div class="orbita">
-                <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/IMG_20260628_194105.jpg" class="icono-orbita">
-            </div>
-        </div>
-        <button class="boton-jugar" onclick="cambiarFase('persecucion')">EMPEZAR MISIÓN</button>
+    <!-- 2. Pantalla Esencia (La Pregunta) -->
+    <div id="pantalla-seleccion" class="pantalla">
+        <h2 class="titulo-dorado">¿Serás esclavo del reloj o arquitecto de tu existencia?</h2>
+        <button onclick="elegirEsencia('MONETIZAR')">MONETIZAR</button>
+        <button onclick="elegirEsencia('PROTEGER')">PROTEGER</button>
+        <button onclick="elegirEsencia('EQUILIBRAR')">EQUILIBRAR</button>
     </div>
 
-    <!-- PANTALLA PERSECUCIÓN -->
-    <div id="fase-persecucion" class="pantalla">
-        <h2 class="titulo-dorado">Busca al Guía</h2>
-        <div id="ui-juego" style="color:white; text-align:center;">
-            <p>Vida: <span id="vida">0</span>/10 | Poder: <span id="poder">0</span>/10</p>
+    <!-- 3. Pantalla Nombre y Personaje -->
+    <div id="pantalla-nombre" class="pantalla">
+        <h2 class="titulo-dorado">Identifícate</h2>
+        <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/personaje1.jpg" class="personaje-animado">
+        <input type="text" id="input-nombre" placeholder="Nombre...">
+        <button onclick="confirmarNombre()">COMENZAR A EXPLORAR</button>
+    </div>
+
+    <!-- 4. Pantalla Mapa (Los 6 círculos) -->
+    <div id="pantalla-mapa" class="pantalla">
+        <div class="mapa-caminos">
+            <div class="punto" onclick="iniciarNivel(1)">1</div>
+            <!-- ... tus otros puntos 2 al 6 ... -->
         </div>
-        <button class="boton-jugar" onclick="terminarPersecucion()">FINALIZAR</button>
     </div>
 
     <script src="juego.js"></script>
 </body>
-</html>
