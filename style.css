@@ -4,7 +4,8 @@ body, .pantalla { background-color: transparent !important; height: 100vh; width
 
 .fondo-espacio {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-    background: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/espacio2.jpg') no-repeat center center fixed;
+    /* Nueva imagen de fondo aplicada */
+    background: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/pagina1fondo.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
