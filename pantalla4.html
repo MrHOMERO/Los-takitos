@@ -1,52 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cabina de Mando</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { 
             background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/d95318bb8535ac26d275a55b69358afebb6e81a0/fondomapa.jpg');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
             height: 100vh;
             margin: 0;
             overflow: hidden;
         }
-        .punto-mision {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        @keyframes rotarTextura {
+            from { background-position: 0% 50%; }
+            to { background-position: 200% 50%; }
         }
-        .punto-mision:hover {
-            transform: scale(1.2);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        
+        .planeta-real {
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+            background-size: 200% 100%;
+            animation: rotarTextura linear infinite;
+            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.9);
+            transition: 0.5s;
+            color: transparent;
         }
+
+        .planeta-real:hover { transform: scale(1.2); z-index: 10; box-shadow: 0 0 30px rgba(255,255,255,0.4); }
     </style>
 </head>
 <body>
 
-    <!-- Contenedor de la Cabina -->
-    <div class="relative w-full h-full flex flex-wrap items-center justify-center p-10">
+    <div class="relative w-full h-[60%]">
+        <!-- 1. Picante (Lejos, Pequeño, Tenue) -->
+        <button class="planeta-real w-12 h-12 top-[10%] left-[8%] opacity-70" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/picante.jpg'); animation-duration: 12s;" title="PIKANTE-PRIME"></button>
         
-        <!-- Aquí irán los 6 puntos de misión (posicionados como si fueran radares) -->
-        <div class="grid grid-cols-3 gap-20">
-            <!-- Misiones 1 al 6 -->
-            <button class="punto-mision w-16 h-16 bg-blue-500/30 border-2 border-cyan-400 rounded-full flex items-center justify-center text-white font-bold">1</button>
-            <button class="punto-mision w-16 h-16 bg-blue-500/30 border-2 border-cyan-400 rounded-full flex items-center justify-center text-white font-bold">2</button>
-            <button class="punto-mision w-16 h-16 bg-blue-500/30 border-2 border-cyan-400 rounded-full flex items-center justify-center text-white font-bold">3</button>
-            <button class="punto-mision w-16 h-16 bg-blue-500/30 border-2 border-cyan-400 rounded-full flex items-center justify-center text-white font-bold">4</button>
-            <button class="punto-mision w-16 h-16 bg-blue-500/30 border-2 border-cyan-400 rounded-full flex items-center justify-center text-white font-bold">5</button>
-            <button class="punto-mision w-16 h-16 bg-blue-500/30 border-2 border-cyan-400 rounded-full flex items-center justify-center text-white font-bold">6</button>
-        </div>
-
+        <!-- 2. Maíz (Medio) -->
+        <button class="planeta-real w-20 h-20 top-[30%] right-[15%] opacity-90" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/maiz.jpg'); animation-duration: 18s;" title="NEBULA-MAÍZ"></button>
+        
+        <!-- 3. Cilantro (Cerca, Grande, Intenso) -->
+        <button class="planeta-real w-40 h-40 top-[15%] left-[35%] shadow-[inset_-30px_-30px_50px_rgba(0,0,0,0.7)]" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/cilantro.jpg'); animation-duration: 25s;" title="CILANTRO-V"></button>
+        
+        <!-- 4. Tortilla (Medio) -->
+        <button class="planeta-real w-24 h-24 top-[40%] left-[10%] opacity-85" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/tortillas.jpg'); animation-duration: 15s;" title="TORTILLA-IV"></button>
+        
+        <!-- 5. Limón (Muy lejos, Muy pequeño) -->
+        <button class="planeta-real w-10 h-10 top-[45%] right-[30%] opacity-60" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/limon.jpg'); animation-duration: 8s;" title="LIMÓN-NOVA"></button>
+        
+        <!-- 6. Sal (Cerca, Grande) -->
+        <button class="planeta-real w-28 h-28 top-[5%] right-[5%] shadow-[inset_-25px_-25px_40px_rgba(0,0,0,0.8)]" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/sal.jpg'); animation-duration: 20s;" title="SAL-BOREAL"></button>
     </div>
 
-    <!-- Script para recuperar el nombre -->
-    <script>
-        const nombre = localStorage.getItem('nombreViajero');
-        console.log("Bienvenido a la cabina, capitán: " + nombre);
-        // Aquí podrías mostrar el nombre en un HUD o panel de la cabina
-    </script>
 </body>
 </html>
