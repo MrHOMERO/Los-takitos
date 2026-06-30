@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro del Viajero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Aplicamos el fondo con la URL que proporcionaste */
+        body { 
+            background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/6ca15fb59e49426b22c9e9d88f2e4d1520b9b5f3/fondopantalla3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white; 
+            font-family: sans-serif; 
+        }
+        .glass-card { 
+            background: rgba(15, 23, 42, 0.7); /* Ligeramente más transparente para ver el fondo */
+            border: 1px solid rgba(255, 215, 0, 0.3); 
+            backdrop-filter: blur(5px); /* Efecto de desenfoque sobre el fondo */
+        }
+        @keyframes pulso { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .animar-personaje { animation: pulso 3s infinite ease-in-out; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div class="max-w-md w-full glass-card rounded-2xl p-6 shadow-xl border-t-4 border-yellow-500 text-center">
+        
+        <h2 class="text-lg font-semibold text-yellow-500 mb-6">
+            Te hemos asignado este personaje. Nómbralo.
+        </h2>
+
+        <div class="mb-6 flex justify-center">
+            <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a1b1c1a13da6846c6c11fcf7bc95173ea6d9c7e7/retouch_2026063003370289.png" 
+                 alt="Personaje Asignado" 
+                 class="w-64 h-64 object-contain animar-personaje">
+        </div>
+
+        <button onclick="iniciarViaje()" class="w-full bg-yellow-600 hover:bg-yellow-500 text-black font-bold py-3 rounded-lg mb-6 transition">
+            COMENZAR VIAJE
+        </button>
+
+        <div class="mt-2">
+            <label class="block text-sm text-slate-400 mb-2">Nombre a tu viajero</label>
+            <input type="text" id="nombreViajero" placeholder="Escribe aquí..." 
+                   class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-center focus:border-yellow-500 outline-none">
+        </div>
+    </div>
+
+    <script>
+        function iniciarViaje() {
+            const nombre = document.getElementById('nombreViajero').value;
+            if(!nombre) {
+                alert("Por favor, ponle un nombre a tu viajero.");
+                return;
+            }
+            localStorage.setItem('nombreViajero', nombre);
+            window.location.href = 'pantalla4.html';
+        }
+    </script>
+</body>
+</html>
