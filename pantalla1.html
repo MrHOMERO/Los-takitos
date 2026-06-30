@@ -1,25 +1,23 @@
-/* Configuración básica */
-body { margin: 0; padding: 0; font-family: sans-serif; background: #000; color: #fff; overflow-x: hidden; }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Camino del Tiempo</title>
+    <!-- Esta es la única línea necesaria para el diseño -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="fondo-espacio"></div>
 
-/* Fondo compartido */
-.fondo-espacio { 
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; 
-    background: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/pagina1fondo.jpg') no-repeat center center; 
-    background-size: cover; 
-}
+    <div id="pantalla-intro" class="pantalla activa">
+        <div class="contenedor-nave">
+            <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/naveportada.png" class="nave-animada" alt="Nave">
+        </div>
+        <div class="texto-intro">"El tiempo es el único recurso que, una vez gastado, no puede recuperarse."</div>
+        <a href="pantalla2.html" class="boton-jugar">COMENZAR A JUGAR</a>
+    </div>
 
-.pantalla { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; }
-
-/* Animación de la nave */
-.contenedor-nave { height: 300px; display: flex; align-items: center; justify-content: center; }
-.nave-animada { width: 250px; animation: despegue 6s ease-in-out forwards; }
-
-@keyframes despegue {
-    0% { transform: rotate(0deg) scale(1); opacity: 1; }
-    50% { transform: rotate(720deg) scale(1); opacity: 1; }
-    100% { transform: rotate(720deg) scale(0.2); opacity: 0; }
-}
-
-/* Estilo botón */
-.boton-jugar { text-decoration: none; padding: 15px 30px; background: #FFD700; border-radius: 5px; font-weight: bold; color: black; margin-top: 20px; }
-.texto-intro { color: white; padding: 20px; font-size: 1.2rem; }
+    <script src="juego.js"></script>
+</body>
+</html>
