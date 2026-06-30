@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Camino del Tiempo - Selección</title>
+    <title>La Gran Elección</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Fondo específico para esta pantalla */
+        /* Cambiamos el fondo para esta pantalla específicamente */
         .fondo-espacio {
             background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/espacio2.jpg') !important;
         }
@@ -15,15 +15,13 @@
 <body>
     <div class="fondo-espacio"></div>
 
-    <div class="pantalla activa">
+    <div class="pantalla">
         <h2 class="titulo-juego">LA GRAN ELECCIÓN</h2>
         <p class="pregunta-texto">¿Cuál es la forma más sabia de gastar nuestro tiempo limitado?</p>
         
-        <div class="contenedor-botones">
-            <button class="boton-jugar" onclick="seleccionar('Conocimiento')">Buscar la sabiduría</button>
-            <button class="boton-jugar" onclick="seleccionar('Legado')">Construir un legado</button>
-            <button class="boton-jugar" onclick="seleccionar('Experiencia')">Vivir el momento presente</button>
-        </div>
+        <button class="boton-jugar" onclick="elegirEsencia('Sabiduría')">Buscar la sabiduría</button>
+        <button class="boton-jugar" onclick="elegirEsencia('Legado')">Construir un legado</button>
+        <button class="boton-jugar" onclick="elegirEsencia('Presente')">Vivir el momento</button>
     </div>
 
     <script src="juego.js"></script>
