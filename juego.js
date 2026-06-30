@@ -1,13 +1,14 @@
-// Guardar esencia elegida y saltar a pantalla 3
+// 1. Guardar esencia elegida (usada en pantalla2.html)
 function elegirEsencia(esencia) {
     localStorage.setItem('esencia', esencia);
     window.location.href = 'pantalla3.html';
 }
 
-// Guardar nombre y saltar al mapa (pantalla 4)
+// 2. Guardar nombre y saltar al mapa (usada en pantalla3.html)
 function confirmarNombre() {
     let nombre = document.getElementById('input-nombre').value;
-    if(nombre) {
+    
+    if(nombre && nombre.trim() !== "") {
         localStorage.setItem('nombre', nombre);
         window.location.href = 'pantalla4.html';
     } else {
