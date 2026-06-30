@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cabina de Mando</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { 
+            background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/d95318bb8535ac26d275a55b69358afebb6e81a0/fondomapa.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .punto-mision {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .punto-mision:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenedor de la Cabina -->
+    <div class="relative w-full h-full flex flex-wrap items-center justify-center p-10">
+        
+        <!-- Aquí irán los 6 puntos de misión (posicionados como si fueran radares) -->
+        <div class="grid grid-cols-3 gap-20">
+            <!-- Misiones 1 al 6 -->
+            <button class="punto-mision w-16 h-16 bg-blue-500/30 border-2 border-cyan-400 rounded-full flex items-center justify-center text-white font-bold">1</button>
+            <button class="punto-mision w-16 h-16 bg-blue-500/30 border-2 border-cyan-400 rounded-full flex items-center justify-center text-white font-bold">2</button>
+            <button class="punto-mision w-16 h-16 bg-blue-500/30 border-2 border-cyan-400 rounded-full flex items-center justify-center text-white font-bold">3</button>
+            <button class="punto-mision w-16 h-16 bg-blue-500/30 border-2 border-cyan-400 rounded-full flex items-center justify-center text-white font-bold">4</button>
+            <button class="punto-mision w-16 h-16 bg-blue-500/30 border-2 border-cyan-400 rounded-full flex items-center justify-center text-white font-bold">5</button>
+            <button class="punto-mision w-16 h-16 bg-blue-500/30 border-2 border-cyan-400 rounded-full flex items-center justify-center text-white font-bold">6</button>
+        </div>
+
+    </div>
+
+    <!-- Script para recuperar el nombre -->
+    <script>
+        const nombre = localStorage.getItem('nombreViajero');
+        console.log("Bienvenido a la cabina, capitán: " + nombre);
+        // Aquí podrías mostrar el nombre en un HUD o panel de la cabina
+    </script>
+</body>
+</html>
