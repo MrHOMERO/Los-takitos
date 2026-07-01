@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pikante-Prime - Exploración</title>
+    <title>Exploración Pikante-Prime</title>
     <style>
-        body { margin: 0; background: #000; overflow: hidden; }
+        body { margin: 0; background: #000; overflow: hidden; font-family: 'Courier New', Courier, monospace; }
         
         #contenedor-panoramico {
             display: flex; 
@@ -22,28 +22,49 @@
             background-position: center;
         }
 
-        /* Animación de respiración para la imagen central */
+        /* Animación de respiración más notoria para el centro */
         .respiracion {
-            animation: respirar 4s infinite ease-in-out;
+            animation: respirar 3s infinite ease-in-out;
         }
 
         @keyframes respirar {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.01) translateY(-2px); } /* Sutil movimiento de respiración */
+            50% { transform: scale(1.02); }
         }
 
-        #ui { position: fixed; top: 20px; left: 20px; color: cyan; font-family: monospace; z-index: 10; pointer-events: none; }
+        /* Flechas indicadoras de navegación */
+        .flecha {
+            position: fixed; 
+            top: 50%; 
+            z-index: 50;
+            font-size: 3rem; 
+            color: cyan; 
+            cursor: pointer;
+            animation: parpadeo 1.5s infinite;
+            text-shadow: 0 0 10px black;
+            user-select: none;
+        }
+        .flecha-izq { left: 20px; }
+        .flecha-der { right: 20px; }
+
+        @keyframes parpadeo { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        #ui { position: fixed; top: 20px; width: 100%; text-align: center; color: cyan; z-index: 10; pointer-events: none; }
     </style>
 </head>
 <body onload="centrarVista()">
 
 <div id="ui">EXPLORANDO: PIKANTE-PRIME</div>
 
+<!-- Flechas de navegación -->
+<div class="flecha flecha-izq" onclick="mover(-1)">◀</div>
+<div class="flecha flecha-der" onclick="mover(1)">▶</div>
+
 <div id="contenedor-panoramico">
     <!-- Izquierda -->
     <div class="seccion" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/b88f4bf419a761d062e848c8625c311eb14ca764/extensi%C3%B3n%20izquierda%20picante%20prime.jpg');"></div>
     
-    <!-- Centro (Con el Personaje) - Aplicamos la clase respiracion -->
+    <!-- Centro (Con el Personaje) -->
     <div class="seccion respiracion" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/0a97338bc64aed40fd9efc13b325226ae08eacb8/fondopantalla5.jpeg');"></div>
     
     <!-- Derecha -->
@@ -53,8 +74,13 @@
 <script>
     function centrarVista() {
         const contenedor = document.getElementById('contenedor-panoramico');
-        // Centramos en la imagen central al cargar
         contenedor.scrollLeft = window.innerWidth;
+    }
+
+    function mover(direccion) {
+        const contenedor = document.getElementById('contenedor-panoramico');
+        const scrollAmount = window.innerWidth;
+        contenedor.scrollBy({ left: direccion * scrollAmount, behavior: 'smooth' });
     }
 </script>
 </body>
