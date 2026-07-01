@@ -3,75 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro del Viajero</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>El Viaje Comienza</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        body { 
-            background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/6ca15fb59e49426b22c9e9d88f2e4d1520b9b5f3/fondopantalla3.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: white; 
-            font-family: sans-serif; 
+        /* Estilo específico para la presentación del personaje en esta pantalla */
+        #contenedor-personaje {
+            margin-bottom: 30px;
+            text-align: center;
         }
-        .glass-card { 
-            background: rgba(15, 23, 42, 0.7); 
-            border: 1px solid rgba(255, 215, 0, 0.3); 
-            backdrop-filter: blur(5px); 
+        #img-personaje-usuario {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 4px solid #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
-        @keyframes pulso { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .animar-personaje { animation: pulso 3s infinite ease-in-out; }
+        .input-nombre {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: none;
+            width: 250px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4">
+<body>
+    <div class="fondo-espacio"></div>
 
-    <div class="max-w-md w-full glass-card rounded-2xl p-6 shadow-xl border-t-4 border-yellow-500 text-center">
+    <div class="pantalla">
+        <h2 class="titulo-juego">IDENTIDAD CONFIRMADA</h2>
         
-        <h2 class="text-lg font-semibold text-yellow-500 mb-6">
-            Te hemos asignado este personaje
-        </h2>
-
-        <div class="mb-6 flex justify-center">
-            <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a1b1c1a13da6846c6c11fcf7bc95173ea6d9c7e7/retouch_2026063003370289.png" 
-                 alt="Personaje Asignado" 
-                 class="w-64 h-64 object-contain animar-personaje">
+        <!-- Aquí aparecerá el personaje elegido -->
+        <div id="contenedor-personaje">
+            <img id="img-personaje-usuario" src="" alt="Tu Personaje">
         </div>
 
-        <!-- Botón con la nueva función -->
-        <button onclick="iniciarMisionTransicion()" class="w-full bg-yellow-600 hover:bg-yellow-500 text-black font-bold py-3 rounded-lg mb-6 transition">
-            INICIAR MISIÓN
-        </button>
-
-        <div class="mt-2">
-            <label class="block text-sm text-slate-400 mb-2">Nombre a tu viajero</label>
-            <input type="text" id="nombreViajero" placeholder="Escribe aquí..." 
-                   class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-center focus:border-yellow-500 outline-none">
-        </div>
+        <p class="pregunta-texto">Dinos, viajero, ¿cómo te llaman en los registros del tiempo?</p>
+        
+        <input type="text" id="input-nombre" class="input-nombre" placeholder="Ingresa tu nombre...">
+        
+        <button class="boton-jugar" onclick="confirmarNombre()">Comenzar mi historia</button>
     </div>
 
-    <!-- Elemento de audio con la URL RAW -->
-    <audio id="audio-click" src="https://github.com/MrHOMERO/Los-takitos/raw/44aad3aa2eaf32eb35c15be17c5b59521247424f/sonido%20de%20teclado.mp3" preload="auto"></audio>
-
+    <!-- Cargamos tu archivo juego.js que ya tiene la lógica actualizada -->
+    <script src="juego.js"></script>
     <script>
-        function iniciarMisionTransicion() {
-            const nombre = document.getElementById('nombreViajero').value;
-            if(!nombre) {
-                alert("Por favor, ponle un nombre a tu viajero.");
-                return;
-            }
-            
-            // Guardar nombre
-            localStorage.setItem('nombreViajero', nombre);
-            
-            // Reproducir sonido
-            const audio = document.getElementById('audio-click');
-            audio.play().catch(e => console.log("Audio bloqueado: requiere interacción previa"));
-            
-            // Transición breve (300ms) para que se escuche el inicio del sonido
-            setTimeout(() => {
-                window.location.href = 'pantalla4.html';
-            }, 300);
-        }
+        // Al cargar la página, inyectamos la imagen desde localStorage
+        window.onload = function() {
+            aplicarImagenPersonaje();
+        };
     </script>
 </body>
 </html>
