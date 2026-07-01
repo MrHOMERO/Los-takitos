@@ -5,68 +5,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pikante-Prime - Exploración</title>
     <style>
-        body { margin: 0; background: #000; overflow: hidden; font-family: 'Courier New', Courier, monospace; }
+        body { 
+            margin: 0; 
+            background: #000; 
+            overflow: hidden; 
+            font-family: 'Courier New', Courier, monospace; 
+        }
         
         #contenedor-panoramico {
-            display: flex; height: 100vh; width: 300vw; 
-            overflow-x: auto; scroll-behavior: smooth;
+            display: flex; 
+            height: 100vh; 
+            width: 300vw; /* Tres pantallas completas de ancho */
+            overflow-x: auto; 
+            scroll-behavior: smooth;
         }
 
-        .seccion { position: relative; flex: 1; height: 100vh; background-size: cover; background-position: center; }
+        .seccion { 
+            position: relative; 
+            flex: 1; 
+            height: 100vh; 
+            overflow: hidden;
+        }
 
-        /* Personaje y su área de clic invisible */
+        /* Ajuste de imágenes para fusionar los bordes uniformemente */
+        .img-panoramica {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            pointer-events: none; /* Evita que el usuario arrastre la imagen sin querer */
+        }
+
+        /* Personaje y su área interactiva */
         .personaje-wrapper {
-            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-            height: 90vh; z-index: 10; cursor: pointer;
+            position: absolute; 
+            bottom: 0; 
+            left: 50%; 
+            transform: translateX(-50%);
+            height: 90vh; 
+            z-index: 10; 
+            cursor: pointer;
         }
-        .respiracion { animation: respirar 3s infinite ease-in-out; }
-        @keyframes respirar { 0%, 100% { transform: scale(1) translateY(0); } 50% { transform: scale(1.01) translateY(-5px); } }
+        
+        .respiracion { 
+            animation: respirar 3s infinite ease-in-out; 
+        }
+        
+        @keyframes respirar { 
+            0%, 100% { transform: scale(1) translateX(-50%) translateY(0); } 
+            50% { transform: scale(1.02) translateX(-49%) translateY(-5px); } 
+        }
 
-        /* Mensaje inicial */
+        /* Mensaje en pantalla */
         #mensaje-inicio {
-            position: fixed; top: 30%; width: 100%; text-align: center;
-            color: white; font-size: 1.5rem; z-index: 20; pointer-events: none;
+            position: fixed; 
+            top: 30%; 
+            width: 100%; 
+            text-align: center;
+            color: white; 
+            font-size: 1.5rem; 
+            z-index: 20; 
+            pointer-events: none;
             text-shadow: 2px 2px 4px black;
         }
 
-        .flecha { position: fixed; top: 50%; z-index: 50; font-size: 3rem; color: cyan; cursor: pointer; animation: parpadeo 1.5s infinite; text-shadow: 0 0 10px black; }
-        .flecha-izq { left: 20px; } .flecha-der { right: 20px; }
+        /* Interfaz de navegación lateral */
+        .flecha { 
+            position: fixed; 
+            top: 50%; 
+            z-index: 50; 
+            font-size: 3rem; 
+            color: cyan; 
+            cursor: pointer; 
+            animation: parpadeo 1.5s infinite; 
+            text-shadow: 0 0 10px black; 
+            user-select: none;
+        }
+        .flecha-izq { left: 20px; } 
+        .flecha-der { right: 20px; }
+        
         @keyframes parpadeo { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        #ui { position: fixed; top: 20px; width: 100%; text-align: center; color: cyan; z-index: 10; pointer-events: none; }
     </style>
 </head>
 <body onload="centrarVista()">
 
+<div id="ui">EXPLORANDO: PIKANTE-PRIME</div>
 <div id="mensaje-inicio">TOCA AL PERSONAJE PARA COMENZAR A EXPLORAR</div>
 
-<!-- Botón invisible/interactivo sobre el personaje -->
+<!-- Flechas de navegación -->
+<div class="flecha flecha-izq" onclick="mover(-1)">◀</div>
+<div class="flecha flecha-der" onclick="mover(1)">▶</div>
+
 <div id="contenedor-panoramico">
-    <div class="seccion" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/b88f4bf419a761d062e848c8625c311eb14ca764/extensi%C3%B3n%20izquierda%20picante%20prime.jpg');"></div>
+    <!-- Izquierda -->
+    <div class="seccion">
+        <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/b88f4bf419a761d062e848c8625c311eb14ca764/extensi%C3%B3n%20izquierda%20picante%20prime.jpg" class="img-panoramica" alt="Extensión Izquierda">
+    </div>
     
-    <div class="seccion" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/e1aad52480135ea17878c35a8be37dde19aecb12/fondopantalla5%20(1).jpeg');">
-        <!-- El personaje hace de botón -->
+    <!-- Centro (Fondo limpio + Personaje animado) -->
+    <div class="seccion">
+        <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/e1aad52480135ea17878c35a8be37dde19aecb12/fondopantalla5%20(1).jpeg" class="img-panoramica" alt="Fondo Central">
+        <!-- El personaje funciona como gatillo de inicio -->
         <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/f3b25f548f8da3203ec3b98fb4fbc8beaf44634f/retouch_2026070100544560.png" 
              class="personaje-wrapper respiracion" onclick="iniciarExperiencia()" alt="Personaje">
     </div>
     
-    <div class="seccion" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/b88f4bf419a761d062e848c8625c311eb14ca764/extensi%C3%B3n%20derecha%20picante%20prime.jpg');"></div>
+    <!-- Derecha -->
+    <div class="seccion">
+        <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/b88f4bf419a761d062e848c8625c311eb14ca764/extensi%C3%B3n%20derecha%20picante%20prime.jpg" class="img-panoramica" alt="Extensión Derecha">
+    </div>
 </div>
 
+<!-- Elemento de Audio -->
 <audio id="sonido-fondo" src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/68ff4ef040fa62192b4246f69799117d569aff46/sonido%20picante%20prime.mp3"></audio>
 
 <script>
+    // Centra la vista automáticamente en la sección del medio al cargar la página
     function centrarVista() {
         const contenedor = document.getElementById('contenedor-panoramico');
         contenedor.scrollLeft = window.innerWidth;
     }
 
+    // Controla el desplazamiento lateral suave con las flechas
+    function mover(direccion) {
+        const contenedor = document.getElementById('contenedor-panoramico');
+        contenedor.scrollBy({ left: direccion * window.innerWidth, behavior: 'smooth' });
+    }
+
+    // Activa el sonido y remueve el texto guía al interactuar con el soldado
     function iniciarExperiencia() {
         const sonido = document.getElementById('sonido-fondo');
         const mensaje = document.getElementById('mensaje-inicio');
         
-        sonido.play();
-        mensaje.style.display = 'none'; // Ocultamos el mensaje al tocar
-        
-        // Aquí podrías añadir lógica para mostrar las flechas si quieres que aparezcan recién al iniciar
+        sonido.play().catch(error => console.log("El audio requiere interacción directa:", error));
+        mensaje.style.display = 'none';
     }
 </script>
 </body>
