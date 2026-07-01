@@ -3,29 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Viaje Comienza</title>
+    <title>Identidad Confirmada</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilo específico para la presentación del personaje en esta pantalla */
-        #contenedor-personaje {
-            margin-bottom: 30px;
-            text-align: center;
-        }
+        /* Estilo para que la imagen se vea perfecta y circular */
         #img-personaje-usuario {
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
-            border: 4px solid #FFD700;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-        }
-        .input-nombre {
-            padding: 10px;
-            font-size: 1rem;
-            border-radius: 5px;
-            border: none;
-            width: 250px;
+            border: 3px solid #FFD700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
             margin-bottom: 20px;
-            text-align: center;
+            object-fit: cover; /* Asegura que la imagen no se deforme */
         }
     </style>
 </head>
@@ -34,23 +23,22 @@
 
     <div class="pantalla">
         <h2 class="titulo-juego">IDENTIDAD CONFIRMADA</h2>
-        
-        <!-- Aquí aparecerá el personaje elegido -->
+
+        <!-- Aquí es donde aparecerá el personaje elegido -->
         <div id="contenedor-personaje">
             <img id="img-personaje-usuario" src="" alt="Tu Personaje">
         </div>
 
         <p class="pregunta-texto">Dinos, viajero, ¿cómo te llaman en los registros del tiempo?</p>
         
-        <input type="text" id="input-nombre" class="input-nombre" placeholder="Ingresa tu nombre...">
+        <input type="text" id="input-nombre" class="boton-jugar" placeholder="Ingresa tu nombre..." style="background: white; color: black;">
         
         <button class="boton-jugar" onclick="confirmarNombre()">Comenzar mi historia</button>
     </div>
 
-    <!-- Cargamos tu archivo juego.js que ya tiene la lógica actualizada -->
     <script src="juego.js"></script>
     <script>
-        // Al cargar la página, inyectamos la imagen desde localStorage
+        // Esta línea es la que hace la magia: al cargar, busca la imagen guardada
         window.onload = function() {
             aplicarImagenPersonaje();
         };
