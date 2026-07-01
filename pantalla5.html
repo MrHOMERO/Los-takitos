@@ -1,58 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pikante-Prime</title>
     <style>
-        /* Aplicamos el filtro de realismo a todas las imágenes */
-        .img-panoramica {
-            width: 100%; height: 100%; object-fit: cover;
-            filter: contrast(1.15) saturate(1.2) brightness(0.95);
-        }
-
-        /* Puntos verdes de interés (inicialmente ocultos) */
-        .punto-interes {
-            position: absolute; width: 20px; height: 20px;
-            background-color: #00ff00; border-radius: 50%;
-            box-shadow: 0 0 10px #00ff00;
-            display: none; cursor: pointer; z-index: 100;
-        }
-        
-        /* Posiciones aproximadas sobre los cristales */
-        #punto-izq { top: 45%; left: 30%; } /* Ajusta según tu imagen izquierda */
-        #punto-der { top: 45%; left: 70%; } /* Ajusta según tu imagen derecha */
+        body { margin: 0; background: #000; overflow: hidden; }
+        #contenedor-panoramico { display: flex; height: 100vh; width: 300vw; overflow-x: auto; scroll-behavior: smooth; }
+        .seccion { position: relative; flex: 1; height: 100vh; }
+        .img-panoramica { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.15) saturate(1.2) brightness(0.95); }
     </style>
 </head>
 <body>
 
-<!-- ... (mismo contenedor anterior) ... -->
-
 <div id="contenedor-panoramico">
-    <!-- Izquierda con punto -->
     <div class="seccion">
-        <img src="..." class="img-panoramica">
-        <div id="punto-izq" class="punto-interes"></div>
+        <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/b88f4bf419a761d062e848c8625c311eb14ca764/extensi%C3%B3n%20izquierda%20picante%20prime.jpg" class="img-panoramica">
     </div>
-    
-    <!-- Centro -->
     <div class="seccion">
-        <img src="..." class="img-panoramica">
-        <img src="..." class="personaje-wrapper respiracion" onclick="iniciarExperiencia()">
+        <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/e1aad52480135ea17878c35a8be37dde19aecb12/fondopantalla5%20(1).jpeg" class="img-panoramica">
     </div>
-    
-    <!-- Derecha con punto -->
     <div class="seccion">
-        <img src="..." class="img-panoramica">
-        <div id="punto-der" class="punto-interes"></div>
+        <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/b88f4bf419a761d062e848c8625c311eb14ca764/extensi%C3%B3n%20derecha%20picante%20prime.jpg" class="img-panoramica">
     </div>
 </div>
 
-<script>
-    function iniciarExperiencia() {
-        // ... (código existente de sonido y mensaje) ...
-        
-        // Activamos los puntos verdes
-        document.getElementById('punto-izq').style.display = 'block';
-        document.getElementById('punto-der').style.display = 'block';
-    }
-</script>
 </body>
 </html>
