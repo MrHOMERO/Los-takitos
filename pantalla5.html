@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pikante-Prime - Exploración</title>
+    <style>
+        body { margin: 0; background: #000; overflow: hidden; }
+        
+        #contenedor-panoramico {
+            display: flex; /* Alinea las imágenes horizontalmente */
+            height: 100vh;
+            width: 300vw; /* Tres pantallas de ancho */
+            overflow-x: auto;
+            scroll-behavior: smooth;
+        }
 
+        .seccion {
+            flex: 1;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Instrucción flotante */
+        #ui { position: fixed; top: 20px; left: 20px; color: cyan; font-family: monospace; z-index: 10; pointer-events: none; }
+    </style>
+</head>
+<body onload="centrarVista()">
+
+<div id="ui">EXPLORANDO: PIKANTE-PRIME</div>
+
+<div id="contenedor-panoramico">
+    <!-- Izquierda -->
+    <div class="seccion" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/b88f4bf419a761d062e848c8625c311eb14ca764/extensi%C3%B3n%20izquierda%20picante%20prime.jpg');"></div>
+    
+    <!-- Centro (Con el Personaje) -->
+    <div class="seccion" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/b88f4bf419a761d062e848c8625c311eb14ca764/personaje_con_fondo_central.jpg');"></div>
+    
+    <!-- Derecha -->
+    <div class="seccion" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/b88f4bf419a761d062e848c8625c311eb14ca764/extensi%C3%B3n%20derecha%20picante%20prime.jpg');"></div>
+</div>
+
+<script>
+    function centrarVista() {
+        const contenedor = document.getElementById('contenedor-panoramico');
+        // Centramos en la imagen central al cargar
+        contenedor.scrollLeft = window.innerWidth;
+    }
+</script>
+</body>
+</html>
