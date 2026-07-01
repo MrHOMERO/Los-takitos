@@ -1,10 +1,22 @@
-// 1. Guardar esencia elegida (usada en pantalla2.html)
-function elegirEsencia(esencia) {
+/**
+ * Lógica principal del juego - Gestión de elecciones y persistencia
+ */
+
+// 1. Guardar esencia y personaje elegido
+// Esta función es llamada desde pantalla2.html por los botones
+function elegirEsencia(esencia, urlImagen) {
+    // Guardamos la esencia para la lógica del juego
     localStorage.setItem('esencia', esencia);
+    
+    // Guardamos la ruta de la imagen para mostrarla en las siguientes pantallas
+    localStorage.setItem('imagenPersonaje', urlImagen);
+    
+    // Redirección a la siguiente pantalla del flujo
     window.location.href = 'pantalla3.html';
 }
 
-// 2. Guardar nombre y saltar al mapa (usada en pantalla3.html)
+// 2. Guardar nombre y saltar al mapa
+// Esta función es llamada desde pantalla3.html o pantalla4.html
 function confirmarNombre() {
     let nombre = document.getElementById('input-nombre').value;
     
@@ -13,5 +25,17 @@ function confirmarNombre() {
         window.location.href = 'pantalla4.html';
     } else {
         alert("Por favor, ingresa tu nombre.");
+    }
+}
+
+// 3. Función auxiliar para mostrar el personaje en cualquier pantalla
+// Solo necesitas llamar a esta función cuando la página cargue en pantalla3.html o posteriores
+function aplicarImagenPersonaje() {
+    const imagen = localStorage.getItem('imagenPersonaje');
+    const imgElemento = document.getElementById('img-personaje-usuario');
+    
+    // Verificamos que el elemento exista antes de intentar cambiar el src
+    if(imgElemento && imagen) {
+        imgElemento.src = imagen;
     }
 }
