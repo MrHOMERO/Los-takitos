@@ -5,28 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Introducción - El Camino del Tiempo</title>
     <style>
-        /* Eliminamos márgenes y centramos el contenido */
         body, html { 
-            margin: 0; 
-            padding: 0; 
-            width: 100%; 
-            height: 100%; 
-            background-color: #000; 
-            overflow: hidden; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background-color: #000; overflow: hidden; 
+            display: flex; align-items: center; justify-content: center;
         }
 
-        /* Ajustamos el video para que se contenga sin recortarse */
         #video-intro {
             width: 100%; 
             height: 100%;
-            object-fit: contain; /* Esto asegura que se vea completo en móviles */
+            object-fit: contain; /* Ajusta el video para que se vea completo */
             z-index: 1;
         }
 
-        /* Botón de saltar optimizado para móviles */
         #btn-saltar {
             position: absolute;
             bottom: 20px;
@@ -41,16 +32,14 @@
             border-radius: 5px;
             font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
-        
-        #btn-saltar:hover { background: #FFD700; color: #000; }
     </style>
 </head>
 <body>
 
+    <!-- Video actualizado con el nuevo enlace -->
     <video id="video-intro" autoplay muted playsinline>
-        <source src="https://github.com/MrHOMERO/Los-takitos/blob/f9f0b828106e201e30ce9674328f98c14e83c026/lv_0_20260701185600.mp4" type="video/mp4">
+        <source src="https://github.com/MrHOMERO/Los-takitos/raw/f9f0b828106e201e30ce9674328f98c14e83c026/lv_0_20260701185600.mp4" type="video/mp4">
         Tu navegador no soporta la reproducción de video.
     </video>
 
@@ -59,12 +48,10 @@
     <script>
         const video = document.getElementById('video-intro');
 
-        // Al terminar el video, redirige
         video.onended = function() {
             window.location.href = 'pantalla1.html';
         };
 
-        // Función para saltar manualmente
         function saltarIntro() {
             window.location.href = 'pantalla1.html';
         }
