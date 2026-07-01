@@ -6,7 +6,6 @@
     <title>Registro del Viajero</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Aplicamos el fondo con la URL que proporcionaste */
         body { 
             background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/6ca15fb59e49426b22c9e9d88f2e4d1520b9b5f3/fondopantalla3.jpg');
             background-size: cover;
@@ -16,9 +15,9 @@
             font-family: sans-serif; 
         }
         .glass-card { 
-            background: rgba(15, 23, 42, 0.7); /* Ligeramente más transparente para ver el fondo */
+            background: rgba(15, 23, 42, 0.7); 
             border: 1px solid rgba(255, 215, 0, 0.3); 
-            backdrop-filter: blur(5px); /* Efecto de desenfoque sobre el fondo */
+            backdrop-filter: blur(5px); 
         }
         @keyframes pulso { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         .animar-personaje { animation: pulso 3s infinite ease-in-out; }
@@ -38,8 +37,9 @@
                  class="w-64 h-64 object-contain animar-personaje">
         </div>
 
-        <button onclick="iniciarViaje()" class="w-full bg-yellow-600 hover:bg-yellow-500 text-black font-bold py-3 rounded-lg mb-6 transition">
-            COMENZAR VIAJE
+        <!-- Botón con la nueva función -->
+        <button onclick="iniciarMisionTransicion()" class="w-full bg-yellow-600 hover:bg-yellow-500 text-black font-bold py-3 rounded-lg mb-6 transition">
+            INICIAR MISIÓN
         </button>
 
         <div class="mt-2">
@@ -49,15 +49,28 @@
         </div>
     </div>
 
+    <!-- Elemento de audio con la URL RAW -->
+    <audio id="audio-click" src="https://github.com/MrHOMERO/Los-takitos/raw/44aad3aa2eaf32eb35c15be17c5b59521247424f/sonido%20de%20teclado.mp3" preload="auto"></audio>
+
     <script>
-        function iniciarViaje() {
+        function iniciarMisionTransicion() {
             const nombre = document.getElementById('nombreViajero').value;
             if(!nombre) {
                 alert("Por favor, ponle un nombre a tu viajero.");
                 return;
             }
+            
+            // Guardar nombre
             localStorage.setItem('nombreViajero', nombre);
-            window.location.href = 'pantalla4.html';
+            
+            // Reproducir sonido
+            const audio = document.getElementById('audio-click');
+            audio.play().catch(e => console.log("Audio bloqueado: requiere interacción previa"));
+            
+            // Transición breve (300ms) para que se escuche el inicio del sonido
+            setTimeout(() => {
+                window.location.href = 'pantalla4.html';
+            }, 300);
         }
     </script>
 </body>
