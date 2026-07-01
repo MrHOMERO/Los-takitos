@@ -4,54 +4,80 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { 
-            background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/d95318bb8535ac26d275a55b69358afebb6e81a0/fondomapa.jpg');
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
+            margin: 0; overflow: hidden; background: #000; 
+            /* Fondo de estrellas */
+            background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/69e9fcf7e0cb94f8660692c4b6eb8efe77e9307d/fondomapa%20(1).jpg'); 
+            background-size: cover; background-position: center;
         }
 
-        @keyframes rotarTextura {
-            from { background-position: 0% 50%; }
-            to { background-position: 200% 50%; }
+        /* Ventana donde se ven los planetas */
+        #visor-ventana {
+            position: fixed;
+            top: 22%; left: 24%; 
+            width: 52%; height: 35%;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        /* Contenedor que agrupa todos los planetas horizontalmente */
+        #visor-espacial {
+            display: flex; align-items: center; height: 100%;
+            width: max-content; /* Permite que los planetas se alineen uno tras otro */
+            scroll-snap-type: x mandatory;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        #visor-espacial::-webkit-scrollbar { display: none; }
+
+        .planeta-container { 
+            display: flex; align-items: center; justify-content: center;
+            width: 52vw; /* Este ancho debe coincidir con el del visor-ventana */
+            scroll-snap-align: center; 
         }
         
         .planeta-real {
-            border-radius: 50%;
-            position: absolute;
-            cursor: pointer;
-            background-size: 200% 100%;
+            border-radius: 50%; background-size: 200% 100%;
             animation: rotarTextura linear infinite;
             box-shadow: inset -10px -10px 20px rgba(0,0,0,0.9);
-            transition: 0.5s;
-            color: transparent;
+            width: 80px; height: 80px; cursor: pointer;
         }
 
-        .planeta-real:hover { transform: scale(1.2); z-index: 10; box-shadow: 0 0 30px rgba(255,255,255,0.4); }
+        @keyframes rotarTextura { from { background-position: 0% 50%; } to { background-position: 200% 50%; } }
+        
+        .nav-btn {
+            position: fixed; top: 50%; transform: translateY(-50%);
+            background: rgba(0, 255, 255, 0.2); color: white;
+            padding: 15px; border-radius: 50%; cursor: pointer; z-index: 20;
+            border: 1px solid cyan;
+        }
     </style>
 </head>
 <body>
 
-    <div class="relative w-full h-[60%]">
-        <!-- 1. Picante (Lejos, Pequeño, Tenue) -->
-        <button class="planeta-real w-12 h-12 top-[10%] left-[8%] opacity-70" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/picante.jpg'); animation-duration: 12s;" title="PIKANTE-PRIME"></button>
-        
-        <!-- 2. Maíz (Medio) -->
-        <button class="planeta-real w-20 h-20 top-[30%] right-[15%] opacity-90" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/maiz.jpg'); animation-duration: 18s;" title="NEBULA-MAÍZ"></button>
-        
-        <!-- 3. Cilantro (Cerca, Grande, Intenso) -->
-        <button class="planeta-real w-40 h-40 top-[15%] left-[35%] shadow-[inset_-30px_-30px_50px_rgba(0,0,0,0.7)]" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/cilantro.jpg'); animation-duration: 25s;" title="CILANTRO-V"></button>
-        
-        <!-- 4. Tortilla (Medio) -->
-        <button class="planeta-real w-24 h-24 top-[40%] left-[10%] opacity-85" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/tortillas.jpg'); animation-duration: 15s;" title="TORTILLA-IV"></button>
-        
-        <!-- 5. Limón (Muy lejos, Muy pequeño) -->
-        <button class="planeta-real w-10 h-10 top-[45%] right-[30%] opacity-60" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/limon.jpg'); animation-duration: 8s;" title="LIMÓN-NOVA"></button>
-        
-        <!-- 6. Sal (Cerca, Grande) -->
-        <button class="planeta-real w-28 h-28 top-[5%] right-[5%] shadow-[inset_-25px_-25px_40px_rgba(0,0,0,0.8)]" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/sal.jpg'); animation-duration: 20s;" title="SAL-BOREAL"></button>
+    <!-- Cabina fija encima -->
+    <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: url('watermarked_img_5533350620813538015.png'); background-size: cover; pointer-events: none; z-index: 10;"></div>
+
+    <!-- Navegación -->
+    <div class="nav-btn left-5" onclick="mover(-1)">◀</div>
+    <div class="nav-btn right-5" onclick="mover(1)">▶</div>
+
+    <div id="visor-ventana">
+        <div id="visor-espacial">
+            <div class="planeta-container"><button class="planeta-real" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/picante.jpg'); animation-duration: 6s;"></button></div>
+            <div class="planeta-container"><button class="planeta-real" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/maiz.jpg'); animation-duration: 10s;"></button></div>
+            <div class="planeta-container"><button class="planeta-real" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/cilantro.jpg'); animation-duration: 15s;"></button></div>
+            <div class="planeta-container"><button class="planeta-real" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/tortillas.jpg'); animation-duration: 8s;"></button></div>
+            <div class="planeta-container"><button class="planeta-real" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/limon.jpg'); animation-duration: 5s;"></button></div>
+            <div class="planeta-container"><button class="planeta-real" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/sal.jpg'); animation-duration: 12s;"></button></div>
+        </div>
     </div>
 
+    <script>
+        function mover(dir) {
+            const visor = document.getElementById('visor-espacial');
+            const scrollAmount = visor.offsetWidth; // Mueve exactamente el ancho de una pantalla
+            visor.scrollBy({ left: dir * scrollAmount, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
