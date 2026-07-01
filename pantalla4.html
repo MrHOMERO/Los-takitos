@@ -6,24 +6,28 @@
     <style>
         body { margin: 0; background: #000; overflow: hidden; }
         
-        /* Contenedor principal para evitar bloqueos */
-        #game-container { position: relative; width: 100vw; height: 100vh; }
-
-        /* Fondo y cabina como imágenes de fondo del contenedor */
-        #escena {
-            width: 100%; height: 100%;
-            background-image: url('watermarked_img_5533350620813538015.png');
+        /* Contenedor total que mantiene la imagen de fondo */
+        #app {
+            width: 100vw; height: 100vh;
+            background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/69e9fcf7e0cb94f8660692c4b6eb8efe77e9307d/fondomapa%20(1).jpg');
             background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center;
             position: relative;
         }
 
-        /* Ventana centrada donde se mueven los planetas */
+        /* La cabina se coloca como una capa encima */
+        #cabina-capa {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url('watermarked_img_5533350620813538015.png');
+            background-size: cover; pointer-events: none; z-index: 10;
+        }
+
+        /* Ventana transparente en el centro */
         #visor-ventana {
-            position: absolute;
-            top: 18%; left: 24%;
-            width: 52%; height: 35%;
-            overflow: hidden;
-            z-index: 1;
+            width: 45%; height: 30%;
+            z-index: 5; overflow: hidden;
+            display: flex; align-items: center;
         }
 
         #visor-espacial {
@@ -35,42 +39,39 @@
 
         .planeta-container { 
             display: flex; align-items: center; justify-content: center;
-            width: 52vw; scroll-snap-align: center; 
+            width: 45vw; scroll-snap-align: center; 
         }
 
         .planeta-real {
             border-radius: 50%; background-size: 200% 100%;
-            animation: rotarTextura linear infinite;
-            width: 80px; height: 80px;
+            animation: rotarTextura 10s linear infinite;
+            width: 70px; height: 70px;
         }
         @keyframes rotarTextura { from { background-position: 0% 50%; } to { background-position: 200% 50%; } }
 
-        /* Botones táctiles */
         .nav-btn {
-            position: absolute; top: 50%; z-index: 10;
-            background: rgba(255,255,255,0.1); color: white;
-            padding: 15px; cursor: pointer; border: 1px solid white;
+            position: absolute; z-index: 20;
+            background: rgba(255,255,255,0.2); color: white;
+            padding: 15px; border-radius: 8px; cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-<div id="game-container">
-    <div id="escena">
-        <div class="nav-btn left-2" onclick="mover(-1)">◀</div>
-        <div class="nav-btn right-2" onclick="mover(1)">▶</div>
-
-        <div id="visor-ventana">
-            <div id="visor-espacial">
-                <div class="planeta-container"><div class="planeta-real" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/picante.jpg'); animation-duration: 6s;"></div></div>
-                <div class="planeta-container"><div class="planeta-real" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/maiz.jpg'); animation-duration: 10s;"></div></div>
-                <div class="planeta-container"><div class="planeta-real" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/cilantro.jpg'); animation-duration: 15s;"></div></div>
-                <div class="planeta-container"><div class="planeta-real" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/tortillas.jpg'); animation-duration: 8s;"></div></div>
-                <div class="planeta-container"><div class="planeta-real" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/limon.jpg'); animation-duration: 5s;"></div></div>
-                <div class="planeta-container"><div class="planeta-real" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/sal.jpg'); animation-duration: 12s;"></div></div>
-            </div>
+<div id="app">
+    <div id="cabina-capa"></div>
+    
+    <div class="nav-btn left-4" onclick="mover(-1)">◀</div>
+    
+    <div id="visor-ventana">
+        <div id="visor-espacial">
+            <div class="planeta-container"><div class="planeta-real" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/picante.jpg');"></div></div>
+            <div class="planeta-container"><div class="planeta-real" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/maiz.jpg');"></div></div>
+            <div class="planeta-container"><div class="planeta-real" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/a7777371ce9124f981932f027fe09a1f51837899/cilantro.jpg');"></div></div>
         </div>
     </div>
+
+    <div class="nav-btn right-4" onclick="mover(1)">▶</div>
 </div>
 
 <script>
