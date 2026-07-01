@@ -6,30 +6,36 @@
     <title>La Gran Elección</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Cambiamos el fondo para esta pantalla específicamente */
         .fondo-espacio {
             background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/espacio2.jpg') !important;
         }
     </style>
 </head>
 <body>
-    <!-- Fondo -->
     <div class="fondo-espacio"></div>
 
-    <!-- Audio de ambiente -->
-    <!-- Nota: Muchos navegadores bloquean el autoplay si el usuario no ha interactuado antes. 
-         Por eso, al hacer clic en 'COMENZAR' en la pantalla 1, el audio debería sonar al llegar aquí. -->
     <audio autoplay loop>
         <source src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/c73eac72ee9c6726509c34557d8ced2d9a0b1fae/audiopantalla2.mp3" type="audio/mpeg">
     </audio>
 
     <div class="pantalla">
         <h2 class="titulo-juego">LA GRAN ELECCIÓN</h2>
-        <p class="pregunta-texto">¿Cuál es la forma más sabia de gastar nuestro tiempo ?</p>
+        <p class="pregunta-texto">¿Cuál es la forma más sabia de gastar nuestro tiempo?</p>
         
-        <button class="boton-jugar" onclick="elegirEsencia('Sabiduría')">Buscar la sabiduría</button>
-        <button class="boton-jugar" onclick="elegirEsencia('Legado')">Construir un legado</button>
-        <button class="boton-jugar" onclick="elegirEsencia('Presente')">Vivir el momento</button>
+        <!-- Botón 1: Sabiduría (Con la imagen que me acabas de pasar) -->
+        <button class="boton-jugar" onclick="elegirEsencia('Sabiduría', 'https://github.com/MrHOMERO/Los-takitos/raw/b06b4f465cac4963d117067da82fb82d179051b9/retouch_2026063003370289.png')">
+            Buscar la sabiduría
+        </button>
+
+        <!-- Botón 2: Legado -->
+        <button class="boton-jugar" onclick="elegirEsencia('Legado', 'https://github.com/MrHOMERO/Los-takitos/raw/b06b4f465cac4963d117067da82fb82d179051b9/retouch_2026063003370289.png')">
+            Construir un legado
+        </button>
+
+        <!-- Botón 3: Presente -->
+        <button class="boton-jugar" onclick="elegirEsencia('Presente', 'https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/PERSONAJE_3_URL.png')">
+            Vivir el momento
+        </button>
     </div>
 
     <script src="juego.js"></script>
