@@ -8,9 +8,9 @@
         body { margin: 0; background: #000; overflow: hidden; }
         
         #contenedor-panoramico {
-            display: flex; /* Alinea las imágenes horizontalmente */
+            display: flex; 
             height: 100vh;
-            width: 300vw; /* Tres pantallas de ancho */
+            width: 300vw; 
             overflow-x: auto;
             scroll-behavior: smooth;
         }
@@ -22,7 +22,16 @@
             background-position: center;
         }
 
-        /* Instrucción flotante */
+        /* Animación de respiración para la imagen central */
+        .respiracion {
+            animation: respirar 4s infinite ease-in-out;
+        }
+
+        @keyframes respirar {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.01) translateY(-2px); } /* Sutil movimiento de respiración */
+        }
+
         #ui { position: fixed; top: 20px; left: 20px; color: cyan; font-family: monospace; z-index: 10; pointer-events: none; }
     </style>
 </head>
@@ -34,8 +43,8 @@
     <!-- Izquierda -->
     <div class="seccion" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/b88f4bf419a761d062e848c8625c311eb14ca764/extensi%C3%B3n%20izquierda%20picante%20prime.jpg');"></div>
     
-    <!-- Centro (Con el Personaje) -->
-    <div class="seccion" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/b88f4bf419a761d062e848c8625c311eb14ca764/personaje_con_fondo_central.jpg');"></div>
+    <!-- Centro (Con el Personaje) - Aplicamos la clase respiracion -->
+    <div class="seccion respiracion" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/0a97338bc64aed40fd9efc13b325226ae08eacb8/fondopantalla5.jpeg');"></div>
     
     <!-- Derecha -->
     <div class="seccion" style="background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/b88f4bf419a761d062e848c8625c311eb14ca764/extensi%C3%B3n%20derecha%20picante%20prime.jpg');"></div>
