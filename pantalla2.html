@@ -6,36 +6,41 @@
     <title>La Gran Elección</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .fondo-espacio {
-            background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/espacio2.jpg') !important;
+        .fondo-espacio { background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/espacio2.jpg') !important; }
+
+        /* Definición de la animación de destello */
+        @keyframes destello {
+            0%, 100% { box-shadow: 0 0 5px #FFD700; border-color: #FFD700; }
+            50% { box-shadow: 0 0 25px #FFD700, 0 0 40px #FFD700; border-color: #FFF; }
         }
+
+        /* Aplicación de la animación con retardo para la secuencia */
+        .boton-jugar {
+            animation: destello 3s infinite;
+            transition: 0.3s;
+        }
+
+        /* Retardos para que destellen uno tras otro */
+        .boton-jugar:nth-child(3) { animation-delay: 0s; } /* Botón 1 */
+        .boton-jugar:nth-child(4) { animation-delay: 1s; } /* Botón 2 */
+        .boton-jugar:nth-child(5) { animation-delay: 2s; } /* Botón 3 */
     </style>
 </head>
 <body>
     <div class="fondo-espacio"></div>
 
-    <audio autoplay loop>
-        <source src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/c73eac72ee9c6726509c34557d8ced2d9a0b1fae/audiopantalla2.mp3" type="audio/mpeg">
+    <!-- Audio configurado para no repetirse (quitamos el atributo loop) -->
+    <audio autoplay>
+        <source src="https://github.com/MrHOMERO/Los-takitos/raw/18f0d6983969d9eeef258cafff12217c73760a8c/Audio_2026_07_01_20_25_25.mp3" type="audio/mpeg">
     </audio>
 
     <div class="pantalla">
         <h2 class="titulo-juego">LA GRAN ELECCIÓN</h2>
         <p class="pregunta-texto">¿Cuál es la forma más sabia de gastar nuestro tiempo?</p>
         
-        <!-- Botón 1: Sabiduría (Con la imagen que me acabas de pasar) -->
-        <button class="boton-jugar" onclick="elegirEsencia('Sabiduría', 'https://github.com/MrHOMERO/Los-takitos/raw/b06b4f465cac4963d117067da82fb82d179051b9/retouch_2026063003370289.png')">
-            Buscar la sabiduría
-        </button>
-
-        <!-- Botón 2: Legado -->
-        <button class="boton-jugar" onclick="elegirEsencia('Legado', 'https://github.com/MrHOMERO/Los-takitos/raw/b06b4f465cac4963d117067da82fb82d179051b9/retouch_2026063003370289.png')">
-            Construir un legado
-        </button>
-
-        <!-- Botón 3: Presente -->
-        <button class="boton-jugar" onclick="elegirEsencia('Presente', 'https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/PERSONAJE_3_URL.png')">
-            Vivir el momento
-        </button>
+        <button class="boton-jugar" onclick="elegirEsencia('Sabiduría', 'https://github.com/MrHOMERO/Los-takitos/raw/b06b4f465cac4963d117067da82fb82d179051b9/retouch_2026063003370289.png')">Buscar la sabiduría</button>
+        <button class="boton-jugar" onclick="elegirEsencia('Legado', 'https://github.com/MrHOMERO/Los-takitos/raw/b06b4f465cac4963d117067da82fb82d179051b9/retouch_2026063003370289.png')">Construir un legado</button>
+        <button class="boton-jugar" onclick="elegirEsencia('Presente', 'https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/PERSONAJE_3_URL.png')">Vivir el momento</button>
     </div>
 
     <script src="juego.js"></script>
