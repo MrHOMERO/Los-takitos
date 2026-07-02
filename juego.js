@@ -39,3 +39,21 @@ function aplicarImagenPersonaje() {
         imgElemento.src = imagen;
     }
 }
+// --- Código de Audio (Añadir al final de juego.js) ---
+const audioFondo = new Audio('https://github.com/MrHOMERO/Los-takitos/raw/cfa35cb9c92150f6720f032b7fd2612c5e6ec4f5/fondo%20del%20juego.mp3');
+audioFondo.loop = true;
+
+// Función para iniciar la música tras la primera interacción del usuario
+function inicializarMusica() {
+    audioFondo.play().catch(e => console.log("Esperando interacción..."));
+    document.removeEventListener('click', inicializarMusica);
+}
+
+// Escuchamos el primer click en cualquier parte para arrancar el audio
+document.addEventListener('click', inicializarMusica);
+
+// Función para detener la música al entrar a una misión
+function detenerMusica() {
+    audioFondo.pause();
+    audioFondo.currentTime = 0;
+}
