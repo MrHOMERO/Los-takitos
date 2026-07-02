@@ -5,31 +5,32 @@
     <title>Bienvenido, Viajero</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        /* Tus estilos actuales */
         .carta-personaje {
             background: rgba(0, 0, 0, 0.85);
             border: 3px solid #FFD700;
             border-radius: 20px;
-            padding: 25px;
-            margin: 20px auto;
-            width: 85%;
-            max-width: 400px;
+            padding: 30px; /* Aumentado */
+            margin: 30px auto; /* Aumentado */
+            width: 90%;
+            max-width: 450px; /* Aumentado */
             color: #FFD700;
             text-align: center;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
         }
         .carta-img { 
             width: 100%; 
-            max-height: 300px; /* Personaje más grande */
+            max-height: 350px; /* Personaje más grande */
             object-fit: contain; 
-            margin-bottom: 10px; 
+            margin-bottom: 20px; 
         }
-        .nombre-esencia { font-size: 1.5rem; margin: 5px 0; color: #FFF; }
+        .nombre-esencia { font-size: 2rem; margin: 10px 0; color: #FFF; }
         .stats-grid { 
             display: grid; 
             grid-template-columns: 1fr 1fr 1fr; 
-            gap: 15px; 
-            font-size: 1.1rem; 
-            margin: 20px 0;
+            gap: 20px; 
+            font-size: 1.3rem; 
+            margin: 25px 0;
             font-weight: bold;
         }
     </style>
@@ -52,27 +53,21 @@
 
         <p class="pregunta-texto">¿Cómo te llaman en los registros del tiempo?</p>
         <input type="text" id="input-nombre" class="boton-jugar" placeholder="Tu nombre..." style="background: white; color: black;">
-        <button class="boton-jugar" onclick="confirmar()">Comenzar mi historia</button>
+        
+        <!-- Cambiado a confirmarNombre() para usar la lógica centralizada de juego.js -->
+        <button class="boton-jugar" onclick="confirmarNombre()">Comenzar mi historia</button>
     </div>
 
     <script>
         function inicializar() {
-            // Asignamos los valores por defecto directamente al cargar
             localStorage.setItem('esencia', 'Sabiduría');
             localStorage.setItem('sab', 50);
             localStorage.setItem('int', 50);
             localStorage.setItem('pod', 50);
         }
-
-        function confirmar() {
-            const nombre = document.getElementById('input-nombre').value;
-            if(nombre) {
-                localStorage.setItem('nombre', nombre);
-                window.location.href = 'pantalla4.html';
-            } else {
-                alert("Por favor, ingresa tu nombre.");
-            }
-        }
+    </script>
+    
+    <!-- Este script es el único que debe ir al final -->
     <script src="juego.js"></script>
 </body>
 </html>
