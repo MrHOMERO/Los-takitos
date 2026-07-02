@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>El Umbral del Velo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -21,31 +21,31 @@
             background-size: cover; pointer-events: none; z-index: 10;
         }
 
-        /* Visor panorámico con estilo dorado */
         #visor-mision {
             position: absolute;
-            top: 25%; left: 15%;
-            width: 70%; height: 35%;
-            background: rgba(0, 0, 0, 0.85);
-            border: 2px solid #FFD700;
-            padding: 25px;
+            top: 15%; left: 10%;
+            width: 80%; height: 60%;
+            background: rgba(0, 0, 0, 0.9);
+            border: 3px solid #FFD700;
+            padding: 20px;
             color: #FFD700;
             z-index: 5;
             display: flex; flex-direction: column;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: center;
             text-align: center;
-            border-radius: 10px;
-            overflow: auto;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
         }
 
-        #texto-mision { font-size: 1rem; line-height: 1.4; width: 100%; }
+        #texto-mision { font-size: 1.1rem; line-height: 1.6; width: 100%; overflow-y: auto; }
         
         #btn-iniciar {
-            padding: 10px 30px;
+            padding: 15px 30px;
             background: #FFD700; color: black;
-            font-weight: bold; border-radius: 5px;
-            cursor: pointer; margin-top: 15px; border: none;
+            font-weight: bold; border-radius: 10px;
+            cursor: pointer; margin-top: 20px; border: none;
+            font-size: 1.1rem; text-transform: uppercase;
         }
     </style>
 </head>
@@ -62,47 +62,47 @@
 <audio id="sonido-maquina" src="https://github.com/MrHOMERO/Los-takitos/raw/44aad3aa2eaf32eb35c15be17c5b59521247424f/sonido%20de%20teclado.mp3" preload="auto"></audio>
 
 <script>
-    // Recuperamos datos con fallback
-    const nombre = localStorage.getItem('nombre') || "Viajero";
-    const esencia = localStorage.getItem('esencia') || "Sabiduría";
+    // 1. Datos del jugador
+    const nombre = localStorage.getItem('nombre') || "VIAJERO";
+    const esencia = localStorage.getItem('esencia') || "SABIDURÍA";
     
-    const textoCompleto = `IDENTIDAD VERIFICADA. SALUDOS, ${nombre.toUpperCase()}. EL ESPECTRO DE TU ESENCIA HA SIDO ANALIZADO: TU INCLINACIÓN POR LA ${esencia.toUpperCase()} HA DEJADO UNA FIRMA ÚNICA EN LOS REGISTROS DEL SECTOR. HAS SIDO CONVOCADO PARA UN PROPÓSITO MAYOR. EL MAPA DE CONOCIMIENTO SE HA DESBLOQUEADO. ES MOMENTO DE DESCIFRAR LAS VERDADES QUE LAS ESTRELLAS HAN GUARDADO CELOSAMENTE POR EONES.`;
+    // 2. Textos concatenados
+    const intro = `IDENTIDAD VERIFICADA. SALUDOS, ${nombre.toUpperCase()}. EL ESPECTRO DE TU ESENCIA HA SIDO ANALIZADO: TU INCLINACIÓN POR LA ${esencia.toUpperCase()} HA DEJADO UNA FIRMA ÚNICA EN LOS REGISTROS DEL SECTOR. `;
+    const mision = `MISIÓN ACTUAL: EL TIEMPO SE HA FRACTURADO EN ESTE SECTOR. DEBES LOCALIZAR EL NÚCLEO DE ESTABILIZACIÓN Y REPARAR LA GRIETA ANTES DE QUE LA PARADOJA SE VUELVA PERMANENTE. EL MAPA DE CONOCIMIENTO SE HA DESBLOQUEADO PARA GUIARTE. ES MOMENTO DE DESCIFRAR LAS VERDADES QUE LAS ESTRELLAS HAN GUARDADO CELOSAMENTE POR EONES.`;
     
-    // Cálculo para que dure 20 segundos exactos (20000ms)
-    const duracionTotal = 20000; 
-    const velocidad = duracionTotal / textoCompleto.length;
-
+    const textoCompleto = intro + mision;
+    const velocidad = 50; 
     let i = 0;
 
     function iniciarSecuencia() {
-        const sonido = document.getElementById('sonido-maquina');
-        // Intentar reproducir sonido al cargar
-        sonido.play().catch(e => console.log("Audio esperando interacción del usuario"));
         escribir();
     }
 
     function escribir() {
         if (i < textoCompleto.length) {
-            let char = textoCompleto.charAt(i);
-            const contenedorTexto = document.getElementById("texto-mision");
-            const visor = document.getElementById("visor-mision");
-            
-            contenedorTexto.innerHTML += (char === '\n' ? "<br>" : char);
-            visor.scrollTop = visor.scrollHeight;
-            
+            document.getElementById("texto-mision").innerHTML += textoCompleto.charAt(i);
             i++;
+            
+            // Efecto de sonido de tecleo
+            const sonido = document.getElementById('sonido-maquina');
+            sonido.currentTime = 0;
+            sonido.play().catch(() => {});
+            
             setTimeout(escribir, velocidad);
         } else {
-            // Inyectar botón cuando termina el texto
+            // Cuando termina la escritura, añade el botón
             if (!document.getElementById('btn-iniciar')) {
                 const btn = document.createElement("button");
-                btn.innerHTML = "ACCEDER AL MAPA DE CONOCIMIENTO";
+                btn.innerHTML = "ACCEDER AL MAPA";
                 btn.id = "btn-iniciar";
                 btn.onclick = () => window.location.href = 'pantalla5.html';
                 document.getElementById("visor-mision").appendChild(btn);
             }
         }
     }
+</script>
+
 <script src="juego.js"></script>
+
 </body>
 </html>
