@@ -2,85 +2,67 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pikante-Prime - Exploración</title>
+    <title>Mapa de Conocimiento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { margin: 0; background: #000; overflow: hidden; font-family: 'Courier New', Courier, monospace; }
         
-        #contenedor-panoramico { display: flex; height: 100vh; width: 300vw; overflow-x: auto; scroll-behavior: smooth; }
-        .seccion { position: relative; flex: 1; height: 100vh; overflow: hidden; }
-
-        /* Estilo con filtros de textura y brillo */
-        .img-panoramica { 
-            width: 100%; height: 100%; object-fit: cover; 
-            filter: contrast(1.15) saturate(1.2) brightness(0.95); 
+        #app {
+            width: 100vw; height: 100vh;
+            background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/69e9fcf7e0cb94f8660692c4b6eb8efe77e9307d/fondomapa%20(1).jpg');
+            background-size: cover; background-position: center;
+            position: relative;
         }
 
-        /* Personaje */
-        .personaje-wrapper {
-            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-            height: 90vh; z-index: 10; cursor: pointer;
+        #cabina-capa {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('watermarked_img_5533350620813538015.png');
+            background-size: cover; pointer-events: none; z-index: 10;
         }
-        .respiracion { animation: respirar 3s infinite ease-in-out; }
-        @keyframes respirar { 0%, 100% { transform: scale(1) translateX(-50%) translateY(0); } 50% { transform: scale(1.02) translateX(-49%) translateY(-5px); } }
 
-        /* Puntos Verdes (Ocultos inicialmente) */
-        .punto-interes {
-            position: absolute; width: 25px; height: 25px;
-            background-color: #00ff00; border-radius: 50%;
-            box-shadow: 0 0 15px #00ff00; display: none; 
-            cursor: pointer; z-index: 20; border: 2px solid white;
+        .planeta {
+            position: absolute; width: 70px; height: 70px;
+            border-radius: 50%; background-size: cover;
+            border: 2px solid #FFD700; cursor: pointer;
+            animation: rotar 20s linear infinite;
+            z-index: 5;
         }
-        #punto-izq { top: 40%; left: 30%; } 
-        #punto-der { top: 40%; left: 70%; }
+        @keyframes rotar { from { background-position: 0% 0%; } to { background-position: 200% 0%; } }
 
-        #mensaje-inicio {
-            position: fixed; top: 30%; width: 100%; text-align: center;
-            color: white; font-size: 1.5rem; z-index: 20; pointer-events: none;
-            text-shadow: 2px 2px 4px black;
-        }
+        .linea { position: absolute; height: 3px; background: white; z-index: 2; transform-origin: left center; }
+
+        /* Posiciones en Zigzag Elevadas */
+        #p1 { top: 25%; left: 10%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/picante.jpg'); }
+        #p2 { top: 40%; left: 25%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/maiz.jpg'); }
+        #p3 { top: 25%; left: 40%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/tortillas.jpg'); }
+        #p4 { top: 40%; left: 55%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/sal.jpg'); }
+        #p5 { top: 25%; left: 70%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/cilantro.jpg'); }
+        #p6 { top: 40%; left: 85%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/limon.jpg'); }
     </style>
 </head>
 <body>
 
-<div id="mensaje-inicio">TOCA AL PERSONAJE PARA COMENZAR A EXPLORAR</div>
+<div id="app">
+    <div id="cabina-capa"></div>
 
-<div id="contenedor-panoramico">
-    <!-- Izquierda -->
-    <div class="seccion">
-        <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/b88f4bf419a761d062e848c8625c311eb14ca764/extensi%C3%B3n%20izquierda%20picante%20prime.jpg" class="img-panoramica">
-        <div id="punto-izq" class="punto-interes"></div>
-    </div>
-    
-    <!-- Centro -->
-    <div class="seccion">
-        <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/e1aad52480135ea17878c35a8be37dde19aecb12/fondopantalla5%20(1).jpeg" class="img-panoramica">
-        <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/f3b25f548f8da3203ec3b98fb4fbc8beaf44634f/retouch_2026070100544560.png" 
-             class="personaje-wrapper respiracion" onclick="iniciarExperiencia()" alt="Personaje">
-    </div>
-    
-    <!-- Derecha -->
-    <div class="seccion">
-        <img src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/b88f4bf419a761d062e848c8625c311eb14ca764/extensi%C3%B3n%20derecha%20picante%20prime.jpg" class="img-panoramica">
-        <div id="punto-der" class="punto-interes"></div>
-    </div>
+    <div class="linea" style="top: 32%; left: 14%; width: 17%; transform: rotate(45deg);"></div>
+    <div class="linea" style="top: 32%; left: 29%; width: 17%; transform: rotate(-45deg);"></div>
+    <div class="linea" style="top: 32%; left: 44%; width: 17%; transform: rotate(45deg);"></div>
+    <div class="linea" style="top: 32%; left: 59%; width: 17%; transform: rotate(-45deg);"></div>
+    <div class="linea" style="top: 32%; left: 74%; width: 17%; transform: rotate(45deg);"></div>
+
+    <div id="p1" class="planeta" onclick="irMision('picante')"></div>
+    <div id="p2" class="planeta" onclick="irMision('maiz')"></div>
+    <div id="p3" class="planeta" onclick="irMision('tortillas')"></div>
+    <div id="p4" class="planeta" onclick="irMision('sal')"></div>
+    <div id="p5" class="planeta" onclick="irMision('cilantro')"></div>
+    <div id="p6" class="planeta" onclick="irMision('limon')"></div>
 </div>
 
-<audio id="sonido-fondo" src="https://raw.githubusercontent.com/MrHOMERO/Los-takitos/68ff4ef040fa62192b4246f69799117d569aff46/sonido%20picante%20prime.mp3"></audio>
-
 <script>
-    // Centrar al cargar
-    window.onload = function() {
-        document.getElementById('contenedor-panoramico').scrollLeft = window.innerWidth;
-    };
-
-    function iniciarExperiencia() {
-        document.getElementById('sonido-fondo').play();
-        document.getElementById('mensaje-inicio').style.display = 'none';
-        
-        // Activar los puntos verdes
-        document.getElementById('punto-izq').style.display = 'block';
-        document.getElementById('punto-der').style.display = 'block';
+    function irMision(planeta) {
+        // Redirección a la misión correspondiente
+        window.location.href = `mision_${planeta}.html`;
     }
 </script>
 </body>
