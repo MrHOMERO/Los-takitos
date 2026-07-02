@@ -21,6 +21,7 @@
             background-size: cover; pointer-events: none; z-index: 10;
         }
 
+        /* Visor panorámico con estilo dorado */
         #visor-mision {
             position: absolute;
             top: 25%; left: 15%;
@@ -67,6 +68,10 @@
     
     const textoCompleto = `IDENTIDAD VERIFICADA. SALUDOS, ${nombre.toUpperCase()}. EL ESPECTRO DE TU ESENCIA HA SIDO ANALIZADO: TU INCLINACIÓN POR LA ${esencia.toUpperCase()} HA DEJADO UNA FIRMA ÚNICA EN LOS REGISTROS DEL SECTOR. HAS SIDO CONVOCADO PARA UN PROPÓSITO MAYOR. EL MAPA DE CONOCIMIENTO SE HA DESBLOQUEADO. ES MOMENTO DE DESCIFRAR LAS VERDADES QUE LAS ESTRELLAS HAN GUARDADO CELOSAMENTE POR EONES.`;
     
+    // Cálculo para que dure 20 segundos exactos (20000ms)
+    const duracionTotal = 20000; 
+    const velocidad = duracionTotal / textoCompleto.length;
+
     let i = 0;
 
     function iniciarSecuencia() {
@@ -86,8 +91,9 @@
             visor.scrollTop = visor.scrollHeight;
             
             i++;
-            setTimeout(escribir, 35); // Velocidad de escritura
+            setTimeout(escribir, velocidad);
         } else {
+            // Inyectar botón cuando termina el texto
             if (!document.getElementById('btn-iniciar')) {
                 const btn = document.createElement("button");
                 btn.innerHTML = "ACCEDER AL MAPA DE CONOCIMIENTO";
