@@ -44,3 +44,31 @@ body { margin: 0; padding: 0; font-family: sans-serif; background: #000; color: 
     text-shadow: 2px 2px 6px #000000, 0px 0px 10px #000000;
     font-weight: bold;
 }
+/* Contenedor principal de la tarjeta */
+.tarjeta-personaje {
+    width: 80%;           /* Ocupa el 80% del ancho de pantalla */
+    max-width: 400px;     /* Pero no más de 400px para que no se deforme */
+    margin: 20px auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 3px solid #FFD700;
+    border-radius: 20px;
+    text-align: center;
+}
+
+/* Imagen grande y centrada */
+.imagen-personaje {
+    width: 100%;          /* La imagen llena el contenedor */
+    max-width: 250px;     /* Un tamaño generoso */
+    height: auto;
+    border-radius: 15px;
+    display: block;
+    margin: 0 auto 20px auto;
+}
+
+/* Texto del nombre */
+#nombre-jugador {
+    font-size: 2rem;      /* Tamaño de letra grande */
+    color: #FFD700;
+    margin: 10px 0;
+}
