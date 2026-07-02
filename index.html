@@ -3,37 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Acceso - El Camino del Tiempo</title>
+    <title>Bienvenido - El Camino del Tiempo</title>
     <style>
-        body, html { 
-            margin: 0; padding: 0; width: 100%; height: 100%; 
-            background-color: #000; overflow: hidden; 
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        /* Capa de fondo blureada */
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; display: flex; align-items: center; justify-content: center; }
+        
         #fondo-blur {
             position: absolute; width: 100%; height: 100%;
             background: radial-gradient(circle, #1b2735 0%, #090a0f 100%);
-            filter: blur(15px);
-            z-index: 0;
+            filter: blur(20px);
         }
 
-        /* Botón brillante y tintineante */
         #btn-acceder {
-            z-index: 2;
-            padding: 20px 40px;
-            font-size: 1.5rem;
-            color: #FFD700;
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid #FFD700;
-            border-radius: 50px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 0 15px #FFD700;
+            z-index: 2; padding: 20px 40px; font-size: 1.5rem; color: #FFD700;
+            background: rgba(0,0,0,0.5); border: 2px solid #FFD700;
+            border-radius: 50px; cursor: pointer; text-transform: uppercase;
             animation: tintinear 2s infinite ease-in-out;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Courier New', monospace;
         }
 
         @keyframes tintinear {
@@ -45,21 +30,19 @@
 <body>
 
     <div id="fondo-blur"></div>
-
-    <button id="btn-acceder" onclick="entrarAlJuego()">ACCEDER AL JUEGO</button>
+    <button id="btn-acceder" onclick="iniciarYContinuar()">ACCEDER AL JUEGO</button>
 
     <script src="juego.js"></script>
 
     <script>
-        function entrarAlJuego() {
-            // 1. Inicializa la música
+        function iniciarYContinuar() {
+            // Inicia la música de juego.js
             if (typeof inicializarMusica === 'function') {
                 inicializarMusica();
             }
-            // 2. Redirige a la pantalla que contiene el video
-            // Nota: Asegúrate de que tu archivo de video ahora se llame 'pantalla_video.html' 
-            // o ajusta este nombre al archivo donde tienes el video.
-            window.location.href = 'pantalla_video.html';
+            // Redirige a la pantalla que contiene el video
+            // Debes asegurarte de que tu archivo de video se llame 'video_intro.html'
+            window.location.href = 'video_intro.html';
         }
     </script>
 </body>
