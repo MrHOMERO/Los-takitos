@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Introducción - El Camino del Tiempo</title>
+    <title>Acceso - El Camino del Tiempo</title>
     <style>
         body, html { 
             margin: 0; padding: 0; width: 100%; height: 100%; 
@@ -11,57 +11,56 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        #video-intro {
-            width: 100%; 
-            height: 100%;
-            object-fit: contain;
-            z-index: 1;
+        /* Capa de fondo blureada */
+        #fondo-blur {
+            position: absolute; width: 100%; height: 100%;
+            background: radial-gradient(circle, #1b2735 0%, #090a0f 100%);
+            filter: blur(15px);
+            z-index: 0;
         }
 
-        #btn-saltar {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
+        /* Botón brillante y tintineante */
+        #btn-acceder {
             z-index: 2;
-            background: rgba(0, 0, 0, 0.6);
+            padding: 20px 40px;
+            font-size: 1.5rem;
             color: #FFD700;
-            border: 1px solid #FFD700;
-            padding: 8px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #FFD700;
+            border-radius: 50px;
             cursor: pointer;
-            font-family: 'Courier New', Courier, monospace;
-            border-radius: 5px;
-            font-size: 0.9rem;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px #FFD700;
+            animation: tintinear 2s infinite ease-in-out;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        @keyframes tintinear {
+            0%, 100% { opacity: 1; box-shadow: 0 0 10px #FFD700; }
+            50% { opacity: 0.7; box-shadow: 0 0 30px #FFD700; }
         }
     </style>
 </head>
 <body>
 
-    <video id="video-intro" autoplay muted playsinline>
-        <source src="https://github.com/MrHOMERO/Los-takitos/raw/f9f0b828106e201e30ce9674328f98c14e83c026/lv_0_20260701185600.mp4" type="video/mp4">
-        Tu navegador no soporta la reproducción de video.
-    </video>
+    <div id="fondo-blur"></div>
 
-    <button id="btn-saltar" onclick="gestionarInicio()">Saltar Intro</button>
+    <button id="btn-acceder" onclick="entrarAlJuego()">ACCEDER AL JUEGO</button>
 
     <script src="juego.js"></script>
 
     <script>
-        const video = document.getElementById('video-intro');
-
-        // Función unificada para iniciar música y cambiar de página
-        function gestionarInicio() {
-            // Esto activa el audio de juego.js al primer clic
+        function entrarAlJuego() {
+            // 1. Inicializa la música
             if (typeof inicializarMusica === 'function') {
                 inicializarMusica();
             }
-            window.location.href = 'pantalla1.html';
+            // 2. Redirige a la pantalla que contiene el video
+            // Nota: Asegúrate de que tu archivo de video ahora se llame 'pantalla_video.html' 
+            // o ajusta este nombre al archivo donde tienes el video.
+            window.location.href = 'pantalla_video.html';
         }
-
-        // Al terminar el video, hacemos lo mismo
-        video.onended = function() {
-            gestionarInicio();
-        };
     </script>
 </body>
 </html>
