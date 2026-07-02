@@ -3,22 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bienvenido - El Camino del Tiempo</title>
+    <title>El Camino del Tiempo</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; display: flex; align-items: center; justify-content: center; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }
         
-        #fondo-blur {
-            position: absolute; width: 100%; height: 100%;
+        /* Capa inicial de acceso */
+        #capa-acceso {
+            position: absolute; width: 100%; height: 100%; z-index: 10;
+            display: flex; align-items: center; justify-content: center;
             background: radial-gradient(circle, #1b2735 0%, #090a0f 100%);
-            filter: blur(20px);
         }
 
         #btn-acceder {
-            z-index: 2; padding: 20px 40px; font-size: 1.5rem; color: #FFD700;
+            padding: 20px 40px; font-size: 1.5rem; color: #FFD700;
             background: rgba(0,0,0,0.5); border: 2px solid #FFD700;
             border-radius: 50px; cursor: pointer; text-transform: uppercase;
             animation: tintinear 2s infinite ease-in-out;
             font-family: 'Courier New', monospace;
+        }
+
+        /* Estilos del video (oculto inicialmente) */
+        #video-intro {
+            width: 100%; height: 100%; object-fit: contain;
+            display: none; /* Se mostrará al hacer clic */
         }
 
         @keyframes tintinear {
@@ -29,21 +36,32 @@
 </head>
 <body>
 
-    <div id="fondo-blur"></div>
-    <button id="btn-acceder" onclick="iniciarYContinuar()">ACCEDER AL JUEGO</button>
+    <div id="capa-acceso">
+        <button id="btn-acceder" onclick="comenzarExperiencia()">ACCEDER AL JUEGO</button>
+    </div>
+
+    <video id="video-intro" playsinline>
+        <source src="https://github.com/MrHOMERO/Los-takitos/raw/f9f0b828106e201e30ce9674328f98c14e83c026/lv_0_20260701185600.mp4" type="video/mp4">
+    </video>
 
     <script src="juego.js"></script>
 
     <script>
-        function iniciarYContinuar() {
-            // Inicia la música de juego.js
-            if (typeof inicializarMusica === 'function') {
-                inicializarMusica();
-            }
-            // Redirige a la pantalla que contiene el video
-            // Debes asegurarte de que tu archivo de video se llame 'video_intro.html'
-            window.location.href = 'video_intro.html';
+        function comenzarExperiencia() {
+            // 1. Inicia música
+            if (typeof inicializarMusica === 'function') inicializarMusica();
+            
+            // 2. Oculta botón de acceso y muestra el video
+            document.getElementById('capa-acceso').style.display = 'none';
+            const video = document.getElementById('video-intro');
+            video.style.display = 'block';
+            video.play();
         }
+
+        // 3. Cuando termina el video, ir a pantalla 1
+        document.getElementById('video-intro').onended = function() {
+            window.location.href = 'pantalla1.html';
+        };
     </script>
 </body>
 </html>
