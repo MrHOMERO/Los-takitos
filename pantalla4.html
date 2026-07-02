@@ -2,77 +2,107 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Bienvenido, Viajero</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Umbral del Velo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .carta-personaje {
+        body { margin: 0; background: #000; overflow: hidden; font-family: 'Courier New', Courier, monospace; }
+        
+        #app {
+            width: 100vw; height: 100vh;
+            background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/69e9fcf7e0cb94f8660692c4b6eb8efe77e9307d/fondomapa%20(1).jpg');
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center; position: relative;
+        }
+
+        #cabina-capa {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('watermarked_img_5533350620813538015.png');
+            background-size: cover; pointer-events: none; z-index: 10;
+        }
+
+        /* Visor panorámico con estilo dorado */
+        #visor-mision {
+            position: absolute;
+            top: 25%; left: 15%;
+            width: 70%; height: 35%;
             background: rgba(0, 0, 0, 0.85);
-            border: 3px solid #FFD700;
-            border-radius: 20px;
+            border: 2px solid #FFD700;
             padding: 25px;
-            margin: 20px auto;
-            width: 85%;
-            max-width: 400px;
             color: #FFD700;
+            z-index: 5;
+            display: flex; flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
             text-align: center;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+            border-radius: 10px;
+            overflow: auto;
         }
-        .carta-img { 
-            width: 100%; 
-            max-height: 300px; /* Personaje más grande */
-            object-fit: contain; 
-            margin-bottom: 10px; 
-        }
-        .nombre-esencia { font-size: 1.5rem; margin: 5px 0; color: #FFF; }
-        .stats-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr 1fr; 
-            gap: 15px; 
-            font-size: 1.1rem; 
-            margin: 20px 0;
-            font-weight: bold;
+
+        #texto-mision { font-size: 1rem; line-height: 1.4; width: 100%; }
+        
+        #btn-iniciar {
+            padding: 10px 30px;
+            background: #FFD700; color: black;
+            font-weight: bold; border-radius: 5px;
+            cursor: pointer; margin-top: 15px; border: none;
         }
     </style>
 </head>
-<body onload="inicializar()">
-    <div class="fondo-espacio"></div>
+<body onload="iniciarSecuencia()">
 
-    <div class="pantalla">
-        <h2 class="titulo-juego">BIENVENIDO, VIAJERO</h2>
-
-        <div id="carta-visual" class="carta-personaje">
-            <img id="img-personaje" src="https://github.com/MrHOMERO/Los-takitos/raw/b06b4f465cac4963d117067da82fb82d179051b9/retouch_2026063003370289.png" class="carta-img">
-            <div class="nombre-esencia">SABIDURÍA</div>
-            <div class="stats-grid">
-                <div>SAB<br>50</div>
-                <div>INT<br>50</div>
-                <div>POD<br>50</div>
-            </div>
-        </div>
-
-        <p class="pregunta-texto">¿Cómo te llaman en los registros del tiempo?</p>
-        <input type="text" id="input-nombre" class="boton-jugar" placeholder="Tu nombre..." style="background: white; color: black;">
-        <button class="boton-jugar" onclick="confirmar()">Comenzar mi historia</button>
+<div id="app">
+    <div id="cabina-capa"></div>
+    
+    <div id="visor-mision">
+        <div id="texto-mision"></div>
     </div>
+</div>
 
-    <script>
-        function inicializar() {
-            // Asignamos los valores por defecto directamente al cargar
-            localStorage.setItem('esencia', 'Sabiduría');
-            localStorage.setItem('sab', 50);
-            localStorage.setItem('int', 50);
-            localStorage.setItem('pod', 50);
-        }
+<audio id="sonido-maquina" src="https://github.com/MrHOMERO/Los-takitos/raw/44aad3aa2eaf32eb35c15be17c5b59521247424f/sonido%20de%20teclado.mp3" preload="auto"></audio>
 
-        function confirmar() {
-            const nombre = document.getElementById('input-nombre').value;
-            if(nombre) {
-                localStorage.setItem('nombre', nombre);
-                window.location.href = 'pantalla4.html';
-            } else {
-                alert("Por favor, ingresa tu nombre.");
+<script>
+    // Recuperamos datos con fallback
+    const nombre = localStorage.getItem('nombre') || "Viajero";
+    const esencia = localStorage.getItem('esencia') || "Sabiduría";
+    
+    const textoCompleto = `IDENTIDAD VERIFICADA. SALUDOS, ${nombre.toUpperCase()}. EL ESPECTRO DE TU ESENCIA HA SIDO ANALIZADO: TU INCLINACIÓN POR LA ${esencia.toUpperCase()} HA DEJADO UNA FIRMA ÚNICA EN LOS REGISTROS DEL SECTOR. HAS SIDO CONVOCADO PARA UN PROPÓSITO MAYOR. EL MAPA DE CONOCIMIENTO SE HA DESBLOQUEADO. ES MOMENTO DE DESCIFRAR LAS VERDADES QUE LAS ESTRELLAS HAN GUARDADO CELOSAMENTE POR EONES.`;
+    
+    // Cálculo para que dure 20 segundos exactos (20000ms)
+    const duracionTotal = 20000; 
+    const velocidad = duracionTotal / textoCompleto.length;
+
+    let i = 0;
+
+    function iniciarSecuencia() {
+        const sonido = document.getElementById('sonido-maquina');
+        // Intentar reproducir sonido al cargar
+        sonido.play().catch(e => console.log("Audio esperando interacción del usuario"));
+        escribir();
+    }
+
+    function escribir() {
+        if (i < textoCompleto.length) {
+            let char = textoCompleto.charAt(i);
+            const contenedorTexto = document.getElementById("texto-mision");
+            const visor = document.getElementById("visor-mision");
+            
+            contenedorTexto.innerHTML += (char === '\n' ? "<br>" : char);
+            visor.scrollTop = visor.scrollHeight;
+            
+            i++;
+            setTimeout(escribir, velocidad);
+        } else {
+            // Inyectar botón cuando termina el texto
+            if (!document.getElementById('btn-iniciar')) {
+                const btn = document.createElement("button");
+                btn.innerHTML = "ACCEDER AL MAPA DE CONOCIMIENTO";
+                btn.id = "btn-iniciar";
+                btn.onclick = () => window.location.href = 'pantalla5.html';
+                document.getElementById("visor-mision").appendChild(btn);
             }
         }
-    </script>
+    }
+</script>
 </body>
 </html>
