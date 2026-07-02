@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Introducción - El Camino del Tiempo</title>
+    <style>
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background-color: #000; overflow: hidden; 
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        #video-intro {
+            width: 100%; 
+            height: 100%;
+            object-fit: contain;
+            z-index: 1;
+        }
+
+        #btn-saltar {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.6);
+            color: #FFD700;
+            border: 1px solid #FFD700;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <video id="video-intro" autoplay muted playsinline>
+        <source src="https://github.com/MrHOMERO/Los-takitos/raw/f9f0b828106e201e30ce9674328f98c14e83c026/lv_0_20260701185600.mp4" type="video/mp4">
+        Tu navegador no soporta la reproducción de video.
+    </video>
+
+    <button id="btn-saltar" onclick="window.location.href='pantalla1.html'">Saltar Intro</button>
+
+    <!-- Cargamos juego.js por si acaso, pero ya no necesita iniciar la música aquí -->
+    <script src="juego.js"></script>
+
+    <script>
+        const video = document.getElementById('video-intro');
+
+        // Al terminar el video, salta directo a la pantalla 1
+        video.onended = function() {
+            window.location.href = 'pantalla1.html';
+        };
+    </script>
+</body>
+  </html>
