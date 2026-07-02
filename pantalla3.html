@@ -2,46 +2,71 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Identidad Confirmada</title>
+    <title>Bienvenido, Viajero</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilo para que la imagen se vea perfecta y circular */
-        #img-personaje-usuario {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 3px solid #FFD700;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-            margin-bottom: 20px;
-            object-fit: cover; /* Asegura que la imagen no se deforme */
+        .carta-pokemon {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #FFD700;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 300px;
+            color: #FFD700;
+            text-align: center;
         }
+        .carta-img { width: 100%; border-radius: 10px; margin-bottom: 15px; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; font-size: 0.8rem; margin: 10px 0; }
+        .btn-seleccion { background: #333; color: white; border: 1px solid #FFD700; padding: 5px; margin: 5px; cursor: pointer; }
     </style>
 </head>
 <body>
     <div class="fondo-espacio"></div>
 
     <div class="pantalla">
-        <h2 class="titulo-juego">IDENTIDAD CONFIRMADA</h2>
+        <h2 class="titulo-juego">BIENVENIDO, VIAJERO</h2>
 
-        <!-- Aquí es donde aparecerá el personaje elegido -->
-        <div id="contenedor-personaje">
-            <img id="img-personaje-usuario" src="" alt="Tu Personaje">
+        <div id="carta-visual" class="carta-pokemon">
+            <img id="img-personaje" src="https://via.placeholder.com/200" class="carta-img">
+            <h3 id="nombre-personaje">Elige tu esencia</h3>
+            <div class="stats-grid">
+                <div>SAB<br><span id="val-sab">50</span></div>
+                <div>INT<br><span id="val-int">50</span></div>
+                <div>POD<br><span id="val-pod">50</span></div>
+            </div>
         </div>
 
-        <p class="pregunta-texto">Dinos, viajero, ¿cómo te llaman en los registros del tiempo?</p>
-        
-        <input type="text" id="input-nombre" class="boton-jugar" placeholder="Ingresa tu nombre..." style="background: white; color: black;">
-        
-        <button class="boton-jugar" onclick="confirmarNombre()">Comenzar mi historia</button>
+        <div id="botones-personajes">
+            <button class="btn-seleccion" onclick="elegir(1, 'Sabiduría')">Sabiduría</button>
+            <button class="btn-seleccion" onclick="elegir(2, 'Legado')">Legado</button>
+            <button class="btn-seleccion" onclick="elegir(3, 'Presente')">Presente</button>
+        </div>
+
+        <p class="pregunta-texto">¿Cómo te llaman en los registros del tiempo?</p>
+        <input type="text" id="input-nombre" class="boton-jugar" placeholder="Tu nombre...">
+        <button class="boton-jugar" onclick="confirmar()">Comenzar mi historia</button>
     </div>
 
-    <script src="juego.js"></script>
     <script>
-        // Esta línea es la que hace la magia: al cargar, busca la imagen guardada
-        window.onload = function() {
-            aplicarImagenPersonaje();
-        };
+        function elegir(id, esencia) {
+            localStorage.setItem('esencia', esencia);
+            localStorage.setItem('sab', 50);
+            localStorage.setItem('int', 50);
+            localStorage.setItem('pod', 50);
+            
+            document.getElementById('nombre-personaje').innerText = esencia;
+            // Aquí puedes añadir la lógica de imágenes según el ID
+            if(id === 1) document.getElementById('img-personaje').src = 'https://github.com/MrHOMERO/Los-takitos/raw/b06b4f465cac4963d117067da82fb82d179051b9/retouch_2026063003370289.png';
+        }
+
+        function confirmar() {
+            const nombre = document.getElementById('input-nombre').value;
+            if(nombre) {
+                localStorage.setItem('nombre', nombre);
+                window.location.href = 'pantalla4.html';
+            }
+        }
     </script>
 </body>
 </html>
