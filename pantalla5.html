@@ -31,6 +31,14 @@
 
         .linea { position: absolute; height: 3px; background: white; z-index: 2; transform-origin: left center; }
 
+        /* Estilo de la burbuja (tooltip) */
+        #tooltip {
+            position: absolute; display: none; background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #FFD700; color: #FFD700; padding: 10px;
+            border-radius: 8px; font-size: 0.8rem; pointer-events: none;
+            z-index: 20; text-align: center;
+        }
+
         /* Posiciones en Zigzag Elevadas */
         #p1 { top: 25%; left: 10%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/picante.jpg'); }
         #p2 { top: 40%; left: 25%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/maiz.jpg'); }
@@ -44,6 +52,7 @@
 
 <div id="app">
     <div id="cabina-capa"></div>
+    <div id="tooltip"></div>
 
     <div class="linea" style="top: 32%; left: 14%; width: 17%; transform: rotate(45deg);"></div>
     <div class="linea" style="top: 32%; left: 29%; width: 17%; transform: rotate(-45deg);"></div>
@@ -51,17 +60,30 @@
     <div class="linea" style="top: 32%; left: 59%; width: 17%; transform: rotate(-45deg);"></div>
     <div class="linea" style="top: 32%; left: 74%; width: 17%; transform: rotate(45deg);"></div>
 
-    <div id="p1" class="planeta" onclick="irMision('picante')"></div>
-    <div id="p2" class="planeta" onclick="irMision('maiz')"></div>
-    <div id="p3" class="planeta" onclick="irMision('tortillas')"></div>
-    <div id="p4" class="planeta" onclick="irMision('sal')"></div>
-    <div id="p5" class="planeta" onclick="irMision('cilantro')"></div>
-    <div id="p6" class="planeta" onclick="irMision('limon')"></div>
+    <div id="p1" class="planeta" data-nombre="PICANTE" data-misiones="1. Fuego Solar<br>2. Cenizas Eternas" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('picante')"></div>
+    <div id="p2" class="planeta" data-nombre="MAÍZ" data-misiones="1. Cosecha Dorada<br>2. Raíces Ancestrales" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('maiz')"></div>
+    <div id="p3" class="planeta" data-nombre="TORTILLAS" data-misiones="1. Masa Estelar<br>2. Fuego de Comal" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('tortillas')"></div>
+    <div id="p4" class="planeta" data-nombre="SAL" data-misiones="1. Cristales de Mar<br>2. Sed del Desierto" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('sal')"></div>
+    <div id="p5" class="planeta" data-nombre="CILANTRO" data-misiones="1. Aroma del Velo<br>2. Frescura Galáctica" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('cilantro')"></div>
+    <div id="p6" class="planeta" data-nombre="LIMÓN" data-misiones="1. Acidez Infinita<br>2. Pulpa de Energía" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('limon')"></div>
 </div>
 
 <script>
+    const tooltip = document.getElementById('tooltip');
+
+    function mostrarTooltip(e) {
+        const p = e.target;
+        tooltip.innerHTML = `<strong>${p.dataset.nombre}</strong><br>${p.dataset.misiones}`;
+        tooltip.style.display = 'block';
+        tooltip.style.left = (e.pageX + 15) + 'px';
+        tooltip.style.top = (e.pageY - 50) + 'px';
+    }
+
+    function ocultarTooltip() {
+        tooltip.style.display = 'none';
+    }
+
     function irMision(planeta) {
-        // Redirección a la misión correspondiente
         window.location.href = `mision_${planeta}.html`;
     }
 </script>
