@@ -18,22 +18,9 @@
         
         <div class="texto-intro">"El tiempo es el único recurso que, una vez gastado, no puede recuperarse."</div>
         
-        <!-- Cambiamos el link directo por un botón que inicia la música -->
-        <button onclick="iniciarYRedirigir()" class="boton-jugar">COMENZAR A JUGAR</button>
+        <a href="pantalla2.html" class="boton-jugar">COMENZAR A JUGAR</a>
     </div>
 
-    <!-- Script de lógica de juego y audio -->
-    <script src="juego.js"></script>
-
-    <script>
-        function iniciarYRedirigir() {
-            // Inicializa la música desde juego.js
-            if (typeof inicializarMusica === 'function') {
-                inicializarMusica();
-            }
-            // Redirige a la pantalla 2
-            window.location.href = 'pantalla2.html';
-        }
     <script src="juego.js"></script>
 </body>
 </html>
