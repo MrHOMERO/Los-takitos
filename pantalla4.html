@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Misión Takito-1</title>
+    <title>El Umbral del Velo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { margin: 0; background: #000; overflow: hidden; font-family: 'Courier New', Courier, monospace; }
@@ -21,60 +21,58 @@
             background-size: cover; pointer-events: none; z-index: 10;
         }
 
-        /* Visor panorámico con auto-scroll */
         #visor-mision {
             position: absolute;
             top: 25%; left: 15%;
             width: 70%; height: 35%;
-            background: rgba(0, 20, 40, 0.9);
-            border: 2px solid cyan;
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #FFD700;
             padding: 25px;
-            color: #0ff;
+            color: #FFD700;
             z-index: 5;
             display: flex; flex-direction: column;
             justify-content: flex-start;
             align-items: center;
             text-align: center;
             border-radius: 10px;
-            overflow: auto; /* Permite el scroll */
+            overflow: auto;
         }
 
-        #texto-mision { 
-            font-size: 1rem; 
-            line-height: 1.4;
-            width: 100%;
-        }
+        #texto-mision { font-size: 1rem; line-height: 1.4; width: 100%; }
         
         #btn-iniciar {
             padding: 10px 30px;
-            background: cyan; color: black;
+            background: #FFD700; color: black;
             font-weight: bold; border-radius: 5px;
-            cursor: pointer;
-            margin-top: 15px;
+            cursor: pointer; margin-top: 15px; border: none;
         }
     </style>
 </head>
-<body onload="iniciarMision()">
+<body onload="iniciarSecuencia()">
 
 <div id="app">
     <div id="cabina-capa"></div>
     
     <div id="visor-mision">
         <div id="texto-mision"></div>
-        <!-- El botón aparece automáticamente al finalizar -->
     </div>
 </div>
 
-<!-- Sonido desde tu repositorio -->
 <audio id="sonido-maquina" src="https://github.com/MrHOMERO/Los-takitos/raw/44aad3aa2eaf32eb35c15be17c5b59521247424f/sonido%20de%20teclado.mp3" preload="auto"></audio>
 
 <script>
-    const textoCompleto = "SISTEMA INICIADO: NAVE 'TAKITO-1'\n\nUBICACIÓN: SECTOR 7-B\nOBJETIVO: PIKANTE-PRIME\nSITUACIÓN: FALLA EN RED DE RIEGO\n\nAVISO: LAS RESERVAS DE ESPECIAS ESTÁN AL 15%. CONTACTAR AL COCINERO SAL-7 DE INMEDIATO. LA COSECHA DEPENDE DE TU VELOCIDAD. ¡BUENA SUERTE, PILOTO!";
+    // Recuperamos datos con fallback
+    const nombre = localStorage.getItem('nombre') || "Viajero";
+    const esencia = localStorage.getItem('esencia') || "Sabiduría";
+    
+    const textoCompleto = `IDENTIDAD VERIFICADA. SALUDOS, ${nombre.toUpperCase()}. EL ESPECTRO DE TU ESENCIA HA SIDO ANALIZADO: TU INCLINACIÓN POR LA ${esencia.toUpperCase()} HA DEJADO UNA FIRMA ÚNICA EN LOS REGISTROS DEL SECTOR. HAS SIDO CONVOCADO PARA UN PROPÓSITO MAYOR. EL MAPA DE CONOCIMIENTO SE HA DESBLOQUEADO. ES MOMENTO DE DESCIFRAR LAS VERDADES QUE LAS ESTRELLAS HAN GUARDADO CELOSAMENTE POR EONES.`;
+    
     let i = 0;
 
-    function iniciarMision() {
+    function iniciarSecuencia() {
         const sonido = document.getElementById('sonido-maquina');
-        sonido.play().catch(e => console.log("Audio esperando interacción"));
+        // Intentar reproducir sonido al cargar
+        sonido.play().catch(e => console.log("Audio esperando interacción del usuario"));
         escribir();
     }
 
@@ -85,30 +83,19 @@
             const visor = document.getElementById("visor-mision");
             
             contenedorTexto.innerHTML += (char === '\n' ? "<br>" : char);
-            
-            // Auto-scroll activo
             visor.scrollTop = visor.scrollHeight;
             
             i++;
-            setTimeout(escribir, 40);
+            setTimeout(escribir, 35); // Velocidad de escritura
         } else {
-            // Inyectar botón cuando termina el texto
             if (!document.getElementById('btn-iniciar')) {
                 const btn = document.createElement("button");
-                btn.innerHTML = "COMENZAR MISIÓN";
+                btn.innerHTML = "ACCEDER AL MAPA DE CONOCIMIENTO";
                 btn.id = "btn-iniciar";
-                btn.onclick = iniciarNavegacion;
+                btn.onclick = () => window.location.href = 'pantalla5.html';
                 document.getElementById("visor-mision").appendChild(btn);
-                
-                // Scroll final para asegurar que el botón sea visible
-                document.getElementById("visor-mision").scrollTop = document.getElementById("visor-mision").scrollHeight;
             }
         }
-    }
-
-    function iniciarNavegacion() {
-        // Redirige a la siguiente pantalla
-        window.location.href = 'pantalla5.html'; 
     }
 </script>
 </body>
