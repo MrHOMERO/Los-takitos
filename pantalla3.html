@@ -5,20 +5,38 @@
     <title>Bienvenido, Viajero</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .carta-pokemon {
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid #FFD700;
+        /* Ajuste para que el personaje se vea grande y centrado */
+        .carta-personaje {
+            background: rgba(0, 0, 0, 0.85);
+            border: 3px solid #FFD700;
             border-radius: 20px;
-            padding: 20px;
-            margin: 20px auto;
-            width: 80%;
-            max-width: 300px;
+            padding: 25px;
+            margin: 10px auto;
+            width: 85%; /* Más grande */
+            max-width: 400px;
             color: #FFD700;
             text-align: center;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
         }
-        .carta-img { width: 100%; border-radius: 10px; margin-bottom: 15px; }
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; font-size: 0.8rem; margin: 10px 0; }
-        .btn-seleccion { background: #333; color: white; border: 1px solid #FFD700; padding: 5px; margin: 5px; cursor: pointer; }
+        .carta-img { 
+            width: 100%; 
+            max-height: 250px; /* Personaje más grande */
+            object-fit: contain; 
+            margin-bottom: 15px; 
+        }
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr 1fr; 
+            gap: 10px; 
+            font-size: 1.1rem; 
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        .btn-seleccion { 
+            background: #222; color: #FFD700; border: 2px solid #FFD700; 
+            padding: 8px 15px; margin: 5px; cursor: pointer; border-radius: 5px;
+        }
+        #input-nombre { width: 80%; padding: 12px; margin: 15px 0; border-radius: 5px; border: none; }
     </style>
 </head>
 <body>
@@ -27,9 +45,9 @@
     <div class="pantalla">
         <h2 class="titulo-juego">BIENVENIDO, VIAJERO</h2>
 
-        <div id="carta-visual" class="carta-pokemon">
-            <img id="img-personaje" src="https://via.placeholder.com/200" class="carta-img">
-            <h3 id="nombre-personaje">Elige tu esencia</h3>
+        <div id="carta-visual" class="carta-personaje">
+            <img id="img-personaje" src="https://github.com/MrHOMERO/Los-takitos/raw/b06b4f465cac4963d117067da82fb82d179051b9/retouch_2026063003370289.png" class="carta-img">
+            <h3 id="nombre-personaje" style="margin: 0;">Tu Esencia</h3>
             <div class="stats-grid">
                 <div>SAB<br><span id="val-sab">50</span></div>
                 <div>INT<br><span id="val-int">50</span></div>
@@ -38,26 +56,21 @@
         </div>
 
         <div id="botones-personajes">
-            <button class="btn-seleccion" onclick="elegir(1, 'Sabiduría')">Sabiduría</button>
-            <button class="btn-seleccion" onclick="elegir(2, 'Legado')">Legado</button>
-            <button class="btn-seleccion" onclick="elegir(3, 'Presente')">Presente</button>
+            <button class="btn-seleccion" onclick="elegir('Sabiduría')">Sabiduría</button>
+            <button class="btn-seleccion" onclick="elegir('Legado')">Legado</button>
+            <button class="btn-seleccion" onclick="elegir('Presente')">Presente</button>
         </div>
 
-        <p class="pregunta-texto">¿Cómo te llaman en los registros del tiempo?</p>
-        <input type="text" id="input-nombre" class="boton-jugar" placeholder="Tu nombre...">
+        <p class="pregunta-texto" style="margin-top: 20px;">¿Cómo te llaman en los registros del tiempo?</p>
+        <input type="text" id="input-nombre" placeholder="Tu nombre...">
         <button class="boton-jugar" onclick="confirmar()">Comenzar mi historia</button>
     </div>
 
     <script>
-        function elegir(id, esencia) {
+        function elegir(esencia) {
             localStorage.setItem('esencia', esencia);
-            localStorage.setItem('sab', 50);
-            localStorage.setItem('int', 50);
-            localStorage.setItem('pod', 50);
-            
             document.getElementById('nombre-personaje').innerText = esencia;
-            // Aquí puedes añadir la lógica de imágenes según el ID
-            if(id === 1) document.getElementById('img-personaje').src = 'https://github.com/MrHOMERO/Los-takitos/raw/b06b4f465cac4963d117067da82fb82d179051b9/retouch_2026063003370289.png';
+            // Aquí puedes personalizar los stats por personaje si lo deseas
         }
 
         function confirmar() {
@@ -65,6 +78,8 @@
             if(nombre) {
                 localStorage.setItem('nombre', nombre);
                 window.location.href = 'pantalla4.html';
+            } else {
+                alert("Por favor, ingresa tu nombre.");
             }
         }
     </script>
