@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Entrenamiento de Esencia</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .pantalla { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; color: #fff; }
+        .carta-mejora { background: rgba(0, 0, 0, 0.85); border: 3px solid #FFD700; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px; }
+        .boton-opcion { display: block; width: 100%; margin: 10px 0; padding: 15px; background: #FFD700; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="fondo-espacio"></div>
+
+    <div class="pantalla">
+        <div class="carta-mejora">
+            <h2>ENTRENAMIENTO</h2>
+            <p id="pregunta">Cargando conocimiento...</p>
+            <div id="contenedor-opciones"></div>
+        </div>
+    </div>
+
+    <script>
+        // Simulamos un banco de preguntas simple
+        const preguntas = [
+            { q: "¿Qué es el tiempo según los antiguos?", a: "Un flujo infinito", stat: "sab" },
+            { q: "¿Cómo se construye un legado?", a: "Con acciones constantes", stat: "int" },
+            { q: "¿Qué es la verdadera fuerza?", a: "Dominar la voluntad", stat: "pod" }
+        ];
+
+        const seleccion = preguntas[Math.floor(Math.random() * preguntas.length)];
+        document.getElementById('pregunta').innerText = seleccion.q;
+
+        const btn = document.createElement("button");
+        btn.innerText = seleccion.a;
+        btn.className = "boton-opcion";
+        btn.onclick = () => aplicarMejora(seleccion.stat);
+        document.getElementById("contenedor-opciones").appendChild(btn);
+
+        function aplicarMejora(stat) {
+            let valorActual = parseInt(localStorage.getItem(stat)) || 0;
+            localStorage.setItem(stat, valorActual + 10); // Sube 10 puntos
+            
+            alert("¡Has comprendido este fragmento! +10 en " + stat.toUpperCase());
+            window.location.href = 'mapa.html'; // Volver al mapa
+        }
+    </script>
+    <script src="juego.js"></script>
+</body>
+</html>
