@@ -7,9 +7,8 @@
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }
         
-        /* Capa inicial de acceso */
         #capa-acceso {
-            position: absolute; width: 100%; height: 100%; z-index: 10;
+            position: absolute; width: 100%; height: 100%; z-index: 20;
             display: flex; align-items: center; justify-content: center;
             background: radial-gradient(circle, #1b2735 0%, #090a0f 100%);
         }
@@ -22,10 +21,12 @@
             font-family: 'Courier New', monospace;
         }
 
-        /* Estilos del video (oculto inicialmente) */
         #video-intro {
-            width: 100%; height: 100%; object-fit: contain;
-            display: none; /* Se mostrará al hacer clic */
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover; /* Asegura que llene toda la pantalla */
+            z-index: 10;
+            display: none;
         }
 
         @keyframes tintinear {
@@ -40,7 +41,7 @@
         <button id="btn-acceder" onclick="comenzarExperiencia()">ACCEDER AL JUEGO</button>
     </div>
 
-    <video id="video-intro" playsinline>
+    <video id="video-intro" playsinline webkit-playsinline>
         <source src="https://github.com/MrHOMERO/Los-takitos/raw/f9f0b828106e201e30ce9674328f98c14e83c026/lv_0_20260701185600.mp4" type="video/mp4">
     </video>
 
@@ -48,20 +49,26 @@
 
     <script>
         function comenzarExperiencia() {
-            // 1. Inicia música
+            const capaAcceso = document.getElementById('capa-acceso');
+            const video = document.getElementById('video-intro');
+
+            // 1. Inicia música global si existe en juego.js
             if (typeof inicializarMusica === 'function') inicializarMusica();
             
-            // 2. Oculta botón de acceso y muestra el video
-            document.getElementById('capa-acceso').style.display = 'none';
-            const video = document.getElementById('video-intro');
+            // 2. Transición visual
+            capaAcceso.style.display = 'none';
             video.style.display = 'block';
-            video.play();
+            
+            // 3. Reproducción (la promesa maneja errores de auto-play)
+            video.play().catch(error => {
+                console.log("Error al reproducir video, intentando de nuevo...");
+            });
         }
 
-        // 3. Cuando termina el video, ir a pantalla 1
-        document.getElementById('video-intro').onended = function() {
+        // 4. Redirección automática al finalizar
+        document.getElementById('video-intro').addEventListener('ended', function() {
             window.location.href = 'pantalla1.html';
-        };
+        });
     </script>
 </body>
 </html>
