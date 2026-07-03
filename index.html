@@ -7,6 +7,7 @@
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }
         
+        /* Capa inicial */
         #capa-acceso {
             position: absolute; width: 100%; height: 100%; z-index: 20;
             display: flex; align-items: center; justify-content: center;
@@ -21,17 +22,13 @@
             font-family: 'Courier New', monospace;
         }
 
+        /* Video escondido */
         #video-intro {
             position: absolute; top: 0; left: 0;
             width: 100%; height: 100%;
-            object-fit: cover; /* Asegura que llene toda la pantalla */
+            object-fit: cover;
             z-index: 10;
             display: none;
-        }
-
-        @keyframes tintinear {
-            0%, 100% { opacity: 1; box-shadow: 0 0 10px #FFD700; }
-            50% { opacity: 0.7; box-shadow: 0 0 30px #FFD700; }
         }
     </style>
 </head>
@@ -41,7 +38,8 @@
         <button id="btn-acceder" onclick="comenzarExperiencia()">ACCEDER AL JUEGO</button>
     </div>
 
-    <video id="video-intro" playsinline webkit-playsinline>
+    <!-- El video DEBE tener el ID video-intro -->
+    <video id="video-intro" playsinline>
         <source src="https://github.com/MrHOMERO/Los-takitos/raw/f9f0b828106e201e30ce9674328f98c14e83c026/lv_0_20260701185600.mp4" type="video/mp4">
     </video>
 
@@ -49,25 +47,24 @@
 
     <script>
         function comenzarExperiencia() {
-            const capaAcceso = document.getElementById('capa-acceso');
-            const video = document.getElementById('video-intro');
-
-            // 1. Inicia música global si existe en juego.js
+            // 1. Iniciar música (definida en juego.js)
             if (typeof inicializarMusica === 'function') inicializarMusica();
             
-            // 2. Transición visual
-            capaAcceso.style.display = 'none';
+            const capa = document.getElementById('capa-acceso');
+            const video = document.getElementById('video-intro');
+
+            // 2. Esconder el botón y mostrar el video
+            capa.style.display = 'none';
             video.style.display = 'block';
             
-            // 3. Reproducción (la promesa maneja errores de auto-play)
-            video.play().catch(error => {
-                console.log("Error al reproducir video, intentando de nuevo...");
-            });
+            // 3. Forzar reproducción
+            video.play();
         }
 
-        // 4. Redirección automática al finalizar
+        // 4. Redirección automática al terminar
         document.getElementById('video-intro').addEventListener('ended', function() {
-            window.location.href = 'pantalla1.html';
+            // Aquí definimos la redirección a la pantalla 2
+            window.location.href = 'pantalla2.html';
         });
     </script>
 </body>
