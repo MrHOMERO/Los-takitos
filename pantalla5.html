@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mapa de Conocimiento</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -26,12 +27,14 @@
             border: 2px solid #FFD700; cursor: pointer;
             animation: rotar 20s linear infinite;
             z-index: 5;
+            transition: transform 0.3s;
         }
+        .planeta:hover { transform: scale(1.2); }
+        
         @keyframes rotar { from { background-position: 0% 0%; } to { background-position: 200% 0%; } }
 
         .linea { position: absolute; height: 3px; background: white; z-index: 2; transform-origin: left center; }
 
-        /* Estilo de la burbuja (tooltip) */
         #tooltip {
             position: absolute; display: none; background: rgba(0, 0, 0, 0.9);
             border: 1px solid #FFD700; color: #FFD700; padding: 10px;
@@ -39,7 +42,7 @@
             z-index: 20; text-align: center;
         }
 
-        /* Posiciones en Zigzag Elevadas */
+        /* Posiciones en Zigzag */
         #p1 { top: 25%; left: 10%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/picante.jpg'); }
         #p2 { top: 40%; left: 25%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/maiz.jpg'); }
         #p3 { top: 25%; left: 40%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/tortillas.jpg'); }
@@ -54,12 +57,14 @@
     <div id="cabina-capa"></div>
     <div id="tooltip"></div>
 
+    <!-- Líneas de conexión -->
     <div class="linea" style="top: 32%; left: 14%; width: 17%; transform: rotate(45deg);"></div>
     <div class="linea" style="top: 32%; left: 29%; width: 17%; transform: rotate(-45deg);"></div>
     <div class="linea" style="top: 32%; left: 44%; width: 17%; transform: rotate(45deg);"></div>
     <div class="linea" style="top: 32%; left: 59%; width: 17%; transform: rotate(-45deg);"></div>
     <div class="linea" style="top: 32%; left: 74%; width: 17%; transform: rotate(45deg);"></div>
 
+    <!-- Planetas -->
     <div id="p1" class="planeta" data-nombre="PICANTE" data-misiones="1. Fuego Solar<br>2. Cenizas Eternas" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('picante')"></div>
     <div id="p2" class="planeta" data-nombre="MAÍZ" data-misiones="1. Cosecha Dorada<br>2. Raíces Ancestrales" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('maiz')"></div>
     <div id="p3" class="planeta" data-nombre="TORTILLAS" data-misiones="1. Masa Estelar<br>2. Fuego de Comal" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('tortillas')"></div>
@@ -75,17 +80,24 @@
         const p = e.target;
         tooltip.innerHTML = `<strong>${p.dataset.nombre}</strong><br>${p.dataset.misiones}`;
         tooltip.style.display = 'block';
-        tooltip.style.left = (e.pageX + 15) + 'px';
-        tooltip.style.top = (e.pageY - 50) + 'px';
+        // Ajuste para evitar que el tooltip se salga de pantalla
+        tooltip.style.left = (e.pageX + 10) + 'px';
+        tooltip.style.top = (e.pageY - 60) + 'px';
     }
 
     function ocultarTooltip() {
         tooltip.style.display = 'none';
     }
 
-    function irMision(planeta) {
-        window.location.href = `mision_${planeta}.html`;
+    function irMision(nombrePlaneta) {
+        // Guardamos el planeta actual para que la siguiente pantalla sepa cuál es
+        localStorage.setItem('planetaActual', nombrePlaneta);
+        
+        // Redirigimos al archivo puente
+        window.location.href = 'mision.html';
     }
 </script>
+
+<script src="juego.js"></script>
 </body>
 </html>
