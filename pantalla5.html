@@ -22,18 +22,19 @@
         }
 
         .planeta {
-            position: absolute; width: 70px; height: 70px;
+            position: absolute; width: 80px; height: 80px; /* Un poco más grandes */
             border-radius: 50%; background-size: cover;
-            border: 2px solid #FFD700; cursor: pointer;
+            cursor: pointer;
             animation: rotar 20s linear infinite;
             z-index: 5;
             transition: transform 0.3s;
+            /* Se eliminó el borde amarillo */
         }
         .planeta:hover { transform: scale(1.2); }
         
         @keyframes rotar { from { background-position: 0% 0%; } to { background-position: 200% 0%; } }
 
-        .linea { position: absolute; height: 3px; background: white; z-index: 2; transform-origin: left center; }
+        /* Se eliminaron las líneas .linea */
 
         #tooltip {
             position: absolute; display: none; background: rgba(0, 0, 0, 0.9);
@@ -42,7 +43,7 @@
             z-index: 20; text-align: center;
         }
 
-        /* Posiciones en Zigzag */
+        /* Posiciones fijas sin líneas */
         #p1 { top: 25%; left: 10%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/picante.jpg'); }
         #p2 { top: 40%; left: 25%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/maiz.jpg'); }
         #p3 { top: 25%; left: 40%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/tortillas.jpg'); }
@@ -57,20 +58,13 @@
     <div id="cabina-capa"></div>
     <div id="tooltip"></div>
 
-    <!-- Líneas de conexión -->
-    <div class="linea" style="top: 32%; left: 14%; width: 17%; transform: rotate(45deg);"></div>
-    <div class="linea" style="top: 32%; left: 29%; width: 17%; transform: rotate(-45deg);"></div>
-    <div class="linea" style="top: 32%; left: 44%; width: 17%; transform: rotate(45deg);"></div>
-    <div class="linea" style="top: 32%; left: 59%; width: 17%; transform: rotate(-45deg);"></div>
-    <div class="linea" style="top: 32%; left: 74%; width: 17%; transform: rotate(45deg);"></div>
-
-    <!-- Planetas -->
-    <div id="p1" class="planeta" data-nombre="PICANTE" data-misiones="1. Fuego Solar<br>2. Cenizas Eternas" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('picante')"></div>
-    <div id="p2" class="planeta" data-nombre="MAÍZ" data-misiones="1. Cosecha Dorada<br>2. Raíces Ancestrales" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('maiz')"></div>
-    <div id="p3" class="planeta" data-nombre="TORTILLAS" data-misiones="1. Masa Estelar<br>2. Fuego de Comal" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('tortillas')"></div>
-    <div id="p4" class="planeta" data-nombre="SAL" data-misiones="1. Cristales de Mar<br>2. Sed del Desierto" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('sal')"></div>
-    <div id="p5" class="planeta" data-nombre="CILANTRO" data-misiones="1. Aroma del Velo<br>2. Frescura Galáctica" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('cilantro')"></div>
-    <div id="p6" class="planeta" data-nombre="LIMÓN" data-misiones="1. Acidez Infinita<br>2. Pulpa de Energía" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('limon')"></div>
+    <!-- Planetas con nuevos nombres y misiones -->
+    <div id="p1" class="planeta" data-nombre="ECOS DEL PASADO" data-misiones="1. Decodificar Ecos<br>2. Cazar al Silenciador" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('p1')"></div>
+    <div id="p2" class="planeta" data-nombre="VALLE ANALÓGICO" data-misiones="1. Sintonizar Realidad<br>2. Derrotar al Sofista" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('p2')"></div>
+    <div id="p3" class="planeta" data-nombre="ARCHIVO FLOTANTE" data-misiones="1. Recuperar Datos<br>2. Frenar al Archivista" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('p3')"></div>
+    <div id="p4" class="planeta" data-nombre="LABERINTO DE VIDRIO" data-misiones="1. Enfrentar Espejos<br>2. Vencer a tu Sombra" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('p4')"></div>
+    <div id="p5" class="planeta" data-nombre="VACÍO DE VERDADES" data-misiones="1. Estabilizar Concepto<br>2. Desafiar al Guardián" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('p5')"></div>
+    <div id="p6" class="planeta" data-nombre="TRONO DEL OLVIDO" data-misiones="1. Reclamar Memoria<br>2. Confrontar a MALAKAI" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('p6')"></div>
 </div>
 
 <script>
@@ -80,7 +74,6 @@
         const p = e.target;
         tooltip.innerHTML = `<strong>${p.dataset.nombre}</strong><br>${p.dataset.misiones}`;
         tooltip.style.display = 'block';
-        // Ajuste para evitar que el tooltip se salga de pantalla
         tooltip.style.left = (e.pageX + 10) + 'px';
         tooltip.style.top = (e.pageY - 60) + 'px';
     }
@@ -90,10 +83,7 @@
     }
 
     function irMision(nombrePlaneta) {
-        // Guardamos el planeta actual para que la siguiente pantalla sepa cuál es
         localStorage.setItem('planetaActual', nombrePlaneta);
-        
-        // Redirigimos al archivo puente
         window.location.href = 'mision.html';
     }
 </script>
