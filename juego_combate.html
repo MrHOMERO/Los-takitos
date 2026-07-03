@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Combate Galáctico</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .pantalla { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; padding: 20px; text-align: center; }
+        .info-combate { background: rgba(0,0,0,0.8); border: 2px solid #FFD700; padding: 20px; border-radius: 15px; color: #fff; width: 90%; max-width: 400px; }
+        .btn-accion { margin-top: 20px; padding: 15px 30px; background: #FFD700; border: none; font-weight: bold; cursor: pointer; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="fondo-espacio"></div>
+
+    <div class="pantalla">
+        <div class="info-combate">
+            <h2 id="nombre-enemigo">Cargando enemigo...</h2>
+            <p id="texto-estado">Un secuaz de Malakai bloquea tu camino.</p>
+            <button class="btn-accion" onclick="resolverCombate()">USAR ESENCIA PARA VENCER</button>
+        </div>
+    </div>
+
+    <script>
+        const planeta = localStorage.getItem('planetaActual');
+        // Definimos enemigos según el planeta
+        const enemigos = {
+            'picante': 'El Eco Distorsionado',
+            'maiz': 'El Sofista del Vacío',
+            'tortillas': 'El Archivista Corrupto',
+            'sal': 'Tu Propia Sombra'
+        };
+
+        document.getElementById('nombre-enemigo').innerText = enemigos[planeta] || "Secuaz de Malakai";
+
+        function resolverCombate() {
+            // Aquí comparamos tus stats contra una dificultad fija
+            const sab = parseInt(localStorage.getItem('sab')) || 0;
+            const int = parseInt(localStorage.getItem('int')) || 0;
+            const pod = parseInt(localStorage.getItem('pod')) || 0;
+            const fuerzaTotal = sab + int + pod;
+
+            if(fuerzaTotal >= 150) { // Dificultad base
+                alert("¡Victoria! Has superado al secuaz usando tu sabiduría.");
+                window.location.href = 'mapa.html'; // Volver al mapa
+            } else {
+                alert("Tu esencia es insuficiente. ¡Necesitas entrenar más tus habilidades!");
+                window.location.href = 'juego_mejora.html'; // Ir a mejorar
+            }
+        }
+    </script>
+    <script src="juego.js"></script>
+</body>
+</html>
