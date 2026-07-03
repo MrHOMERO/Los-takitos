@@ -9,6 +9,7 @@ audioFondo.loop = true;
 // Función llamada desde el botón de acceso en index.html
 function inicializarMusica() {
     localStorage.setItem('musicaPermitida', 'true');
+    // Intentar reproducir música inmediatamente
     audioFondo.play().catch(e => console.log("Audio esperando interacción"));
 }
 
@@ -19,7 +20,7 @@ window.addEventListener('load', () => {
     }
 });
 
-// Llamar a esta función al entrar a las misiones
+// Llamar a esta función solo si queremos silenciar el juego a propósito
 function detenerMusica() {
     localStorage.removeItem('musicaPermitida'); 
     audioFondo.pause();
@@ -27,11 +28,12 @@ function detenerMusica() {
 }
 
 
-// --- 2. GESTIÓN DE PERSONAJE Y DATOS (Tu lógica original) ---
+// --- 2. GESTIÓN DE PERSONAJE Y DATOS ---
 
 function elegirEsencia(esencia, urlImagen) {
     localStorage.setItem('esencia', esencia);
     localStorage.setItem('imagenPersonaje', urlImagen);
+    // Cambiamos a pantalla 3 según tu flujo original
     window.location.href = 'pantalla3.html';
 }
 
@@ -53,4 +55,4 @@ function aplicarImagenPersonaje() {
     if(imgElemento && imagen) {
         imgElemento.src = imagen;
     }
-        }
+}
