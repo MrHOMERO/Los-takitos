@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Centro de Misiones</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { margin: 0; background: #000; font-family: 'Courier New', Courier, monospace; color: #FFD700; overflow: hidden; }
+        .pantalla { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; padding: 20px; }
+        
+        .boton-opcion { 
+            width: 90%; max-width: 450px; padding: 20px; margin: 15px 0;
+            background: rgba(0, 0, 0, 0.8); border: 2px solid #FFD700;
+            color: #FFD700; font-weight: bold; border-radius: 10px;
+            cursor: pointer; font-size: 1.1rem; transition: all 0.3s;
+        }
+        .boton-opcion:hover { background: #FFD700; color: #000; transform: scale(1.05); }
+        
+        #titulo-sector { text-shadow: 0 0 10px #FFD700; margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+
+    <div class="pantalla">
+        <h1 id="titulo-sector" class="text-2xl font-bold uppercase tracking-widest">CARGANDO...</h1>
+        
+        <p class="mb-8 text-white">¿Qué camino seguirás, viajero?</p>
+        
+        <button class="boton-opcion" onclick="ir('juego_mejora.html')">
+            1. CAMINO DE LA SABIDURÍA (Mejorar Habilidades)
+        </button>
+        
+        <button class="boton-opcion" onclick="ir('juego_combate.html')">
+            2. CAMINO DEL DESAFÍO (Enfrentar Secuaz)
+        </button>
+
+        <button onclick="window.location.href='mapa.html'" class="mt-8 text-sm text-gray-500 hover:text-white underline">
+            VOLVER AL MAPA
+        </button>
+    </div>
+
+    <script>
+        // Obtenemos el ID del planeta (ej: 'p1', 'p2')
+        const planetaID = localStorage.getItem('planetaActual');
+        
+        // Mapeo para recuperar el nombre real desde el mapa si fuera necesario,
+        // pero aquí mostraremos el ID de forma elegante
+        if (planetaID) {
+            document.getElementById('titulo-sector').innerText = "SECTOR " + planetaID.replace('p', '').toUpperCase();
+        }
+
+        function ir(destino) {
+            window.location.href = destino;
+        }
+    </script>
+    
+    <!-- Mantenemos la música persistente -->
+    <script src="juego.js"></script>
+</body>
+  </html>
