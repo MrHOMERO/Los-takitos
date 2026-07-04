@@ -34,37 +34,40 @@
             position: absolute; display: none; background: rgba(0, 0, 0, 0.95);
             border: 2px solid #FFD700; color: #FFF; padding: 15px; border-radius: 10px;
             z-index: 30; font-size: 0.9rem; width: 220px;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); pointer-events: none;
         }
     </style>
 </head>
 <body onclick="cerrarDialogo()">
 
+<!-- Música de fondo -->
+<audio id="musica-mapa" loop autoplay>
+    <source src="https://github.com/MrHOMERO/Los-takitos/raw/5ccbc797e782bc7c36acefb6d47a7c877ca62fe8/musicafondomapa.mp3" type="audio/mpeg">
+</audio>
+
 <div id="app">
     <h1 id="titulo-mapa">Elige tu destino</h1>
-    <div id="dialogo-planeta" onclick="event.stopPropagation()"></div>
+    <div id="dialogo-planeta"></div>
 
-    <!-- Planetas -->
-    <div id="p1" class="planeta" data-nombre="ECOS DEL PASADO" data-desc="Un mundo lleno de ecos de voces antiguas." data-misiones="1. Decodificar Ecos<br>2. Cazar al Silenciador" style="top: 25%; left: 10%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/picante.jpg');" onclick="gestionarClic(event, 'p1')"></div>
-    <div id="p2" class="planeta" data-nombre="VALLE ANALÓGICO" data-desc="El origen del flujo de datos primario." data-misiones="1. Sintonizar Realidad<br>2. Derrotar al Sofista" style="top: 40%; left: 25%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/maiz.jpg');" onclick="gestionarClic(event, 'p2')"></div>
-    <div id="p3" class="planeta" data-nombre="ARCHIVO FLOTANTE" data-desc="Fragmentos de historia en deriva." data-misiones="1. Recuperar Datos<br>2. Frenar al Archivista" style="top: 25%; left: 40%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/tortillas.jpg');" onclick="gestionarClic(event, 'p3')"></div>
-    <div id="p4" class="planeta" data-nombre="LABERINTO DE VIDRIO" data-misiones="1. Enfrentar Espejos<br>2. Vencer a tu Sombra" data-desc="Donde la luz se quiebra." style="top: 40%; left: 55%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/sal.jpg');" onclick="gestionarClic(event, 'p4')"></div>
-    <div id="p5" class="planeta" data-nombre="VACÍO DE VERDADES" data-misiones="1. Estabilizar Concepto<br>2. Desafiar al Guardián" data-desc="El lugar donde todo nace." style="top: 25%; left: 70%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/cilantro.jpg');" onclick="gestionarClic(event, 'p5')"></div>
-    <div id="p6" class="planeta" data-nombre="TRONO DEL OLVIDO" data-misiones="1. Reclamar Memoria<br>2. Confrontar a MALAKAI" data-desc="El final de toda travesía." style="top: 40%; left: 85%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/limon.jpg');" onclick="gestionarClic(event, 'p6')"></div>
+    <!-- Planetas con animaciones integradas -->
+    <div id="p1" class="planeta" data-nombre="ECOS DEL PASADO" data-desc="Un mundo de voces antiguas." data-misiones="1. Decodificar Ecos<br>2. Cazar al Silenciador" style="top: 25%; left: 10%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/picante.jpg');" onclick="gestionarClic(event, 'p1')"></div>
+    <div id="p2" class="planeta" data-nombre="VALLE ANALÓGICO" data-desc="El origen del flujo de datos." data-misiones="1. Sintonizar Realidad<br>2. Derrotar al Sofista" style="top: 40%; left: 25%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/maiz.jpg');" onclick="gestionarClic(event, 'p2')"></div>
+    <div id="p3" class="planeta" data-nombre="ARCHIVO FLOTANTE" data-desc="Historia en deriva." data-misiones="1. Recuperar Datos<br>2. Frenar al Archivista" style="top: 25%; left: 40%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/tortillas.jpg');" onclick="gestionarClic(event, 'p3')"></div>
+    <div id="p4" class="planeta" data-nombre="LABERINTO DE VIDRIO" data-desc="Donde la luz se quiebra." data-misiones="1. Enfrentar Espejos<br>2. Vencer a tu Sombra" style="top: 40%; left: 55%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/sal.jpg');" onclick="gestionarClic(event, 'p4')"></div>
+    <div id="p5" class="planeta" data-nombre="VACÍO DE VERDADES" data-desc="El lugar donde todo nace." data-misiones="1. Estabilizar Concepto<br>2. Desafiar al Guardián" style="top: 25%; left: 70%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/cilantro.jpg');" onclick="gestionarClic(event, 'p5')"></div>
+    <div id="p6" class="planeta" data-nombre="TRONO DEL OLVIDO" data-desc="El final de toda travesía." data-misiones="1. Reclamar Memoria<br>2. Confrontar a MALAKAI" style="top: 40%; left: 85%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/limon.jpg');" onclick="gestionarClic(event, 'p6')"></div>
 </div>
 
 <script>
-    const imagenes = ['picante.jpg','maiz.jpg','tortillas.jpg','sal.jpg','cilantro.jpg','limon.jpg'];
-    imagenes.forEach(img => { new Image().src = 'https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/' + img; });
-
     let clickCount = {};
 
     function gestionarClic(e, id) {
-        e.stopPropagation();
+        e.stopPropagation(); // Evita que se cierre al tocar el planeta
         const p = document.getElementById(id);
         const diag = document.getElementById('dialogo-planeta');
 
         if (!clickCount[id]) {
+            // Mostrar cuadro
             diag.innerHTML = `<strong>${p.dataset.nombre}</strong><br><small>${p.dataset.desc}</small><br><br>${p.dataset.misiones}<br><br><span style="color:#FFD700">Toca de nuevo para entrar</span>`;
             diag.style.display = 'block';
             diag.style.left = (e.clientX + 20) + 'px';
@@ -81,6 +84,11 @@
         document.getElementById('dialogo-planeta').style.display = 'none';
         clickCount = {};
     }
+
+    // Auto-play de música al interactuar (necesario en navegadores modernos)
+    window.addEventListener('click', () => {
+        document.getElementById('musica-mapa').play().catch(() => {});
+    }, { once: true });
 </script>
 </body>
 </html>
