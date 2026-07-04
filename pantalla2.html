@@ -2,47 +2,36 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Gran Elección</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Elección del Destino</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .fondo-espacio { background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/espacio2.jpg') !important; }
-
-        /* Definición de la animación de destello */
-        @keyframes destello {
-            0%, 100% { box-shadow: 0 0 5px #FFD700; border-color: #FFD700; }
-            50% { box-shadow: 0 0 25px #FFD700, 0 0 40px #FFD700; border-color: #FFF; }
+        body { margin: 0; background: #000; font-family: 'Courier New', Courier, monospace; color: #FFD700; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .opcion-boton {
+            width: 80%; max-width: 400px; padding: 20px; margin: 15px;
+            border: 2px solid #FFD700; border-radius: 15px;
+            background: rgba(0,0,0,0.8); cursor: pointer; text-align: center;
+            font-size: 1.2rem; transition: 0.3s;
         }
-
-        /* Aplicación de la animación con retardo para la secuencia */
-        .boton-jugar {
-            animation: destello 3s infinite;
-            transition: 0.3s;
-        }
-
-        /* Retardos para que destellen uno tras otro */
-        .boton-jugar:nth-child(3) { animation-delay: 0s; } /* Botón 1 */
-        .boton-jugar:nth-child(4) { animation-delay: 1s; } /* Botón 2 */
-        .boton-jugar:nth-child(5) { animation-delay: 2s; } /* Botón 3 */
+        .opcion-boton:hover { background: #FFD700; color: #000; }
     </style>
 </head>
 <body>
-    <div class="fondo-espacio"></div>
 
-    <!-- Audio configurado para no repetirse (quitamos el atributo loop) -->
-    <audio autoplay>
-        <source src="https://github.com/MrHOMERO/Los-takitos/raw/18f0d6983969d9eeef258cafff12217c73760a8c/Audio_2026_07_01_20_25_25.mp3" type="audio/mpeg">
-    </audio>
+    <h1 class="text-2xl mb-10 text-center uppercase tracking-widest">¿Cuál es tu camino?</h1>
 
-    <div class="pantalla">
-        <h2 class="titulo-juego">LA GRAN ELECCIÓN</h2>
-        <p class="pregunta-texto">¿Cuál es la forma más sabia de gastar nuestro tiempo?</p>
-        
-        <button class="boton-jugar" onclick="elegirEsencia('Sabiduría', 'https://github.com/MrHOMERO/Los-takitos/raw/b06b4f465cac4963d117067da82fb82d179051b9/retouch_2026063003370289.png')">Buscar la sabiduría</button>
-        <button class="boton-jugar" onclick="elegirEsencia('Legado', 'https://github.com/MrHOMERO/Los-takitos/raw/b06b4f465cac4963d117067da82fb82d179051b9/retouch_2026063003370289.png')">Construir un legado</button>
-        <button class="boton-jugar" onclick="elegirEsencia('Presente', 'https://raw.githubusercontent.com/MrHOMERO/Los-takitos/main/PERSONAJE_3_URL.png')">Vivir el momento</button>
-    </div>
+    <!-- Botones que redirigen a pantalla 3 -->
+    <div class="opcion-boton" onclick="elegirCamino('camino1')">SABIDURÍA DE LAS ESTRELLAS</div>
+    <div class="opcion-boton" onclick="elegirCamino('camino2')">SENDERO DEL GUERRERO</div>
 
-    <script >
+    <script>
+        function elegirCamino(camino) {
+            // Guardamos la elección por si la necesitas más adelante
+            localStorage.setItem('caminoElegido', camino);
+            
+            // Redirección directa a la página de personajes
+            window.location.href = 'pantalla3.html';
+        }
+    </script>
 </body>
 </html>
