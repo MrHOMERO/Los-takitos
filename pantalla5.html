@@ -2,60 +2,93 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa de Mundos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mapa de Conocimiento</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background: #050505; color: #00FF00; font-family: 'Courier New', monospace; }
-        /* Asegúrate de incluir aquí el CSS de tus capas giratorias */
-        .mundo-wrapper { width: 100px; height: 100px; position: relative; }
+        body { margin: 0; background: #000; overflow: hidden; font-family: 'Courier New', Courier, monospace; }
+        
+        #app {
+            width: 100vw; height: 100vh;
+            background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/69e9fcf7e0cb94f8660692c4b6eb8efe77e9307d/fondomapa%20(1).jpg');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; align-items: center; position: relative;
+        }
+
+        #titulo-mapa {
+            margin-top: 5%; color: #FFD700; font-size: 2rem; font-weight: bold;
+            text-shadow: 0 0 15px #FFD700; text-transform: uppercase; z-index: 20;
+            white-space: nowrap; overflow: hidden; max-width: 90vw;
+        }
+
+        .planeta {
+            position: absolute; width: 80px; height: 80px; border-radius: 50%;
+            background-size: 200% 100%; cursor: pointer; z-index: 5;
+            transition: transform 0.3s;
+            animation: rotar 10s linear infinite;
+        }
+        
+        @keyframes rotar { from { background-position: 0% 50%; } to { background-position: 200% 50%; } }
+
+        #dialogo-planeta {
+            position: fixed; display: none; background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #FFD700; color: #FFF; padding: 20px; border-radius: 15px;
+            z-index: 30; font-size: 1rem; width: 80%; max-width: 400px;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.6); text-align: center;
+        }
     </style>
 </head>
-<body class="flex flex-col items-center p-6">
+<body onclick="cerrarDialogo()">
 
-    <h1 class="text-2xl mb-8 border-b border-green-500 uppercase tracking-widest">Mapa de Incursión</h1>
-    
-    <div class="grid grid-cols-2 gap-x-8 gap-y-12 w-full max-w-sm">
-        <button onclick="irAMision('Ecos del Pasado', 'EL SILENCIADOR')" class="flex flex-col items-center">
-            <div class="mundo-wrapper"> </div>
-            <span class="mt-4 text-xs font-bold uppercase">1. Ecos del Pasado</span>
-        </button>
+<audio id="musica-mapa" loop>
+    <source src="https://github.com/MrHOMERO/Los-takitos/raw/5ccbc797e782bc7c36acefb6d47a7c877ca62fe8/musicafondomapa.mp3" type="audio/mpeg">
+</audio>
 
-        <button onclick="irAMision('Valle Analógico', 'EL SOFISTA')" class="flex flex-col items-center">
-            <div class="mundo-wrapper"></div>
-            <span class="mt-4 text-xs font-bold uppercase">2. Valle Analógico</span>
-        </button>
+<div id="app">
+    <h1 id="titulo-mapa">Elige tu destino</h1>
+    <div id="dialogo-planeta" onclick="event.stopPropagation()"></div>
 
-        <button onclick="irAMision('Archivo Flotante', 'EL ARCHIVISTA')" class="flex flex-col items-center">
-            <div class="mundo-wrapper"></div>
-            <span class="mt-4 text-xs font-bold uppercase">3. Archivo Flotante</span>
-        </button>
+    <div id="p1" class="planeta" data-nombre="ECOS DEL PASADO" data-desc="Un mundo lleno de ecos de voces antiguas." data-misiones="1. Decodificar Ecos<br>2. Cazar al Silenciador" style="top: 25%; left: 10%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/picante.jpg');" onclick="gestionarClic(event, 'p1')"></div>
+    <div id="p2" class="planeta" data-nombre="VALLE ANALÓGICO" data-desc="El origen del flujo de datos primario." data-misiones="1. Sintonizar Realidad<br>2. Derrotar al Sofista" style="top: 40%; left: 25%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/maiz.jpg');" onclick="gestionarClic(event, 'p2')"></div>
+    <div id="p3" class="planeta" data-nombre="ARCHIVO FLOTANTE" data-desc="Fragmentos de historia en deriva." data-misiones="1. Recuperar Datos<br>2. Frenar al Archivista" style="top: 25%; left: 40%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/tortillas.jpg');" onclick="gestionarClic(event, 'p3')"></div>
+    <div id="p4" class="planeta" data-nombre="LABERINTO DE VIDRIO" data-desc="Donde la luz se quiebra." data-misiones="1. Enfrentar Espejos<br>2. Vencer a tu Sombra" style="top: 40%; left: 55%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/sal.jpg');" onclick="gestionarClic(event, 'p4')"></div>
+    <div id="p5" class="planeta" data-nombre="VACÍO DE VERDADES" data-desc="El lugar donde todo nace." data-misiones="1. Estabilizar Concepto<br>2. Desafiar al Guardián" style="top: 25%; left: 70%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/cilantro.jpg');" onclick="gestionarClic(event, 'p5')"></div>
+    <div id="p6" class="planeta" data-nombre="TRONO DEL OLVIDO" data-desc="El final de toda travesía." data-misiones="1. Reclamar Memoria<br>2. Confrontar a MALAKAI" style="top: 40%; left: 85%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/limon.jpg');" onclick="gestionarClic(event, 'p6')"></div>
+</div>
 
-        <button onclick="irAMision('Laberinto de Vidrio', 'TU SOMBRA')" class="flex flex-col items-center">
-            <div class="mundo-wrapper"></div>
-            <span class="mt-4 text-xs font-bold uppercase">4. Laberinto de Vidrio</span>
-        </button>
+<script>
+    // Precarga
+    const imgs = ['picante.jpg','maiz.jpg','tortillas.jpg','sal.jpg','cilantro.jpg','limon.jpg'];
+    imgs.forEach(i => new Image().src = 'https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/' + i);
 
-        <button onclick="irAMision('Vacío de Verdades', 'EL GUARDIÁN')" class="flex flex-col items-center">
-            <div class="mundo-wrapper"></div>
-            <span class="mt-4 text-xs font-bold uppercase">5. Vacío de Verdades</span>
-        </button>
+    let clickCount = {};
 
-        <button onclick="irAMision('Trono del Olvido', 'MALAKAI')" class="flex flex-col items-center">
-            <div class="mundo-wrapper"></div>
-            <span class="mt-4 text-xs font-bold uppercase">6. Trono del Olvido</span>
-        </button>
-    </div>
+    function gestionarClic(e, id) {
+        e.stopPropagation();
+        const p = document.getElementById(id);
+        const diag = document.getElementById('dialogo-planeta');
 
-    <script>
-        function irAMision(nombreMundo, nombreTeniente) {
-            // Guardamos los datos para la pantalla de misión
-            localStorage.setItem('mundoActual', nombreMundo);
-            localStorage.setItem('tenienteActual', nombreTeniente);
-            
-            // Navegación
+        if (!clickCount[id]) {
+            diag.innerHTML = `<strong>${p.dataset.nombre}</strong><br><br><small>${p.dataset.desc}</small><br><br>${p.dataset.misiones}<br><br><span style="color:#FFD700">Toca de nuevo para entrar</span>`;
+            diag.style.display = 'block';
+            clickCount = {};
+            clickCount[id] = 1;
+        } else {
+            localStorage.setItem('planetaActual', id);
             window.location.href = 'mision.html';
         }
-    </script>
+    }
+
+    function cerrarDialogo() {
+        document.getElementById('dialogo-planeta').style.display = 'none';
+        clickCount = {};
+    }
+
+    // Activar música
+    window.addEventListener('click', () => {
+        document.getElementById('musica-mapa').play().catch(() => {});
+    }, { once: true });
+</script>
 </body>
 </html>
