@@ -1,1 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Mundos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #050505; color: #00FF00; font-family: 'Courier New', monospace; }
+        /* Asegúrate de incluir aquí el CSS de tus capas giratorias */
+        .mundo-wrapper { width: 100px; height: 100px; position: relative; }
+    </style>
+</head>
+<body class="flex flex-col items-center p-6">
 
+    <h1 class="text-2xl mb-8 border-b border-green-500 uppercase tracking-widest">Mapa de Incursión</h1>
+    
+    <div class="grid grid-cols-2 gap-x-8 gap-y-12 w-full max-w-sm">
+        <button onclick="irAMision('Ecos del Pasado', 'EL SILENCIADOR')" class="flex flex-col items-center">
+            <div class="mundo-wrapper"> </div>
+            <span class="mt-4 text-xs font-bold uppercase">1. Ecos del Pasado</span>
+        </button>
+
+        <button onclick="irAMision('Valle Analógico', 'EL SOFISTA')" class="flex flex-col items-center">
+            <div class="mundo-wrapper"></div>
+            <span class="mt-4 text-xs font-bold uppercase">2. Valle Analógico</span>
+        </button>
+
+        <button onclick="irAMision('Archivo Flotante', 'EL ARCHIVISTA')" class="flex flex-col items-center">
+            <div class="mundo-wrapper"></div>
+            <span class="mt-4 text-xs font-bold uppercase">3. Archivo Flotante</span>
+        </button>
+
+        <button onclick="irAMision('Laberinto de Vidrio', 'TU SOMBRA')" class="flex flex-col items-center">
+            <div class="mundo-wrapper"></div>
+            <span class="mt-4 text-xs font-bold uppercase">4. Laberinto de Vidrio</span>
+        </button>
+
+        <button onclick="irAMision('Vacío de Verdades', 'EL GUARDIÁN')" class="flex flex-col items-center">
+            <div class="mundo-wrapper"></div>
+            <span class="mt-4 text-xs font-bold uppercase">5. Vacío de Verdades</span>
+        </button>
+
+        <button onclick="irAMision('Trono del Olvido', 'MALAKAI')" class="flex flex-col items-center">
+            <div class="mundo-wrapper"></div>
+            <span class="mt-4 text-xs font-bold uppercase">6. Trono del Olvido</span>
+        </button>
+    </div>
+
+    <script>
+        function irAMision(nombreMundo, nombreTeniente) {
+            // Guardamos los datos para la pantalla de misión
+            localStorage.setItem('mundoActual', nombreMundo);
+            localStorage.setItem('tenienteActual', nombreTeniente);
+            
+            // Navegación
+            window.location.href = 'mision.html';
+        }
+    </script>
+</body>
+</html>
