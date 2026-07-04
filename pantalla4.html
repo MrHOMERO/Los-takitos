@@ -30,22 +30,30 @@
             padding: 20px;
             color: #FFD700;
             z-index: 5;
-            display: flex; flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
             border-radius: 15px;
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+            overflow: hidden;
+            display: flex; flex-direction: column; align-items: center;
         }
 
-        #texto-mision { font-size: 1.1rem; line-height: 1.6; width: 100%; overflow-y: auto; text-align: left; }
+        #contenedor-animado {
+            position: relative;
+            width: 100%;
+            animation: subirTexto 20s linear forwards;
+        }
+
+        @keyframes subirTexto {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(-100%); }
+        }
         
         #btn-iniciar {
             padding: 15px 30px;
             background: #FFD700; color: black;
             font-weight: bold; border-radius: 10px;
-            cursor: pointer; margin-top: 20px; border: none;
+            cursor: pointer; border: none;
             font-size: 1.1rem; text-transform: uppercase;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -53,63 +61,37 @@
 
 <div id="app">
     <div id="cabina-capa"></div>
-    
     <div id="visor-mision">
-        <div id="texto-mision"></div>
+        <div id="contenedor-animado">
+            <div id="texto-mision" class="text-center leading-relaxed"></div>
+            <div id="boton-contenedor" class="flex justify-center"></div>
+        </div>
     </div>
 </div>
 
-<!-- Sonido de tecleo únicamente -->
-<audio id="sonido-maquina" src="https://github.com/MrHOMERO/Los-takitos/raw/44aad3aa2eaf32eb35c15be17c5b59521247424f/sonido%20de%20teclado.mp3" preload="auto"></audio>
-
 <script>
-    // 1. Datos del jugador (tipoElegido es lo que viene de pantalla 2)
     const nombre = localStorage.getItem('nombre') || "VIAJERO";
     const esencia = localStorage.getItem('tipoElegido') || "sabiduria"; 
     
-    // 2. Mapeo de misiones épicas
     const textosMision = {
         'sabiduria': "EL TIEMPO SE HA FRACTURADO. COMO AQUEL QUE BUSCA LA VERDAD, TU MISIÓN ES REPARAR LAS GRIETAS EN TUS SEIS MUNDOS. SI TU INTELECTO ES LO SUFICIENTEMENTE ELEVADO, PODRÁS ACCEDER A LOS MAPAS DE OTRAS ESENCIAS. PERO RECUERDA: LA BÚSQUEDA DE LA VERDAD TIENE UN PRECIO, Y AL FINAL, LA SABIDURÍA NO TE SALVARÁ DE SER PRISIONERO DEL TIEMPO.",
         'legado': "EL TIEMPO SE HA FRACTURADO. COMO AQUEL QUE CONSTRUYE PARA LA ETERNIDAD, TU MISIÓN ES REFORZAR EL NÚCLEO EN TUS SEIS MUNDOS. SI TU PODER ES SUFICIENTE, RECLAMARÁS LAS RUTAS HACIA OTROS DOMINIOS. SIN EMBARGO, NO TE ENGAÑES: CADA PIEDRA QUE COLOCAS EN TU LEGADO ES UN BARROTE MÁS EN TU CELDA TEMPORAL.",
         'momento': "EL TIEMPO SE HA FRACTURADO. COMO AQUEL QUE VIVE CON INTENSIDAD, TU MISIÓN ES RESTAURAR EL EQUILIBRIO EN TUS SEIS MUNDOS. SI TUS ATRIBUTOS SON LOS ADECUADOS, PODRÁS SALTAR HACIA REALIDADES AJENAS. DISFRUTA CADA SEGUNDO, PORQUE POR MÁS QUE CORRAS, EL TIEMPO TE DARÁ ALCANCE Y SERÁS SU PRISIONERO AL FINAL."
     };
 
-    // 3. Construcción del mensaje
     const misionSeleccionada = textosMision[esencia] || textosMision['sabiduria'];
-    const textoCompleto = `IDENTIDAD VERIFICADA: ${nombre.toUpperCase()}. ESENCIA: ${esencia.toUpperCase()}. MISIÓN ACTUAL: ${misionSeleccionada}`;
-    
-    const velocidad = 40; 
-    let i = 0;
+    document.getElementById("texto-mision").innerText = `IDENTIDAD: ${nombre.toUpperCase()}\nESENCIA: ${esencia.toUpperCase()}\n\n${misionSeleccionada}`;
 
     function iniciarSecuencia() {
-        escribir();
-    }
-
-    function escribir() {
-        if (i < textoCompleto.length) {
-            document.getElementById("texto-mision").innerHTML += textoCompleto.charAt(i);
-            i++;
-            
-            // Efecto de sonido de tecleo
-            const sonido = document.getElementById('sonido-maquina');
-            sonido.currentTime = 0;
-            sonido.play().catch(() => {});
-            
-            setTimeout(escribir, velocidad);
-        } else {
-            // Cuando termina la escritura, añade el botón
-            if (!document.getElementById('btn-iniciar')) {
-                const btn = document.createElement("button");
-                btn.innerHTML = "ACCEDER AL MAPA";
-                btn.id = "btn-iniciar";
-                btn.onclick = () => window.location.href = 'pantalla5.html';
-                document.getElementById("visor-mision").appendChild(btn);
-            }
-        }
+        setTimeout(() => {
+            const btn = document.createElement("button");
+            btn.innerHTML = "ACCEDER AL MAPA";
+            btn.id = "btn-iniciar";
+            btn.onclick = () => window.location.href = 'pantalla5.html';
+            document.getElementById("boton-contenedor").appendChild(btn);
+        }, 20000);
     }
 </script>
-
-<script src="juego.js"></script>
 
 </body>
 </html>
