@@ -12,7 +12,14 @@
             width: 100vw; height: 100vh;
             background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/69e9fcf7e0cb94f8660692c4b6eb8efe77e9307d/fondomapa%20(1).jpg');
             background-size: cover; background-position: center;
-            position: relative;
+            position: relative; display: flex; flex-direction: column; align-items: center;
+        }
+
+        #titulo-mapa {
+            margin-top: 5%; /* Posicionado en el primer cuarto superior */
+            color: #FFD700; font-size: 2rem; font-weight: bold;
+            text-shadow: 0 0 15px #FFD700, 0 0 30px #FFD700;
+            text-transform: uppercase; letter-spacing: 3px; z-index: 20;
         }
 
         #cabina-capa {
@@ -22,28 +29,14 @@
         }
 
         .planeta {
-            position: absolute; width: 80px; height: 80px; /* Un poco más grandes */
-            border-radius: 50%; background-size: cover;
-            cursor: pointer;
-            animation: rotar 20s linear infinite;
-            z-index: 5;
-            transition: transform 0.3s;
-            /* Se eliminó el borde amarillo */
+            position: absolute; width: 80px; height: 80px; border-radius: 50%;
+            background-size: cover; cursor: pointer; z-index: 5;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         .planeta:hover { transform: scale(1.2); }
-        
-        @keyframes rotar { from { background-position: 0% 0%; } to { background-position: 200% 0%; } }
+        .activo { border: 4px solid #FFF; box-shadow: 0 0 20px #FFF; }
 
-        /* Se eliminaron las líneas .linea */
-
-        #tooltip {
-            position: absolute; display: none; background: rgba(0, 0, 0, 0.9);
-            border: 1px solid #FFD700; color: #FFD700; padding: 10px;
-            border-radius: 8px; font-size: 0.8rem; pointer-events: none;
-            z-index: 20; text-align: center;
-        }
-
-        /* Posiciones fijas sin líneas */
+        /* Posiciones fijas */
         #p1 { top: 25%; left: 10%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/picante.jpg'); }
         #p2 { top: 40%; left: 25%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/maiz.jpg'); }
         #p3 { top: 25%; left: 40%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/tortillas.jpg'); }
@@ -55,39 +48,39 @@
 <body>
 
 <div id="app">
+    <h1 id="titulo-mapa">Elige tu destino</h1>
     <div id="cabina-capa"></div>
-    <div id="tooltip"></div>
 
-    <!-- Planetas con nuevos nombres y misiones -->
-    <div id="p1" class="planeta" data-nombre="ECOS DEL PASADO" data-misiones="1. Decodificar Ecos<br>2. Cazar al Silenciador" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('p1')"></div>
-    <div id="p2" class="planeta" data-nombre="VALLE ANALÓGICO" data-misiones="1. Sintonizar Realidad<br>2. Derrotar al Sofista" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('p2')"></div>
-    <div id="p3" class="planeta" data-nombre="ARCHIVO FLOTANTE" data-misiones="1. Recuperar Datos<br>2. Frenar al Archivista" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('p3')"></div>
-    <div id="p4" class="planeta" data-nombre="LABERINTO DE VIDRIO" data-misiones="1. Enfrentar Espejos<br>2. Vencer a tu Sombra" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('p4')"></div>
-    <div id="p5" class="planeta" data-nombre="VACÍO DE VERDADES" data-misiones="1. Estabilizar Concepto<br>2. Desafiar al Guardián" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('p5')"></div>
-    <div id="p6" class="planeta" data-nombre="TRONO DEL OLVIDO" data-misiones="1. Reclamar Memoria<br>2. Confrontar a MALAKAI" onmouseover="mostrarTooltip(event)" onmouseout="ocultarTooltip()" onclick="irMision('p6')"></div>
+    <!-- Planetas -->
+    <div id="p1" class="planeta" data-nombre="ECOS DEL PASADO" data-misiones="1. Decodificar Ecos | 2. Cazar al Silenciador" onclick="gestionarClic('p1')"></div>
+    <div id="p2" class="planeta" data-nombre="VALLE ANALÓGICO" data-misiones="1. Sintonizar Realidad | 2. Derrotar al Sofista" onclick="gestionarClic('p2')"></div>
+    <div id="p3" class="planeta" data-nombre="ARCHIVO FLOTANTE" data-misiones="1. Recuperar Datos | 2. Frenar al Archivista" onclick="gestionarClic('p3')"></div>
+    <div id="p4" class="planeta" data-nombre="LABERINTO DE VIDRIO" data-misiones="1. Enfrentar Espejos | 2. Vencer a tu Sombra" onclick="gestionarClic('p4')"></div>
+    <div id="p5" class="planeta" data-nombre="VACÍO DE VERDADES" data-misiones="1. Estabilizar Concepto | 2. Desafiar al Guardián" onclick="gestionarClic('p5')"></div>
+    <div id="p6" class="planeta" data-nombre="TRONO DEL OLVIDO" data-misiones="1. Reclamar Memoria | 2. Confrontar a MALAKAI" onclick="gestionarClic('p6')"></div>
 </div>
 
 <script>
-    const tooltip = document.getElementById('tooltip');
+    // Precarga automática de imágenes
+    const imagenes = ['https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/picante.jpg','https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/maiz.jpg','https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/tortillas.jpg','https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/sal.jpg','https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/cilantro.jpg','https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/limon.jpg'];
+    imagenes.forEach(url => { new Image().src = url; });
 
-    function mostrarTooltip(e) {
-        const p = e.target;
-        tooltip.innerHTML = `<strong>${p.dataset.nombre}</strong><br>${p.dataset.misiones}`;
-        tooltip.style.display = 'block';
-        tooltip.style.left = (e.pageX + 10) + 'px';
-        tooltip.style.top = (e.pageY - 60) + 'px';
-    }
+    let clickCount = {};
 
-    function ocultarTooltip() {
-        tooltip.style.display = 'none';
-    }
-
-    function irMision(nombrePlaneta) {
-        localStorage.setItem('planetaActual', nombrePlaneta);
-        window.location.href = 'mision.html';
+    function gestionarClic(id) {
+        const p = document.getElementById(id);
+        if (!clickCount[id]) {
+            document.querySelectorAll('.planeta').forEach(el => el.classList.remove('activo'));
+            p.classList.add('activo');
+            clickCount = {};
+            clickCount[id] = 1;
+            alert("Misión en " + p.dataset.nombre + ":\n" + p.dataset.misiones.replace(/ \| /g, "\n") + "\n\n(Toca de nuevo para entrar)");
+        } else {
+            localStorage.setItem('planetaActual', id);
+            window.location.href = 'mision.html';
+        }
     }
 </script>
 
-<script src="juego.js"></script>
 </body>
 </html>
