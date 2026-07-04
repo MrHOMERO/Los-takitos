@@ -38,7 +38,7 @@
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
         }
 
-        #texto-mision { font-size: 1.1rem; line-height: 1.6; width: 100%; overflow-y: auto; }
+        #texto-mision { font-size: 1.1rem; line-height: 1.6; width: 100%; overflow-y: auto; text-align: left; }
         
         #btn-iniciar {
             padding: 15px 30px;
@@ -59,19 +59,26 @@
     </div>
 </div>
 
+<!-- Sonido de tecleo únicamente -->
 <audio id="sonido-maquina" src="https://github.com/MrHOMERO/Los-takitos/raw/44aad3aa2eaf32eb35c15be17c5b59521247424f/sonido%20de%20teclado.mp3" preload="auto"></audio>
 
 <script>
-    // 1. Datos del jugador
+    // 1. Datos del jugador (tipoElegido es lo que viene de pantalla 2)
     const nombre = localStorage.getItem('nombre') || "VIAJERO";
-    const esencia = localStorage.getItem('esencia') || "SABIDURÍA";
+    const esencia = localStorage.getItem('tipoElegido') || "sabiduria"; 
     
-    // 2. Textos concatenados
-    const intro = `IDENTIDAD VERIFICADA. SALUDOS, ${nombre.toUpperCase()}. EL ESPECTRO DE TU ESENCIA HA SIDO ANALIZADO: TU INCLINACIÓN POR LA ${esencia.toUpperCase()} HA DEJADO UNA FIRMA ÚNICA EN LOS REGISTROS DEL SECTOR. `;
-    const mision = `MISIÓN ACTUAL: EL TIEMPO SE HA FRACTURADO EN ESTE SECTOR. DEBES LOCALIZAR EL NÚCLEO DE ESTABILIZACIÓN Y REPARAR LA GRIETA ANTES DE QUE LA PARADOJA SE VUELVA PERMANENTE. EL MAPA DE CONOCIMIENTO SE HA DESBLOQUEADO PARA GUIARTE. ES MOMENTO DE DESCIFRAR LAS VERDADES QUE LAS ESTRELLAS HAN GUARDADO CELOSAMENTE POR EONES.`;
+    // 2. Mapeo de misiones épicas
+    const textosMision = {
+        'sabiduria': "EL TIEMPO SE HA FRACTURADO. COMO AQUEL QUE BUSCA LA VERDAD, TU MISIÓN ES REPARAR LAS GRIETAS EN TUS SEIS MUNDOS. SI TU INTELECTO ES LO SUFICIENTEMENTE ELEVADO, PODRÁS ACCEDER A LOS MAPAS DE OTRAS ESENCIAS. PERO RECUERDA: LA BÚSQUEDA DE LA VERDAD TIENE UN PRECIO, Y AL FINAL, LA SABIDURÍA NO TE SALVARÁ DE SER PRISIONERO DEL TIEMPO.",
+        'legado': "EL TIEMPO SE HA FRACTURADO. COMO AQUEL QUE CONSTRUYE PARA LA ETERNIDAD, TU MISIÓN ES REFORZAR EL NÚCLEO EN TUS SEIS MUNDOS. SI TU PODER ES SUFICIENTE, RECLAMARÁS LAS RUTAS HACIA OTROS DOMINIOS. SIN EMBARGO, NO TE ENGAÑES: CADA PIEDRA QUE COLOCAS EN TU LEGADO ES UN BARROTE MÁS EN TU CELDA TEMPORAL.",
+        'momento': "EL TIEMPO SE HA FRACTURADO. COMO AQUEL QUE VIVE CON INTENSIDAD, TU MISIÓN ES RESTAURAR EL EQUILIBRIO EN TUS SEIS MUNDOS. SI TUS ATRIBUTOS SON LOS ADECUADOS, PODRÁS SALTAR HACIA REALIDADES AJENAS. DISFRUTA CADA SEGUNDO, PORQUE POR MÁS QUE CORRAS, EL TIEMPO TE DARÁ ALCANCE Y SERÁS SU PRISIONERO AL FINAL."
+    };
+
+    // 3. Construcción del mensaje
+    const misionSeleccionada = textosMision[esencia] || textosMision['sabiduria'];
+    const textoCompleto = `IDENTIDAD VERIFICADA: ${nombre.toUpperCase()}. ESENCIA: ${esencia.toUpperCase()}. MISIÓN ACTUAL: ${misionSeleccionada}`;
     
-    const textoCompleto = intro + mision;
-    const velocidad = 50; 
+    const velocidad = 40; 
     let i = 0;
 
     function iniciarSecuencia() {
