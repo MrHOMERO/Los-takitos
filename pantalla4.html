@@ -15,12 +15,6 @@
             display: flex; align-items: center; justify-content: center; position: relative;
         }
 
-        #cabina-capa {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('watermarked_img_5533350620813538015.png');
-            background-size: cover; pointer-events: none; z-index: 10;
-        }
-
         #visor-mision {
             position: absolute;
             top: 15%; left: 10%;
@@ -32,40 +26,34 @@
             z-index: 5;
             border-radius: 15px;
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-            overflow: hidden;
-            display: flex; flex-direction: column; align-items: center;
+            display: flex; flex-direction: column;
         }
 
-        #contenedor-animado {
-            position: relative;
-            width: 100%;
-            animation: subirTexto 20s linear forwards;
-        }
-
-        @keyframes subirTexto {
-            0% { transform: translateY(100%); }
-            100% { transform: translateY(-100%); }
+        /* El contenedor del texto tiene scroll, el del botón es fijo abajo */
+        #texto-mision { 
+            flex-grow: 1; 
+            overflow-y: auto; /* Permite scroll solo aquí */
+            margin-bottom: 20px;
+            white-space: pre-wrap;
         }
         
+        #boton-contenedor { text-align: center; }
+
         #btn-iniciar {
             padding: 15px 30px;
             background: #FFD700; color: black;
             font-weight: bold; border-radius: 10px;
             cursor: pointer; border: none;
             font-size: 1.1rem; text-transform: uppercase;
-            margin-top: 20px;
         }
     </style>
 </head>
 <body onload="iniciarSecuencia()">
 
 <div id="app">
-    <div id="cabina-capa"></div>
     <div id="visor-mision">
-        <div id="contenedor-animado">
-            <div id="texto-mision" class="text-center leading-relaxed"></div>
-            <div id="boton-contenedor" class="flex justify-center"></div>
-        </div>
+        <div id="texto-mision"></div>
+        <div id="boton-contenedor"></div>
     </div>
 </div>
 
@@ -84,6 +72,7 @@
     const misionSeleccionada = textosMision[esencia] || textosMision['sabiduria'];
     const textoCompleto = `IDENTIDAD: ${nombre.toUpperCase()}\nESENCIA: ${esencia.toUpperCase()}\n\n${misionSeleccionada}`;
     
+    const visor = document.getElementById("texto-mision");
     let i = 0;
 
     function iniciarSecuencia() {
@@ -92,8 +81,11 @@
 
     function escribir() {
         if (i < textoCompleto.length) {
-            document.getElementById("texto-mision").innerText += textoCompleto.charAt(i);
+            visor.innerText += textoCompleto.charAt(i);
             i++;
+            
+            // Auto-scroll al final del texto escrito
+            visor.scrollTop = visor.scrollHeight;
             
             const sonido = document.getElementById('sonido-maquina');
             sonido.currentTime = 0;
@@ -101,12 +93,12 @@
             
             setTimeout(escribir, 40);
         } else {
-            // Detener el sonido al terminar la escritura
+            // Detener sonido
             const sonido = document.getElementById('sonido-maquina');
             sonido.pause();
             sonido.currentTime = 0;
 
-            // Añadir el botón al terminar
+            // Mostrar botón
             if (!document.getElementById('btn-iniciar')) {
                 const btn = document.createElement("button");
                 btn.innerHTML = "ACCEDER AL MAPA";
