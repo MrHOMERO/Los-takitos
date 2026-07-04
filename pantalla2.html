@@ -3,33 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Elección del Destino</title>
+    <title>La Gran Elección</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { margin: 0; background: #000; font-family: 'Courier New', Courier, monospace; color: #FFD700; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .opcion-boton {
-            width: 80%; max-width: 400px; padding: 20px; margin: 15px;
-            border: 2px solid #FFD700; border-radius: 15px;
-            background: rgba(0,0,0,0.8); cursor: pointer; text-align: center;
-            font-size: 1.2rem; transition: 0.3s;
+        body { 
+            margin: 0; background: #000; font-family: 'Courier New', Courier, monospace; 
+            color: #FFD700; min-height: 100vh; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; overflow: hidden;
+            background-image: url('URL_DE_TU_FONDO_ESPACIO'); /* Opcional: tu fondo de estrellas */
+            background-size: cover;
         }
-        .opcion-boton:hover { background: #FFD700; color: #000; }
+        .contenedor-eleccion {
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #FFD700;
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .boton-jugar { 
+            display: block;
+            width: 100%; padding: 18px; margin: 15px 0;
+            background: #FFD700; border: none;
+            color: #000; font-weight: bold; border-radius: 50px;
+            cursor: pointer; text-transform: uppercase; transition: 0.3s;
+            font-size: 1.1rem;
+        }
+        .boton-jugar:hover { transform: scale(1.05); }
     </style>
 </head>
 <body>
 
-    <h1 class="text-2xl mb-10 text-center uppercase tracking-widest">¿Cuál es tu camino?</h1>
-
-    <!-- Botones que redirigen a pantalla 3 -->
-    <div class="opcion-boton" onclick="elegirCamino('camino1')">SABIDURÍA DE LAS ESTRELLAS</div>
-    <div class="opcion-boton" onclick="elegirCamino('camino2')">SENDERO DEL GUERRERO</div>
+    <div class="contenedor-eleccion">
+        <h1 class="text-2xl font-bold mb-6 uppercase">La Gran Elección</h1>
+        <p class="mb-8">¿Cuál es la forma más sabia de gastar nuestro tiempo?</p>
+        
+        <!-- Botones que definen el camino -->
+        <button class="boton-jugar" onclick="seleccionar('sabiduria')">Buscar la sabiduría</button>
+        <button class="boton-jugar" onclick="seleccionar('legado')">Construir un legado</button>
+        <button class="boton-jugar" onclick="seleccionar('momento')">Vivir el momento</button>
+    </div>
 
     <script>
-        function elegirCamino(camino) {
-            // Guardamos la elección por si la necesitas más adelante
-            localStorage.setItem('caminoElegido', camino);
+        function seleccionar(tipo) {
+            // Guardamos el tipo para que pantalla3.html lo pueda leer
+            localStorage.setItem('tipoElegido', tipo);
             
-            // Redirección directa a la página de personajes
+            // Redirigimos
             window.location.href = 'pantalla3.html';
         }
     </script>
