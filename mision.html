@@ -3,59 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Centro de Misiones</title>
+    <title>Desafío: Incursión</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { margin: 0; background: #000; font-family: 'Courier New', Courier, monospace; color: #FFD700; overflow: hidden; }
-        .pantalla { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; padding: 20px; }
+        body { background: #050505; color: #FFF; font-family: 'Courier New', Courier, monospace; overflow: hidden; }
         
-        .boton-opcion { 
-            width: 90%; max-width: 450px; padding: 20px; margin: 15px 0;
-            background: rgba(0, 0, 0, 0.8); border: 2px solid #FFD700;
-            color: #FFD700; font-weight: bold; border-radius: 10px;
-            cursor: pointer; font-size: 1.1rem; transition: all 0.3s;
-        }
-        .boton-opcion:hover { background: #FFD700; color: #000; transform: scale(1.05); }
+        /* Estilo de barras estilo Mortal Kombat */
+        .barra-contenedor { width: 40%; height: 30px; background: #333; border: 3px solid #000; position: relative; }
+        .barra-vida { height: 100%; width: 100%; transition: width 0.3s; background: linear-gradient(to bottom, #FFD700, #B8860B); }
+        .nombre-luchador { position: absolute; top: -25px; font-weight: bold; text-transform: uppercase; color: #FFD700; text-shadow: 0 0 5px #000; }
         
-        #titulo-sector { text-shadow: 0 0 10px #FFD700; margin-bottom: 30px; }
+        #combate-zona { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+        .btn-habilidad { background: #1a1a1a; border: 2px solid #FFD700; color: #FFD700; padding: 15px; margin: 5px; width: 80%; cursor: pointer; text-transform: uppercase; font-weight: bold; }
+        .btn-habilidad:hover { background: #FFD700; color: #000; }
     </style>
 </head>
 <body>
 
-    <div class="pantalla">
-        <h1 id="titulo-sector" class="text-2xl font-bold uppercase tracking-widest">CARGANDO...</h1>
-        
-        <p class="mb-8 text-white">¿Qué camino seguirás, viajero?</p>
-        
-        <button class="boton-opcion" onclick="ir('juego_mejora.html')">
-            1. CAMINO DE LA SABIDURÍA (Mejorar Habilidades)
-        </button>
-        
-        <button class="boton-opcion" onclick="ir('juego_combate.html')">
-            2. CAMINO DEL DESAFÍO (Enfrentar Secuaz)
-        </button>
+<!-- Interacción -->
+<div id="interaccion-zona" class="h-screen flex flex-col items-center justify-center p-5 text-center">
+    <h2 class="text-2xl text-yellow-500 mb-5">PREPARANDO INCURSIÓN</h2>
+    <button id="btn-iniciar-minijuego" onclick="completarInteraccion(100)" class="bg-yellow-500 text-black px-8 py-4 font-bold rounded">INICIAR ESCANEO</button>
+</div>
 
-        <button onclick="window.location.href='mapa.html'" class="mt-8 text-sm text-gray-500 hover:text-white underline">
-            VOLVER AL MAPA
-        </button>
+<!-- Combate -->
+<div id="combate-zona">
+    <div class="flex justify-between w-[90%] mb-10">
+        <!-- Barra Jugador -->
+        <div class="barra-contenedor">
+            <div id="nombre-jugador" class="nombre-luchador left-0"></div>
+            <div id="barra-jugador" class="barra-vida"></div>
+        </div>
+        <!-- Barra Enemigo -->
+        <div class="barra-contenedor">
+            <div id="nombre-enemigo" class="nombre-luchador right-0"></div>
+            <div id="barra-enemigo" class="barra-vida" style="background: linear-gradient(to bottom, #DC143C, #8B0000);"></div>
+        </div>
     </div>
 
-    <script>
-        // Obtenemos el ID del planeta (ej: 'p1', 'p2')
-        const planetaID = localStorage.getItem('planetaActual');
-        
-        // Mapeo para recuperar el nombre real desde el mapa si fuera necesario,
-        // pero aquí mostraremos el ID de forma elegante
-        if (planetaID) {
-            document.getElementById('titulo-sector').innerText = "SECTOR " + planetaID.replace('p', '').toUpperCase();
-        }
+    <div id="habilidades-container" class="w-full flex flex-col items-center"></div>
+</div>
 
-        function ir(destino) {
-            window.location.href = destino;
+<script>
+    // Recuperar datos
+    const nombre = localStorage.getItem('nombre') || "VIAJERO";
+    const esencia = localStorage.getItem('tipoElegido') || "sabiduria";
+    const tenienteNombre = "SILENCIADOR"; // Esto variará según el planeta
+
+    // DOM
+    document.getElementById('nombre-jugador').innerText = nombre;
+    document.getElementById('nombre-enemigo').innerText = tenienteNombre;
+
+    const habilidades = {
+        'sabiduria': ['PULSO LÓGICO', 'ANÁLISIS DE FALLO', 'ESCUDO DE DATOS'],
+        'legado': ['GOLPE DE PIEDRA', 'ESTRUCTURA ETERNA', 'MURALLA DE TIEMPO'],
+        'momento': ['CHISPA FUGAZ', 'SALTO TEMPORAL', 'REFLEJO INSTANTÁNEO']
+    };
+
+    let vidaJugador = 100;
+    let vidaEnemigo = 100;
+    let multiplicadorDano = 1.0;
+
+    function completarInteraccion(efectividad) {
+        multiplicadorDano = efectividad >= 100 ? 2.0 : 1.5;
+        document.getElementById('interaccion-zona').style.display = 'none';
+        document.getElementById('combate-zona').style.display = 'flex';
+        cargarHabilidades();
+    }
+
+    function cargarHabilidades() {
+        const container = document.getElementById('habilidades-container');
+        habilidades[esencia].forEach(hab => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-habilidad';
+            btn.innerText = hab;
+            btn.onclick = () => realizarAtaque();
+            container.appendChild(btn);
+        });
+    }
+
+    function realizarAtaque() {
+        let dano = Math.floor(15 * multiplicadorDano);
+        vidaEnemigo -= dano;
+        if (vidaEnemigo < 0) vidaEnemigo = 0;
+        document.getElementById('barra-enemigo').style.width = vidaEnemigo + '%';
+
+        if (vidaEnemigo > 0) {
+            setTimeout(turnoEnemigo, 600);
+        } else {
+            alert("¡VICTORIA!");
+            window.location.href = 'pantalla5.html';
         }
-    </script>
-    
-    <!-- Mantenemos la música persistente -->
-    <script src="juego.js"></script>
+    }
+
+    function turnoEnemigo() {
+        vidaJugador -= 10;
+        document.getElementById('barra-jugador').style.width = vidaJugador + '%';
+        if (vidaJugador <= 0) alert("DERROTA...");
+    }
+</script>
 </body>
-  </html>
+</html>
