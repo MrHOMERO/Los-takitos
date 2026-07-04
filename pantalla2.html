@@ -7,14 +7,22 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { 
-            margin: 0; background: #000; font-family: 'Courier New', Courier, monospace; 
-            color: #FFD700; min-height: 100vh; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; overflow: hidden;
-            background-image: url('URL_DE_TU_FONDO_ESPACIO'); /* Opcional: tu fondo de estrellas */
+            margin: 0; 
+            font-family: 'Courier New', Courier, monospace; 
+            color: #FFD700; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden;
+            /* Aplicamos el fondo solicitado */
+            background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/31a5e1ec9c9f466ba5791c697cf914eeed74fa3b/fondopantalla3.jpg');
             background-size: cover;
+            background-position: center;
         }
         .contenedor-eleccion {
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.7); /* Transparencia para ver el fondo */
             border: 2px solid #FFD700;
             border-radius: 20px;
             padding: 30px;
@@ -27,30 +35,36 @@
             width: 100%; padding: 18px; margin: 15px 0;
             background: #FFD700; border: none;
             color: #000; font-weight: bold; border-radius: 50px;
-            cursor: pointer; text-transform: uppercase; transition: 0.3s;
+            cursor: pointer; text-transform: uppercase;
             font-size: 1.1rem;
         }
-        .boton-jugar:hover { transform: scale(1.05); }
     </style>
 </head>
 <body>
+
+    <!-- Audio de fondo -->
+    <audio id="audio-pantalla2" loop>
+        <source src="https://github.com/MrHOMERO/Los-takitos/raw/31a5e1ec9c9f466ba5791c697cf914eeed74fa3b/Audio_2026_07_01_20_25_25.mp3" type="audio/mpeg">
+    </audio>
 
     <div class="contenedor-eleccion">
         <h1 class="text-2xl font-bold mb-6 uppercase">La Gran Elección</h1>
         <p class="mb-8">¿Cuál es la forma más sabia de gastar nuestro tiempo?</p>
         
-        <!-- Botones que definen el camino -->
         <button class="boton-jugar" onclick="seleccionar('sabiduria')">Buscar la sabiduría</button>
         <button class="boton-jugar" onclick="seleccionar('legado')">Construir un legado</button>
         <button class="boton-jugar" onclick="seleccionar('momento')">Vivir el momento</button>
     </div>
 
     <script>
+        // Intentar reproducir audio al cargar
+        window.addEventListener('load', () => {
+            const audio = document.getElementById('audio-pantalla2');
+            audio.play().catch(e => console.log("Audio esperando interacción"));
+        });
+
         function seleccionar(tipo) {
-            // Guardamos el tipo para que pantalla3.html lo pueda leer
             localStorage.setItem('tipoElegido', tipo);
-            
-            // Redirigimos
             window.location.href = 'pantalla3.html';
         }
     </script>
