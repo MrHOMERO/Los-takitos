@@ -2,104 +2,86 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Desafío: Incursión</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrenamiento de Habilidades</title>
     <style>
-        body { background: #050505; color: #FFF; font-family: 'Courier New', Courier, monospace; overflow: hidden; }
-        .barra-contenedor { width: 40%; height: 30px; background: #333; border: 3px solid #000; position: relative; }
-        .barra-vida { height: 100%; width: 100%; transition: width 0.3s; }
-        .nombre-luchador { position: absolute; top: -25px; font-weight: bold; text-transform: uppercase; color: #FFD700; }
-        .tarjeta-info { background: #111; border: 1px solid #FFD700; padding: 10px; margin-bottom: 20px; font-size: 0.8rem; }
+        body { margin: 0; background: #050505; color: white; font-family: 'Courier New', monospace; text-align: center; }
+        .barra-container { width: 60px; height: 200px; background: #222; margin: 10px; border-radius: 5px; cursor: pointer; position: relative; overflow: hidden; display: inline-block; }
+        .barra-progreso { position: absolute; bottom: 0; width: 100%; height: 0%; background: #00FFFF; }
+        #pantalla-juego { display: none; }
+        #info { margin-top: 20px; color: #FFD700; }
     </style>
 </head>
 <body>
 
-<div id="pantalla-mision" class="h-screen flex flex-col items-center justify-center p-5">
-    <!-- Tarjeta de Personaje -->
-    <div id="tarjeta-personaje" class="tarjeta-info w-[90%] text-center">
-        <strong>PERSONAJE:</strong> <span id="val-nombre"></span> | 
-        <strong>STATS:</strong> <span id="val-stats"></span>
+    <!-- Briefing -->
+    <div id="briefing">
+        <h2>Entrenamiento de Ecos</h2>
+        <p>Selecciona una habilidad. Tienes 10 segundos para cargarla al máximo. Solo puedes entrenar cada una una vez.</p>
+        <button onclick="iniciarEntrenamiento()">COMENZAR</button>
     </div>
 
-    <!-- Interacción (Fase 1) -->
-    <div id="interaccion-zona" class="text-center">
-        <h2 class="text-xl text-yellow-500 mb-5">PREPARANDO INCURSIÓN</h2>
-        <button onclick="completarInteraccion(90)" class="bg-yellow-500 text-black px-8 py-4 font-bold rounded">INICIAR ESCANEO</button>
-    </div>
-
-    <!-- Combate (Fase 2) -->
-    <div id="combate-zona" class="hidden w-full flex flex-col items-center">
-        <div class="flex justify-between w-[90%] mb-10">
-            <div class="barra-contenedor"><div id="nombre-jugador" class="nombre-luchador left-0"></div><div id="barra-jugador" class="barra-vida bg-yellow-500"></div></div>
-            <div class="barra-contenedor"><div id="nombre-enemigo" class="nombre-luchador right-0"></div><div id="barra-enemigo" class="barra-vida bg-red-600"></div></div>
+    <!-- Juego -->
+    <div id="pantalla-juego">
+        <div id="info">Selecciona una barra para empezar:</div>
+        <div id="contenedor-habilidades">
+            <div class="barra-container" onclick="seleccionarBarra(0)"><div class="barra-progreso" id="b0"></div></div>
+            <div class="barra-container" onclick="seleccionarBarra(1)"><div class="barra-progreso" id="b1"></div></div>
+            <div class="barra-container" onclick="seleccionarBarra(2)"><div class="barra-progreso" id="b2"></div></div>
         </div>
-        <div id="habilidades-container" class="w-full flex flex-col items-center"></div>
+        <h3 id="timer">Selecciona una habilidad</h3>
     </div>
-</div>
 
-<script>
-    // Carga de datos
-    const nombre = localStorage.getItem('nombre') || "VIAJERO";
-    const esencia = localStorage.getItem('tipoElegido') || "sabiduria";
-    const tenienteNombre = localStorage.getItem('tenienteActual') || "ENEMIGO";
-    let stats = JSON.parse(localStorage.getItem('stats')) || {sabiduria: 5, poder: 5, momento: 5};
-    
-    // UI Inicial
-    document.getElementById('val-nombre').innerText = nombre;
-    document.getElementById('val-stats').innerText = `S:${stats.sabiduria} P:${stats.poder} M:${stats.momento}`;
-    document.getElementById('nombre-jugador').innerText = nombre;
-    document.getElementById('nombre-enemigo').innerText = tenienteNombre;
+    <script>
+        let niveles = [0, 0, 0]; // Valores de las 3 habilidades
+        let usadas = [false, false, false];
+        let barraActiva = -1;
+        let toques = 0;
 
-    const habilidades = {
-        'sabiduria': ['PULSO LÓGICO', 'ANÁLISIS DE FALLO', 'ESCUDO DE DATOS'],
-        'legado': ['GOLPE DE PIEDRA', 'ESTRUCTURA ETERNA', 'MURALLA DE TIEMPO'],
-        'momento': ['CHISPA FUGAZ', 'SALTO TEMPORAL', 'REFLEJO INSTANTÁNEO']
-    };
-
-    let vidaJugador = 100;
-    let vidaEnemigo = 100;
-    let multiplicadorDano = 1.0;
-
-    function completarInteraccion(efectividad) {
-        multiplicadorDano = efectividad >= 80 ? 1.5 : 1.0;
-        document.getElementById('interaccion-zona').classList.add('hidden');
-        document.getElementById('combate-zona').classList.remove('hidden');
-        cargarHabilidades();
-    }
-
-    function cargarHabilidades() {
-        const container = document.getElementById('habilidades-container');
-        habilidades[esencia].forEach(hab => {
-            const btn = document.createElement('button');
-            btn.className = 'btn-habilidad border-2 border-yellow-500 p-3 m-2 w-4/5 text-yellow-500 font-bold uppercase';
-            btn.innerText = hab;
-            btn.onclick = realizarAtaque;
-            container.appendChild(btn);
-        });
-    }
-
-    function realizarAtaque() {
-        let dano = Math.floor((stats[esencia] * 2) * multiplicadorDano);
-        vidaEnemigo -= dano;
-        if (vidaEnemigo < 0) vidaEnemigo = 0;
-        document.getElementById('barra-enemigo').style.width = vidaEnemigo + '%';
-
-        if (vidaEnemigo <= 0) {
-            alert("¡VICTORIA! Tus stats han mejorado.");
-            stats[esencia]++; // Aumenta tu esencia elegida
-            localStorage.setItem('stats', JSON.stringify(stats));
-            window.location.href = 'pantalla5.html';
-        } else {
-            setTimeout(turnoEnemigo, 500);
+        function seleccionarBarra(index) {
+            if (usadas[index] || barraActiva !== -1) return;
+            barraActiva = index;
+            toques = 0;
+            let tiempo = 10;
+            document.getElementById('timer').innerText = "¡TOCA RÁPIDO! Tiempo: " + tiempo;
+            
+            let crono = setInterval(() => {
+                tiempo--;
+                document.getElementById('timer').innerText = "Tiempo restante: " + tiempo;
+                if (tiempo <= 0) {
+                    clearInterval(crono);
+                    finalizarBarra();
+                }
+            }, 1000);
         }
-    }
 
-    function turnoEnemigo() {
-        vidaJugador -= 15;
-        document.getElementById('barra-jugador').style.width = Math.max(0, vidaJugador) + '%';
-        if (vidaJugador <= 0) alert("DERROTA. Reintenta.");
-    }
-</script>
+        function registrarToque() {
+            if (barraActiva === -1) return;
+            toques++;
+            niveles[barraActiva] = Math.min(toques * 1.5, 100); // 1.5% por toque
+            document.getElementById('b' + barraActiva).style.height = niveles[barraActiva] + "%";
+        }
+
+        function finalizarBarra() {
+            usadas[barraActiva] = true;
+            barraActiva = -1;
+            if (usadas.every(u => u)) {
+                mostrarResultadoFinal();
+            } else {
+                document.getElementById('timer').innerText = "Habilidad cargada. Selecciona la siguiente.";
+            }
+        }
+
+        // Detecta toques en todo el body cuando hay una barra activa
+        document.body.onclick = (e) => {
+            if (barraActiva !== -1 && e.target.className !== 'barra-container') registrarToque();
+        };
+
+        function mostrarResultadoFinal() {
+            // Aquí redirigimos a una pantalla con la tarjeta actualizada
+            localStorage.setItem('nivelesFinales', JSON.stringify(niveles));
+            window.location.href = 'resultado_tarjeta.html';
+        }
+    </script>
 </body>
 </html>
