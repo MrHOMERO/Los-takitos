@@ -16,14 +16,16 @@
         }
 
         #titulo-mapa {
-            margin-top: 5%; color: #FFD700; font-size: 2rem; font-weight: bold;
+            margin-top: 5%; color: #FFD700; font-size: 1.8rem; font-weight: bold;
             text-shadow: 0 0 15px #FFD700; text-transform: uppercase; z-index: 20;
         }
 
         .planeta {
-            position: absolute; width: 70px; height: 70px; border-radius: 50%;
-            background-size: cover; cursor: pointer; z-index: 5;
+            position: absolute; width: 75px; height: 75px; border-radius: 50%;
+            background-size: cover; background-position: center;
+            cursor: pointer; z-index: 5;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
         #dialogo-planeta {
@@ -47,12 +49,15 @@
     <h1 id="titulo-mapa">Elige tu destino</h1>
     <div id="dialogo-planeta" onclick="event.stopPropagation()"></div>
 
-    <div id="p1" class="planeta" data-nombre="ECOS DEL PASADO" data-desc="Un mundo lleno de ecos de voces antiguas." data-misiones="1. Decodificar Ecos<br>2. Cazar al Silenciador" style="top: 25%; left: 15%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/picante.jpg');" onclick="gestionarClic(event, 'p1')"></div>
-    <div id="p2" class="planeta" data-nombre="VALLE ANALÓGICO" data-desc="El origen del flujo de datos primario." data-misiones="1. Sintonizar Realidad<br>2. Derrotar al Sofista" style="top: 25%; left: 50%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/maiz.jpg');" onclick="gestionarClic(event, 'p2')"></div>
-    <div id="p3" class="planeta" data-nombre="ARCHIVO FLOTANTE" data-desc="Fragmentos de historia en deriva." data-misiones="1. Recuperar Datos<br>2. Frenar al Archivista" style="top: 25%; left: 85%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/tortillas.jpg');" onclick="gestionarClic(event, 'p3')"></div>
-    <div id="p4" class="planeta" data-nombre="LABERINTO DE VIDRIO" data-desc="Donde la luz se quiebra." data-misiones="1. Enfrentar Espejos<br>2. Vencer a tu Sombra" style="top: 65%; left: 15%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/sal.jpg');" onclick="gestionarClic(event, 'p4')"></div>
-    <div id="p5" class="planeta" data-nombre="VACÍO DE VERDADES" data-desc="El lugar donde todo nace." data-misiones="1. Estabilizar Concepto<br>2. Desafiar al Guardián" style="top: 65%; left: 50%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/cilantro.jpg');" onclick="gestionarClic(event, 'p5')"></div>
-    <div id="p6" class="planeta" data-nombre="TRONO DEL OLVIDO" data-desc="El final de toda travesía." data-misiones="1. Reclamar Memoria<br>2. Confrontar a MALAKAI" style="top: 65%; left: 85%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/limon.jpg');" onclick="gestionarClic(event, 'p6')"></div>
+    <!-- Fila Superior -->
+    <div id="p1" class="planeta" data-nombre="ECOS DEL PASADO" data-desc="Un mundo lleno de ecos de voces antiguas." data-misiones="1. Decodificar Ecos<br>2. Cazar al Silenciador" style="top: 22%; left: 15%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/picante.jpg');" onclick="gestionarClic(event, 'p1')"></div>
+    <div id="p2" class="planeta" data-nombre="VALLE ANALÓGICO" data-desc="El origen del flujo de datos primario." data-misiones="1. Sintonizar Realidad<br>2. Derrotar al Sofista" style="top: 22%; left: 45%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/maiz.jpg');" onclick="gestionarClic(event, 'p2')"></div>
+    <div id="p3" class="planeta" data-nombre="ARCHIVO FLOTANTE" data-desc="Fragmentos de historia en deriva." data-misiones="1. Recuperar Datos<br>2. Frenar al Archivista" style="top: 22%; left: 75%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/tortillas.jpg');" onclick="gestionarClic(event, 'p3')"></div>
+
+    <!-- Fila Inferior -->
+    <div id="p4" class="planeta" data-nombre="LABERINTO DE VIDRIO" data-desc="Donde la luz se quiebra." data-misiones="1. Enfrentar Espejos<br>2. Vencer a tu Sombra" style="top: 55%; left: 15%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/sal.jpg');" onclick="gestionarClic(event, 'p4')"></div>
+    <div id="p5" class="planeta" data-nombre="VACÍO DE VERDADES" data-desc="El lugar donde todo nace." data-misiones="1. Estabilizar Concepto<br>2. Desafiar al Guardián" style="top: 55%; left: 45%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/cilantro.jpg');" onclick="gestionarClic(event, 'p5')"></div>
+    <div id="p6" class="planeta" data-nombre="TRONO DEL OLVIDO" data-desc="El final de toda travesía." data-misiones="1. Reclamar Memoria<br>2. Confrontar a MALAKAI" style="top: 55%; left: 75%; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/dfadbb2921f6bfd06ccbd607dfbd74f6d62132df/limon.jpg');" onclick="gestionarClic(event, 'p6')"></div>
 </div>
 
 <script>
@@ -71,9 +76,7 @@
     }
 
     function iniciarMision(id) {
-        // Guarda qué planeta fue seleccionado
         localStorage.setItem('planetaActual', id);
-        // Redirige al intro
         window.location.href = 'intro_mundo1.html'; 
     }
 
