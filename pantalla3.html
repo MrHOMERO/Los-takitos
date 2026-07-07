@@ -42,10 +42,10 @@
         const statInt = document.getElementById('stat-int');
         const statPod = document.getElementById('stat-pod');
 
-        // 1. Cargar Stats (ya sea los iniciales o los actualizados de localStorage)
+        // 1. Cargar Stats
         const stats = JSON.parse(localStorage.getItem('statsPersonaje')) || { sabiduria: 0, inteligencia: 0, poder: 0 };
         
-        // Asignar imágenes y textos base según tipo
+        // Asignar imágenes y textos
         if (tipo === 'sabiduria') {
             img.src = "https://github.com/MrHOMERO/Los-takitos/raw/b06b4f465cac4963d117067da82fb82d179051b9/retouch_2026063003370289.png";
             titulo.innerText = localStorage.getItem('nombreViajero') || "SABIDURÍA";
@@ -57,12 +57,12 @@
             titulo.innerText = localStorage.getItem('nombreViajero') || "PRESENTE";
         }
 
-        // 2. Mostrar Stats (si existen los del localStorage, úsalos, si no, usa valores por defecto)
+        // 2. Mostrar Stats
         statSab.innerText = stats.sabiduria > 0 ? stats.sabiduria : (tipo === 'sabiduria' ? 80 : (tipo === 'legado' ? 40 : 50));
         statInt.innerText = stats.inteligencia > 0 ? stats.inteligencia : (tipo === 'sabiduria' ? 60 : (tipo === 'legado' ? 70 : 50));
         statPod.innerText = stats.poder > 0 ? stats.poder : (tipo === 'sabiduria' ? 40 : (tipo === 'legado' ? 70 : 80));
 
-        // 3. Lógica de registro
+        // 3. Lógica de registro corregida
         function guardarNombre() {
             const nombre = document.getElementById('input-nombre').value;
             if(nombre) {
@@ -72,11 +72,14 @@
                     inteligencia: parseInt(statInt.innerText),
                     poder: parseInt(statPod.innerText)
                 }));
-                location.reload();
+                // Redirección directa a pantalla 4
+                window.location.href = 'pantalla4.html';
+            } else {
+                alert("Por favor, ingresa un nombre para continuar.");
             }
         }
 
-        // 4. Comprobación inicial
+        // 4. Comprobación inicial (oculta el registro si ya tiene nombre)
         if(localStorage.getItem('nombreViajero')) {
             document.getElementById('area-registro').classList.add('hidden');
             document.getElementById('btn-retorno').classList.remove('hidden');
