@@ -10,6 +10,7 @@
             height: 100vh; display: flex; flex-direction: column; align-items: center;
             background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/06e012f27cc8a6a49e529252620b5c76e1b1edfb/extensi%C3%B3n%20izquierda%20picante%20prime.jpg');
             background-size: cover; background-position: center; overflow: hidden;
+            touch-action: manipulation;
         }
 
         #personaje { width: 200px; height: 200px; background: url('https://github.com/MrHOMERO/Los-takitos/raw/06e012f27cc8a6a49e529252620b5c76e1b1edfb/retouch_2026063003370289.png'); background-size: contain; background-repeat: no-repeat; margin-top: 50px; }
@@ -41,7 +42,7 @@
 
     <div id="dialogo-mision">
         <h2>INICIO DE MISIÓN</h2>
-        <p>Restauración de Ecos: Selecciona una esencia para cargar su energía. Tienes 10 segundos por cada una.</p>
+        <p>Restauración de Ecos: Selecciona una esencia y tócala rápido para cargarla. Tienes 10 segundos por esencia.</p>
         <button onclick="cerrarDialogo()" style="background:#FFD700; border:none; padding:10px 20px; cursor:pointer; font-weight:bold;">ACEPTAR</button>
     </div>
 
@@ -105,8 +106,8 @@
 
         document.body.onclick = (e) => {
             if(barraActiva !== -1) {
-                // 0.5% por toque (200 toques = 100%)
-                niveles[barraActiva] = Math.min(niveles[barraActiva] + 0.5, 100);
+                // Ajustado: 1 toque = 1% (100 toques = 100%)
+                niveles[barraActiva] = Math.min(niveles[barraActiva] + 1, 100);
                 document.getElementById('b' + barraActiva).style.height = niveles[barraActiva] + "%";
             }
         };
