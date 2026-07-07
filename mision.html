@@ -6,24 +6,27 @@
     <title>Misión: Entrenamiento</title>
     <style>
         body { margin: 0; background: #000; color: white; font-family: 'Courier New', monospace; height: 100vh; display: flex; flex-direction: column; align-items: center; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/06e012f27cc8a6a49e529252620b5c76e1b1edfb/extensi%C3%B3n%20izquierda%20picante%20prime.jpg'); background-size: cover; background-position: center; touch-action: manipulation; }
-
-        /* Estilo Tarjeta */
-        #tarjeta-usuario { border: 3px solid #FFD700; padding: 20px; border-radius: 20px; background: rgba(0,0,0,0.8); margin-top: 20px; width: 280px; text-align: center; }
-        #img-personaje { width: 150px; height: 150px; background: url('https://github.com/MrHOMERO/Los-takitos/raw/06e012f27cc8a6a49e529252620b5c76e1b1edfb/retouch_2026063003370289.png'); background-size: contain; background-repeat: no-repeat; margin: 0 auto; }
+        
+        /* Tarjeta del Personaje */
+        #tarjeta-usuario { border: 3px solid #FFD700; padding: 20px; border-radius: 20px; background: rgba(0,0,0,0.8); margin-top: 20px; width: 280px; text-align: center; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
+        #img-personaje { width: 140px; height: 140px; background: url('https://github.com/MrHOMERO/Los-takitos/raw/06e012f27cc8a6a49e529252620b5c76e1b1edfb/retouch_2026063003370289.png'); background-size: contain; background-repeat: no-repeat; margin: 0 auto; }
         .stats-row { display: flex; justify-content: space-around; margin-top: 15px; color: #FFD700; font-weight: bold; }
 
-        #dialogo-mision { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-width: 350px; padding: 25px; background: rgba(0, 0, 0, 0.9); border: 3px solid #FFD700; color: #FFD700; text-align: center; border-radius: 15px; z-index: 100; }
+        /* Capa Final (Botones) */
+        #pantalla-final { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; flex-direction:column; align-items:center; justify-content:center; }
+
+        /* Estilos generales */
+        #dialogo-mision { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-width: 350px; padding: 25px; background: rgba(0, 0, 0, 0.95); border: 3px solid #FFD700; color: #FFD700; text-align: center; border-radius: 15px; z-index: 9999; }
         #contenedor-barras { display: flex; gap: 20px; margin-top: auto; margin-bottom: 50px; }
         .barra-caja { width: 60px; height: 120px; background: rgba(0,0,0,0.7); border: 2px solid #00FFFF; position: relative; cursor: pointer; }
         .barra-progreso { position: absolute; bottom: 0; width: 100%; height: 0%; background: #00FFFF; transition: height 0.1s; }
         .nombre-habilidad { position: absolute; bottom: -35px; width: 100%; text-align: center; font-size: 0.6rem; color: #FFD700; text-transform: uppercase; }
-        #reloj-central { position: fixed; top: 50%; font-size: 5rem; color: #FFD700; display: none; z-index: 200; }
+        #reloj-central { position: fixed; top: 50%; font-size: 5rem; color: #FFD700; display: none; z-index: 200; pointer-events: none; }
     </style>
 </head>
 <body>
 
-    <audio id="musica-mision" loop><source src="https://github.com/MrHOMERO/Los-takitos/raw/5ccbc797e782bc7c36acefb6d47a7c877ca62fe8/musicafondomapa.mp3" type="audio/mpeg"></audio>
-
+    <!-- Tarjeta Visual -->
     <div id="tarjeta-usuario">
         <div id="img-personaje"></div>
         <h2 id="display-nombre">VIAJERO</h2>
@@ -34,10 +37,18 @@
         </div>
     </div>
 
+    <!-- Pantalla Final de Selección -->
+    <div id="pantalla-final">
+        <h2 style="color:#FFD700; margin-bottom:30px;">¡MISIÓN COMPLETADA!</h2>
+        <button onclick="window.location.href='resultado_tarjeta.html'" style="padding:15px 25px; margin:10px; cursor:pointer; background:#FFD700; border:none; font-weight:bold; border-radius:10px; width:260px;">¿QUIERES VER TU PROGRESO?</button>
+        <button onclick="window.location.href='mapa.html'" style="padding:15px 25px; margin:10px; cursor:pointer; background:#00FFFF; border:none; font-weight:bold; border-radius:10px; width:260px;">CONTINUAR A LA GESTIÓN</button>
+    </div>
+
+    <!-- Diálogo Inicial -->
     <div id="dialogo-mision">
         <h2>INICIO DE MISIÓN</h2>
-        <p>Entrena para mejorar tus atributos. Tienes 10 segundos por esencia.</p>
-        <button onclick="cerrarDialogo()">ACEPTAR</button>
+        <p>Toca rápido para cargar tus esencias. Tienes 10 segundos por esencia.</p>
+        <button type="button" onclick="this.parentElement.style.display='none'; cerrarDialogo();" style="background:#FFD700; border:none; padding:15px 30px; cursor:pointer; font-weight:bold; border-radius:10px;">ACEPTAR</button>
     </div>
 
     <div id="reloj-central"></div>
@@ -50,14 +61,57 @@
 
     <script>
         window.onload = () => {
-            const stats = JSON.parse(localStorage.getItem('statsPersonaje')) || { sabiduria: 0, inteligencia: 0, poder: 0 };
+            const stats = JSON.parse(localStorage.getItem('statsPersonaje')) || { sabiduria: 80, inteligencia: 60, poder: 40 };
             document.getElementById('val-sab').innerText = stats.sabiduria;
             document.getElementById('val-int').innerText = stats.inteligencia;
             document.getElementById('val-pod').innerText = stats.poder;
             document.getElementById('display-nombre').innerText = localStorage.getItem('nombreViajero') || "VIAJERO";
         };
 
-        // ... (resto de tu lógica de juego anterior)
+        let niveles = [0,0,0], usadas = [false,false,false], barraActiva = -1;
+
+        function cerrarDialogo() {
+            const audio = document.getElementById('musica-mision');
+            audio?.play().catch(()=>{});
+        }
+
+        function iniciarSecuencia(idx) {
+            if(usadas[idx] || barraActiva !== -1) return;
+            let contador = 3;
+            const reloj = document.getElementById('reloj-central');
+            reloj.style.display = 'block';
+            let id = setInterval(() => {
+                reloj.innerText = contador > 0 ? contador : "¡YA!";
+                if(contador === 0) {
+                    clearInterval(id);
+                    setTimeout(() => { reloj.style.display = 'none'; comenzarCuentaRegresiva(idx); }, 500);
+                }
+                contador--;
+            }, 800);
+        }
+
+        function comenzarCuentaRegresiva(idx) {
+            barraActiva = idx;
+            let tiempo = 10;
+            let interval = setInterval(() => {
+                if(tiempo <= 0) { 
+                    clearInterval(interval); barraActiva = -1; usadas[idx] = true; 
+                    if(usadas.every(u => u)) {
+                        localStorage.setItem('nivelesFinales', JSON.stringify(niveles));
+                        document.getElementById('pantalla-final').style.display = 'flex';
+                    }
+                }
+                tiempo--;
+            }, 1000);
+        }
+
+        document.body.onclick = (e) => {
+            if(barraActiva !== -1) {
+                niveles[barraActiva] = Math.min(niveles[barraActiva] + 1, 100);
+                document.getElementById('b' + barraActiva).style.height = niveles[barraActiva] + "%";
+            }
+        };
     </script>
+    <audio id="musica-mision" loop><source src="https://github.com/MrHOMERO/Los-takitos/raw/5ccbc797e782bc7c36acefb6d47a7c877ca62fe8/musicafondomapa.mp3" type="audio/mpeg"></audio>
 </body>
 </html>
