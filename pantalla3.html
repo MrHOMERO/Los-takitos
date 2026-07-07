@@ -7,24 +7,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { margin: 0; background: #000; font-family: 'Courier New', Courier, monospace; color: #FFD700; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        
-        .carta-personaje {
-            background: rgba(0, 0, 0, 0.9);
-            border: 3px solid #FFD700;
-            border-radius: 20px;
-            padding: 25px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
-        }
+        .carta-personaje { background: rgba(0, 0, 0, 0.9); border: 3px solid #FFD700; border-radius: 20px; padding: 25px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 0 30px rgba(255, 215, 0, 0.4); }
         .carta-img { width: 100%; height: 250px; object-fit: contain; margin-bottom: 20px; border-radius: 10px; }
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 20px 0; font-weight: bold; }
-        .boton-confirmar { 
-            margin-top: 30px; padding: 15px 30px; background: #FFD700; color: #000; 
-            border-radius: 50px; font-weight: bold; text-transform: uppercase; cursor: pointer;
-            width: 80%;
-        }
+        .boton { margin-top: 20px; padding: 15px 30px; border-radius: 50px; font-weight: bold; text-transform: uppercase; cursor: pointer; width: 80%; border: none; }
+        .boton-confirmar { background: #FFD700; color: #000; }
+        .boton-retorno { background: #00FFFF; color: #000; }
     </style>
 </head>
 <body>
@@ -32,7 +20,6 @@
     <div class="carta-personaje">
         <img id="img-personaje" src="" class="carta-img" alt="Personaje">
         <div id="nombre-titulo" class="text-2xl font-bold text-white uppercase">---</div>
-        
         <div class="stats-grid">
             <div>SAB<br><span id="stat-sab">0</span></div>
             <div>INT<br><span id="stat-int">0</span></div>
@@ -40,33 +27,59 @@
         </div>
     </div>
 
-    <input type="text" id="input-nombre" class="mt-8 p-3 w-4/5 rounded-lg text-black text-center" placeholder="Tu nombre de viajero...">
-    
-    <button class="boton-confirmar" onclick="confirmarNombre()">Comenzar mi historia</button>
+    <div id="area-registro" class="w-full flex flex-col items-center">
+        <input type="text" id="input-nombre" class="mt-8 p-3 w-4/5 rounded-lg text-black text-center" placeholder="Tu nombre de viajero...">
+        <button class="boton boton-confirmar" onclick="guardarNombre()">Comenzar mi historia</button>
+    </div>
 
-    <script src="juego.js"></script>
+    <button id="btn-retorno" class="boton boton-retorno hidden" onclick="window.location.href='intro_mundo1.html'">VOLVER A LA MISIÓN</button>
+
     <script>
         const tipo = localStorage.getItem('tipoElegido');
         const img = document.getElementById('img-personaje');
         const titulo = document.getElementById('nombre-titulo');
-        const sab = document.getElementById('stat-sab');
-        const int = document.getElementById('stat-int');
-        const pod = document.getElementById('stat-pod');
+        const statSab = document.getElementById('stat-sab');
+        const statInt = document.getElementById('stat-int');
+        const statPod = document.getElementById('stat-pod');
 
-        // Lógica de carga según el botón elegido en Pantalla 2
+        // 1. Cargar Stats (ya sea los iniciales o los actualizados de localStorage)
+        const stats = JSON.parse(localStorage.getItem('statsPersonaje')) || { sabiduria: 0, inteligencia: 0, poder: 0 };
+        
+        // Asignar imágenes y textos base según tipo
         if (tipo === 'sabiduria') {
             img.src = "https://github.com/MrHOMERO/Los-takitos/raw/b06b4f465cac4963d117067da82fb82d179051b9/retouch_2026063003370289.png";
-            titulo.innerText = "SABIDURÍA";
-            sab.innerText = "80"; int.innerText = "60"; pod.innerText = "40";
+            titulo.innerText = localStorage.getItem('nombreViajero') || "SABIDURÍA";
         } else if (tipo === 'legado') {
             img.src = "https://github.com/MrHOMERO/Los-takitos/raw/b24d92948c4c9e1969aa83a319c743107ae0191b/retouch_2026062821501359.png";
-            titulo.innerText = "LEGADO";
-            sab.innerText = "40"; int.innerText = "70"; pod.innerText = "70";
+            titulo.innerText = localStorage.getItem('nombreViajero') || "LEGADO";
         } else {
-            // Tercer botón: Vivir el momento
             img.src = "https://github.com/MrHOMERO/Los-takitos/raw/958e43da5379b9ae62906f3d8dd32107c36990d1/retouch_2026070400133216.png";
-            titulo.innerText = "PRESENTE";
-            sab.innerText = "50"; int.innerText = "50"; pod.innerText = "80";
+            titulo.innerText = localStorage.getItem('nombreViajero') || "PRESENTE";
+        }
+
+        // 2. Mostrar Stats (si existen los del localStorage, úsalos, si no, usa valores por defecto)
+        statSab.innerText = stats.sabiduria > 0 ? stats.sabiduria : (tipo === 'sabiduria' ? 80 : (tipo === 'legado' ? 40 : 50));
+        statInt.innerText = stats.inteligencia > 0 ? stats.inteligencia : (tipo === 'sabiduria' ? 60 : (tipo === 'legado' ? 70 : 50));
+        statPod.innerText = stats.poder > 0 ? stats.poder : (tipo === 'sabiduria' ? 40 : (tipo === 'legado' ? 70 : 80));
+
+        // 3. Lógica de registro
+        function guardarNombre() {
+            const nombre = document.getElementById('input-nombre').value;
+            if(nombre) {
+                localStorage.setItem('nombreViajero', nombre);
+                localStorage.setItem('statsPersonaje', JSON.stringify({
+                    sabiduria: parseInt(statSab.innerText),
+                    inteligencia: parseInt(statInt.innerText),
+                    poder: parseInt(statPod.innerText)
+                }));
+                location.reload();
+            }
+        }
+
+        // 4. Comprobación inicial
+        if(localStorage.getItem('nombreViajero')) {
+            document.getElementById('area-registro').classList.add('hidden');
+            document.getElementById('btn-retorno').classList.remove('hidden');
         }
     </script>
 </body>
