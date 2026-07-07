@@ -13,7 +13,8 @@
         .punto-mision {
             position: absolute; width: 12vw; height: 12vw; background: rgba(0, 255, 255, 0.15);
             border: 3px solid #00FFFF; border-radius: 50%; cursor: pointer; display: none;
-            animation: pulso 1.5s infinite; z-index: 10; font-size: 0.7rem; color: white;
+            animation: pulso 1.5s infinite; z-index: 10; font-size: 2rem; color: white;
+            display: flex; align-items: center; justify-content: center;
         }
 
         @keyframes pulso {
@@ -30,12 +31,12 @@
             <source src="lv_0_20260704135348.mp4" type="video/mp4">
         </video>
 
-        <!-- Botones con ID para manipularlos -->
+        <!-- Botones -->
         <button id="btn-mision-1" class="punto-mision" style="top: 52%; left: 19%;" onclick="irAMision('Sector A')"></button>
         <button id="btn-mision-2" class="punto-mision" style="top: 52%; left: 69%;" onclick="irAMision('Data Core B')"></button>
     </div>
 
-    <!-- Diálogo Personalizado -->
+    <!-- Diálogo -->
     <div id="dialogo-alerta" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:80%; max-width:300px; padding:25px; background:rgba(0,0,0,0.95); border:3px solid #FFD700; color:#FFD700; text-align:center; border-radius:15px; z-index:9999;">
         <h3>AVISO</h3>
         <p>¡Esta misión ya ha sido completada!</p>
@@ -46,11 +47,14 @@
         const video = document.getElementById('video-intro');
         const botones = document.querySelectorAll('.punto-mision');
 
-        video.onended = () => { botones.forEach(b => b.style.display = 'block'); };
+        video.onended = () => { botones.forEach(b => b.style.display = 'flex'); };
 
         function irAMision(mision) {
             if (mision === 'Sector A' && localStorage.getItem('mision1Completada') === 'true') {
                 document.getElementById('dialogo-alerta').style.display = 'block';
+            } else if (mision === 'Data Core B') {
+                // REDIRECCIÓN ESPECÍFICA AL NUEVO JUEGO DE COMBATE
+                window.location.href = 'juego_combate.html';
             } else {
                 localStorage.setItem('misionElegida', mision);
                 window.location.href = 'mision.html';
@@ -58,12 +62,17 @@
         }
 
         window.onload = () => {
+            // Check Mision 1
             if(localStorage.getItem('mision1Completada') === 'true') {
                 const btn1 = document.getElementById('btn-mision-1');
-                btn1.style.background = 'red';
-                btn1.style.borderColor = 'darkred';
-                btn1.style.animation = 'none'; // Detener pulso
-                btn1.innerHTML = "✓";
+                btn1.style.background = 'red'; btn1.style.borderColor = 'darkred';
+                btn1.style.animation = 'none'; btn1.innerHTML = "✓";
+            }
+            // Check Mision 2 (Combate)
+            if(localStorage.getItem('mision2Completada') === 'true') {
+                const btn2 = document.getElementById('btn-mision-2');
+                btn2.style.background = 'red'; btn2.style.borderColor = 'darkred';
+                btn2.style.animation = 'none'; btn2.innerHTML = "✓";
             }
         };
     </script>
