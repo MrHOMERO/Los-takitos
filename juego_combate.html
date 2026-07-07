@@ -2,53 +2,68 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Combate Galáctico</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combate: Data Core B</title>
     <style>
-        .pantalla { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; padding: 20px; text-align: center; }
-        .info-combate { background: rgba(0,0,0,0.8); border: 2px solid #FFD700; padding: 20px; border-radius: 15px; color: #fff; width: 90%; max-width: 400px; }
-        .btn-accion { margin-top: 20px; padding: 15px 30px; background: #FFD700; border: none; font-weight: bold; cursor: pointer; border-radius: 5px; }
+        body { 
+            margin: 0; height: 100vh; 
+            background: url('https://github.com/MrHOMERO/Los-takitos/raw/d628822ee14e633ae13fc6a7e557a883ec790e4c/fondo%20planeta1.jpg') no-repeat center center/cover; 
+            display: flex; flex-direction: column; align-items: center; justify-content: space-between; 
+            font-family: 'Courier New', monospace; color: white; overflow: hidden;
+        }
+        
+        /* HUD Superior */
+        .hud { display: flex; width: 95%; justify-content: space-between; align-items: center; padding-top: 20px; }
+        .barra-container { width: 40%; height: 25px; background: #333; border: 3px solid #fff; }
+        .barra-vida { height: 100%; width: 100%; background: linear-gradient(to right, #ff0000, #ffff00); transition: width 0.3s; }
+        .versus { font-size: 2rem; font-weight: bold; text-shadow: 2px 2px #000; }
+
+        /* Arena */
+        .arena { display: flex; justify-content: space-around; width: 100%; align-items: flex-end; padding-bottom: 50px; }
+        .personaje { height: 350px; width: auto; object-fit: contain; }
+
+        /* Controles */
+        .controles { display: flex; gap: 15px; margin-bottom: 30px; }
+        .btn-poder { padding: 15px 25px; background: rgba(0,0,0,0.8); border: 2px solid #FFD700; color: #FFD700; cursor: pointer; font-weight: bold; text-transform: uppercase; }
     </style>
 </head>
 <body>
-    <div class="fondo-espacio"></div>
 
-    <div class="pantalla">
-        <div class="info-combate">
-            <h2 id="nombre-enemigo">Cargando enemigo...</h2>
-            <p id="texto-estado">Un secuaz de Malakai bloquea tu camino.</p>
-            <button class="btn-accion" onclick="resolverCombate()">USAR ESENCIA PARA VENCER</button>
-        </div>
+    <div class="hud">
+        <div class="barra-container"><div id="vida-jugador" class="barra-vida"></div></div>
+        <div class="versus">VS</div>
+        <div class="barra-container"><div id="vida-secuaz" class="barra-vida"></div></div>
+    </div>
+
+    <div class="arena">
+        <img id="img-jugador" class="personaje" src="" alt="Jugador">
+        <!-- Secuaz con el nuevo permalink de cuerpo completo -->
+        <img src="https://github.com/MrHOMERO/Los-takitos/raw/d628822ee14e633ae13fc6a7e557a883ec790e4c/retouch_2026070702024056.png" class="personaje" alt="Secuaz">
+    </div>
+
+    <div class="controles">
+        <button class="btn-poder" onclick="usarPoder(1)">Ataque Ligero</button>
+        <button class="btn-poder" onclick="usarPoder(2)">Ataque Potente</button>
+        <button class="btn-poder" onclick="usarPoder(3)">Golpe Crítico</button>
     </div>
 
     <script>
-        const planeta = localStorage.getItem('planetaActual');
-        // Definimos enemigos según el planeta
-        const enemigos = {
-            'picante': 'El Eco Distorsionado',
-            'maiz': 'El Sofista del Vacío',
-            'tortillas': 'El Archivista Corrupto',
-            'sal': 'Tu Propia Sombra'
-        };
+        // Cargar jugador
+        document.getElementById('img-jugador').src = "https://github.com/MrHOMERO/Los-takitos/raw/b06b4f465cac4963d117067da82fb82d179051b9/retouch_2026063003370289.png";
+        
+        let vidaS = 100;
 
-        document.getElementById('nombre-enemigo').innerText = enemigos[planeta] || "Secuaz de Malakai";
-
-        function resolverCombate() {
-            // Aquí comparamos tus stats contra una dificultad fija
-            const sab = parseInt(localStorage.getItem('sab')) || 0;
-            const int = parseInt(localStorage.getItem('int')) || 0;
-            const pod = parseInt(localStorage.getItem('pod')) || 0;
-            const fuerzaTotal = sab + int + pod;
-
-            if(fuerzaTotal >= 150) { // Dificultad base
-                alert("¡Victoria! Has superado al secuaz usando tu sabiduría.");
-                window.location.href = 'mapa.html'; // Volver al mapa
-            } else {
-                alert("Tu esencia es insuficiente. ¡Necesitas entrenar más tus habilidades!");
-                window.location.href = 'juego_mejora.html'; // Ir a mejorar
+        function usarPoder(tipo) {
+            let dano = (tipo * 15) + Math.floor(Math.random() * 10);
+            vidaS = Math.max(0, vidaS - dano);
+            document.getElementById('vida-secuaz').style.width = vidaS + "%";
+            
+            if(vidaS <= 0) {
+                localStorage.setItem('mision2Completada', 'true');
+                alert("¡VICTORIA! El secuaz ha caído.");
+                window.location.href = 'intro_mundo1.html';
             }
         }
     </script>
-    <script src="juego.js"></script>
 </body>
 </html>
