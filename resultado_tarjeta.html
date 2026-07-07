@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Resultados de la Misión</title>
+    <style>
+        body { 
+            margin: 0; background: #000; color: #FFD700; 
+            font-family: 'Courier New', monospace; text-align: center; 
+            display: flex; flex-direction: column; align-items: center; 
+            justify-content: center; height: 100vh;
+        }
+
+        #tarjeta { 
+            border: 4px solid #FFD700; padding: 30px; width: 85%; 
+            max-width: 400px; border-radius: 20px; 
+            background: rgba(20, 20, 0, 0.9);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .fila-resultado { margin: 20px 0; font-size: 1.2rem; border-bottom: 1px solid #444; padding-bottom: 10px; }
+        
+        button { 
+            margin-top: 30px; padding: 12px 25px; cursor: pointer; 
+            background: #FFD700; border: none; font-weight: bold; 
+            text-transform: uppercase; border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="tarjeta">
+        <h1>MISIÓN COMPLETADA</h1>
+        <div id="resultados-contenedor"></div>
+        <button onclick="window.location.href='mapa.html'">REGRESAR AL MAPA</button>
+    </div>
+
+    <script>
+        // Recuperar los niveles guardados en mision.html
+        const datosGuardados = localStorage.getItem('nivelesFinales');
+        const resultados = datosGuardados ? JSON.parse(datosGuardados) : [0, 0, 0];
+        
+        const nombres = ["SABIDURÍA", "INTELIGENCIA", "PODER"];
+        const contenedor = document.getElementById('resultados-contenedor');
+        
+        let puntosTotales = 0;
+
+        resultados.forEach((val, i) => {
+            let puntos = 0;
+            // Lógica de puntuación
+            if (val >= 100) puntos = 2;
+            else if (val >= 50) puntos = 1;
+            
+            puntosTotales += puntos;
+            
+            contenedor.innerHTML += `
+                <div class="fila-resultado">
+                    <strong>${nombres[i]}</strong>: ${val.toFixed(0)}% <br>
+                    <small style="color:white;">Puntos ganados: +${puntos}</small>
+                </div>
+            `;
+        });
+
+        contenedor.innerHTML += `
+            <div style="margin-top: 20px;">
+                <h3>PUNTUACIÓN TOTAL: ${puntosTotales}</h3>
+            </div>
+        `;
+    </script>
+</body>
+</html>
