@@ -7,17 +7,21 @@
     <style>
         body { margin: 0; background: #000; color: white; font-family: 'Courier New', monospace; height: 100vh; display: flex; flex-direction: column; align-items: center; background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/06e012f27cc8a6a49e529252620b5c76e1b1edfb/extensi%C3%B3n%20izquierda%20picante%20prime.jpg'); background-size: cover; background-position: center; touch-action: manipulation; }
         
+        /* Tarjeta */
         #tarjeta-usuario { border: 3px solid #FFD700; padding: 20px; border-radius: 20px; background: rgba(0,0,0,0.8); margin-top: 20px; width: 280px; text-align: center; }
         #img-personaje { width: 140px; height: 140px; background: url('https://github.com/MrHOMERO/Los-takitos/raw/06e012f27cc8a6a49e529252620b5c76e1b1edfb/retouch_2026063003370289.png'); background-size: contain; background-repeat: no-repeat; margin: 0 auto; }
         .stats-row { display: flex; justify-content: space-around; margin-top: 15px; color: #FFD700; font-weight: bold; }
 
+        /* Pantalla Final */
         #pantalla-final { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; flex-direction:column; align-items:center; justify-content:center; }
-        #dialogo-mision { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-width: 350px; padding: 25px; background: rgba(0, 0, 0, 0.95); border: 3px solid #FFD700; color: #FFD700; text-align: center; border-radius: 15px; z-index: 9999; }
-        
+
+        /* Barras */
         #contenedor-barras { display: flex; gap: 20px; margin-top: auto; margin-bottom: 50px; }
         .barra-caja { width: 60px; height: 120px; background: rgba(0,0,0,0.7); border: 2px solid #00FFFF; position: relative; cursor: pointer; }
         .barra-progreso { position: absolute; bottom: 0; width: 100%; height: 0%; background: #00FFFF; transition: height 0.1s; }
+        .timer-display { position: absolute; top: -30px; width: 100%; text-align: center; color: #FFF; font-size: 1.2rem; font-weight: bold; z-index: 10; }
         .nombre-habilidad { position: absolute; bottom: -35px; width: 100%; text-align: center; font-size: 0.6rem; color: #FFD700; text-transform: uppercase; }
+        
         #reloj-central { position: fixed; top: 50%; font-size: 5rem; color: #FFD700; display: none; z-index: 200; pointer-events: none; }
     </style>
 </head>
@@ -36,21 +40,15 @@
     <div id="pantalla-final">
         <h2 style="color:#FFD700; margin-bottom:30px;">¡MISIÓN COMPLETADA!</h2>
         <button onclick="window.location.href='resultado_tarjeta.html'" style="padding:15px 25px; margin:10px; cursor:pointer; background:#FFD700; border:none; font-weight:bold; border-radius:10px; width:260px;">¿QUIERES VER TU PROGRESO?</button>
-        <button onclick="window.location.href='mapa.html'" style="padding:15px 25px; margin:10px; cursor:pointer; background:#00FFFF; border:none; font-weight:bold; border-radius:10px; width:260px;">CONTINUAR MISIÓN</button>
-    </div>
-
-    <div id="dialogo-mision">
-        <h2>INICIO DE MISIÓN</h2>
-        <p>Toca rápido para cargar tus esencias. Tienes 10 segundos por esencia.</p>
-        <button type="button" onclick="this.parentElement.style.display='none'; cerrarDialogo();" style="background:#FFD700; border:none; padding:15px 30px; cursor:pointer; font-weight:bold; border-radius:10px;">ACEPTAR</button>
+        <button onclick="window.location.href='intro_mundo1.html'" style="padding:15px 25px; margin:10px; cursor:pointer; background:#00FFFF; border:none; font-weight:bold; border-radius:10px; width:260px;">CONTINUAR MISIÓN</button>
     </div>
 
     <div id="reloj-central"></div>
 
     <div id="contenedor-barras">
-        <div class="barra-caja" onclick="iniciarSecuencia(0)"><div class="barra-progreso" id="b0"></div><div class="nombre-habilidad">SABIDURÍA</div></div>
-        <div class="barra-caja" onclick="iniciarSecuencia(1)"><div class="barra-progreso" id="b1"></div><div class="nombre-habilidad">INTELIGENCIA</div></div>
-        <div class="barra-caja" onclick="iniciarSecuencia(2)"><div class="barra-progreso" id="b2"></div><div class="nombre-habilidad">PODER</div></div>
+        <div class="barra-caja" onclick="iniciarSecuencia(0)"><div class="timer-display" id="t0"></div><div class="barra-progreso" id="b0"></div><div class="nombre-habilidad">SABIDURÍA</div></div>
+        <div class="barra-caja" onclick="iniciarSecuencia(1)"><div class="timer-display" id="t1"></div><div class="barra-progreso" id="b1"></div><div class="nombre-habilidad">INTELIGENCIA</div></div>
+        <div class="barra-caja" onclick="iniciarSecuencia(2)"><div class="timer-display" id="t2"></div><div class="barra-progreso" id="b2"></div><div class="nombre-habilidad">PODER</div></div>
     </div>
 
     <script>
@@ -63,8 +61,6 @@
         };
 
         let niveles = [0,0,0], usadas = [false,false,false], barraActiva = -1;
-
-        function cerrarDialogo() { const audio = document.getElementById('musica-mision'); audio?.play().catch(()=>{}); }
 
         function iniciarSecuencia(idx) {
             if(usadas[idx] || barraActiva !== -1) return;
@@ -84,18 +80,20 @@
         function comenzarCuentaRegresiva(idx) {
             barraActiva = idx;
             let tiempo = 10;
+            let timerDiv = document.getElementById('t' + idx);
+            timerDiv.innerText = tiempo;
+            
             let interval = setInterval(() => {
+                tiempo--;
+                timerDiv.innerText = tiempo > 0 ? tiempo : "";
                 if(tiempo <= 0) { 
                     clearInterval(interval); barraActiva = -1; usadas[idx] = true; 
-                    // BLOQUEO VISUAL A ROJO
                     document.getElementById('b' + idx).style.background = 'red';
-                    
                     if(usadas.every(u => u)) {
                         localStorage.setItem('nivelesFinales', JSON.stringify(niveles));
                         document.getElementById('pantalla-final').style.display = 'flex';
                     }
                 }
-                tiempo--;
             }, 1000);
         }
 
@@ -106,6 +104,5 @@
             }
         };
     </script>
-    <audio id="musica-mision" loop><source src="https://github.com/MrHOMERO/Los-takitos/raw/5ccbc797e782bc7c36acefb6d47a7c877ca62fe8/musicafondomapa.mp3" type="audio/mpeg"></audio>
 </body>
 </html>
