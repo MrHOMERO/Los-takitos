@@ -8,7 +8,8 @@
         body { margin: 0; background: #000; color: #FFD700; font-family: 'Courier New', monospace; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
         #tarjeta { border: 4px solid #FFD700; padding: 30px; width: 85%; max-width: 400px; border-radius: 20px; background: rgba(20, 20, 0, 0.9); box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
         .fila-resultado { margin: 15px 0; font-size: 1.1rem; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        button { margin-top: 25px; padding: 12px 25px; cursor: pointer; background: #FFD700; border: none; font-weight: bold; border-radius: 5px; text-transform: uppercase; }
+        .btn-accion { margin-top: 15px; padding: 12px 25px; cursor: pointer; background: #FFD700; border: none; font-weight: bold; border-radius: 5px; text-transform: uppercase; width: 100%; }
+        .btn-secundario { background: #00FFFF; }
     </style>
 </head>
 <body>
@@ -16,26 +17,28 @@
     <div id="tarjeta">
         <h1>MISIÓN COMPLETADA</h1>
         <div id="resultados-contenedor"></div>
-        <button onclick="window.location.href='mapa.html'">VOLVER AL MAPA</button>
+        
+        <button class="btn-accion" onclick="window.location.href='pantalla3.html'">VER MI TARJETA</button>
+        <button class="btn-accion btn-secundario" onclick="window.location.href='intro_mundo1.html'">CONTINUAR MISIONES</button>
     </div>
 
     <script>
-        // 1. Recuperar datos de la misión recién terminada
+        // 1. Recuperar datos
         const resultados = JSON.parse(localStorage.getItem('nivelesFinales')) || [0, 0, 0];
-        
-        // 2. Recuperar stats globales (el perfil del personaje)
         let stats = JSON.parse(localStorage.getItem('statsPersonaje')) || { sabiduria: 0, inteligencia: 0, poder: 0 };
         
+        // 2. Marcar misión como completada inmediatamente al cargar esta pantalla
+        localStorage.setItem('mision1Completada', 'true');
+
         const nombres = ["SABIDURÍA", "INTELIGENCIA", "PODER"];
         const contenedor = document.getElementById('resultados-contenedor');
         let totalPuntosGanados = 0;
 
-        // 3. Procesar resultados y actualizar globalmente
+        // 3. Procesar resultados
         resultados.forEach((val, i) => {
             let puntos = (val >= 100) ? 2 : (val >= 50 ? 1 : 0);
             totalPuntosGanados += puntos;
             
-            // Sumar al objeto global según el índice
             if(i === 0) stats.sabiduria += puntos;
             if(i === 1) stats.inteligencia += puntos;
             if(i === 2) stats.poder += puntos;
@@ -48,9 +51,8 @@
             `;
         });
 
-        // 4. Guardar los nuevos stats actualizados de forma permanente
+        // 4. Guardar cambios permanentemente
         localStorage.setItem('statsPersonaje', JSON.stringify(stats));
-
         contenedor.innerHTML += `<h3>TOTAL GANADOS: ${totalPuntosGanados}</h3>`;
     </script>
 </body>
