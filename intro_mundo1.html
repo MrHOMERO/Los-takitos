@@ -1,1 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misión - Cargando...</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: black; overflow: hidden; }
+        
+        #video-container { position: relative; width: 100vw; height: 100vh; }
+        
+        #video-intro { 
+            width: 100%; height: 100%; object-fit: cover; display: block;
+        }
 
+        .punto-mision {
+            position: absolute;
+            width: 60px; height: 60px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 3px solid #00FFFF;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none; /* Se activa solo al terminar */
+            animation: pulso 1.5s infinite;
+            z-index: 10;
+        }
+
+        @keyframes pulso {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.7); }
+            70% { transform: scale(1.2); box-shadow: 0 0 0 15px rgba(0, 255, 255, 0); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="video-container">
+        <video id="video-intro" playsinline autoplay muted>
+            <source src="lv_0_20260704135348.mp4" type="video/mp4">
+        </video>
+
+        <button class="punto-mision" style="top: 35%; left: 30%;" onclick="irAMision('Misión 1')"></button>
+        <button class="punto-mision" style="top: 35%; left: 60%;" onclick="irAMision('Misión 2')"></button>
+    </div>
+
+    <script>
+        const video = document.getElementById('video-intro');
+        const botones = document.querySelectorAll('.punto-mision');
+
+        video.onended = function() {
+            // Cuando termina, aparecen los puntos
+            botones.forEach(b => b.style.display = 'block');
+        };
+
+        function irAMision(mision) {
+            alert("Iniciando " + mision);
+            // Aquí redirigirás a tu pantalla de juego final
+            window.location.href = 'mision.html'; 
+        }
+    </script>
+</body>
+</html>
