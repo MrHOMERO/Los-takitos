@@ -3,29 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Resultados de la Misión</title>
+    <title>Resultados</title>
     <style>
-        body { 
-            margin: 0; background: #000; color: #FFD700; 
-            font-family: 'Courier New', monospace; text-align: center; 
-            display: flex; flex-direction: column; align-items: center; 
-            justify-content: center; height: 100vh;
-        }
-
-        #tarjeta { 
-            border: 4px solid #FFD700; padding: 30px; width: 85%; 
-            max-width: 400px; border-radius: 20px; 
-            background: rgba(20, 20, 0, 0.9);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-        }
-
-        .fila-resultado { margin: 20px 0; font-size: 1.2rem; border-bottom: 1px solid #444; padding-bottom: 10px; }
-        
-        button { 
-            margin-top: 30px; padding: 12px 25px; cursor: pointer; 
-            background: #FFD700; border: none; font-weight: bold; 
-            text-transform: uppercase; border-radius: 5px;
-        }
+        body { margin: 0; background: #000; color: #FFD700; font-family: 'Courier New', monospace; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+        #tarjeta { border: 4px solid #FFD700; padding: 30px; width: 85%; max-width: 400px; border-radius: 20px; background: rgba(20, 20, 0, 0.9); box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
+        .fila-resultado { margin: 15px 0; font-size: 1.1rem; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        button { margin-top: 25px; padding: 12px 25px; cursor: pointer; background: #FFD700; border: none; font-weight: bold; border-radius: 5px; text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -33,27 +16,30 @@
     <div id="tarjeta">
         <h1>MISIÓN COMPLETADA</h1>
         <div id="resultados-contenedor"></div>
-        <button onclick="window.location.href='mapa.html'">REGRESAR AL MAPA</button>
+        <button onclick="window.location.href='mapa.html'">VOLVER AL MAPA</button>
     </div>
 
     <script>
-        // Recuperar los niveles guardados en mision.html
-        const datosGuardados = localStorage.getItem('nivelesFinales');
-        const resultados = datosGuardados ? JSON.parse(datosGuardados) : [0, 0, 0];
+        // 1. Recuperar datos de la misión recién terminada
+        const resultados = JSON.parse(localStorage.getItem('nivelesFinales')) || [0, 0, 0];
+        
+        // 2. Recuperar stats globales (el perfil del personaje)
+        let stats = JSON.parse(localStorage.getItem('statsPersonaje')) || { sabiduria: 0, inteligencia: 0, poder: 0 };
         
         const nombres = ["SABIDURÍA", "INTELIGENCIA", "PODER"];
         const contenedor = document.getElementById('resultados-contenedor');
-        
-        let puntosTotales = 0;
+        let totalPuntosGanados = 0;
 
+        // 3. Procesar resultados y actualizar globalmente
         resultados.forEach((val, i) => {
-            let puntos = 0;
-            // Lógica de puntuación
-            if (val >= 100) puntos = 2;
-            else if (val >= 50) puntos = 1;
+            let puntos = (val >= 100) ? 2 : (val >= 50 ? 1 : 0);
+            totalPuntosGanados += puntos;
             
-            puntosTotales += puntos;
-            
+            // Sumar al objeto global según el índice
+            if(i === 0) stats.sabiduria += puntos;
+            if(i === 1) stats.inteligencia += puntos;
+            if(i === 2) stats.poder += puntos;
+
             contenedor.innerHTML += `
                 <div class="fila-resultado">
                     <strong>${nombres[i]}</strong>: ${val.toFixed(0)}% <br>
@@ -62,11 +48,10 @@
             `;
         });
 
-        contenedor.innerHTML += `
-            <div style="margin-top: 20px;">
-                <h3>PUNTUACIÓN TOTAL: ${puntosTotales}</h3>
-            </div>
-        `;
+        // 4. Guardar los nuevos stats actualizados de forma permanente
+        localStorage.setItem('statsPersonaje', JSON.stringify(stats));
+
+        contenedor.innerHTML += `<h3>TOTAL GANADOS: ${totalPuntosGanados}</h3>`;
     </script>
 </body>
 </html>
