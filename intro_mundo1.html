@@ -7,27 +7,13 @@
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: black; overflow: hidden; }
         
-        #video-container { 
-            position: relative; width: 100vw; height: 100vh; 
-            display: flex; justify-content: center; align-items: center; 
-        }
-        
-        #video-intro { 
-            width: 100%; height: 100%; 
-            /* 'contain' asegura que todo el video se vea, sin recortes */
-            object-fit: contain; display: block; 
-        }
+        #video-container { position: relative; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; }
+        #video-intro { width: 100%; height: 100%; object-fit: contain; display: block; }
 
         .punto-mision {
-            position: absolute;
-            width: 12vw; height: 12vw;
-            background: rgba(0, 255, 255, 0.15);
-            border: 3px solid #00FFFF;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none; /* Ocultos hasta que el video termine */
-            animation: pulso 1.5s infinite;
-            z-index: 10;
+            position: absolute; width: 12vw; height: 12vw; background: rgba(0, 255, 255, 0.15);
+            border: 3px solid #00FFFF; border-radius: 50%; cursor: pointer; display: none;
+            animation: pulso 1.5s infinite; z-index: 10; font-size: 0.7rem; color: white;
         }
 
         @keyframes pulso {
@@ -44,24 +30,42 @@
             <source src="lv_0_20260704135348.mp4" type="video/mp4">
         </video>
 
-        <button class="punto-mision" style="top: 52%; left: 19%;" onclick="irAMision('Sector A')"></button>
-        <button class="punto-mision" style="top: 52%; left: 69%;" onclick="irAMision('Data Core B')"></button>
+        <!-- Botones con ID para manipularlos -->
+        <button id="btn-mision-1" class="punto-mision" style="top: 52%; left: 19%;" onclick="irAMision('Sector A')"></button>
+        <button id="btn-mision-2" class="punto-mision" style="top: 52%; left: 69%;" onclick="irAMision('Data Core B')"></button>
+    </div>
+
+    <!-- Diálogo Personalizado -->
+    <div id="dialogo-alerta" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:80%; max-width:300px; padding:25px; background:rgba(0,0,0,0.95); border:3px solid #FFD700; color:#FFD700; text-align:center; border-radius:15px; z-index:9999;">
+        <h3>AVISO</h3>
+        <p>¡Esta misión ya ha sido completada!</p>
+        <button onclick="document.getElementById('dialogo-alerta').style.display='none'" style="background:#FFD700; border:none; padding:10px 20px; cursor:pointer; font-weight:bold; border-radius:5px;">ACEPTAR</button>
     </div>
 
     <script>
         const video = document.getElementById('video-intro');
         const botones = document.querySelectorAll('.punto-mision');
 
-        video.onended = function() {
-            // Mostrar los botones cuando el video termina
-            botones.forEach(b => b.style.display = 'block');
-        };
+        video.onended = () => { botones.forEach(b => b.style.display = 'block'); };
 
         function irAMision(mision) {
-            // Guardamos la elección y vamos a la pantalla de la misión
-            localStorage.setItem('misionElegida', mision);
-            window.location.href = 'mision.html'; 
+            if (mision === 'Sector A' && localStorage.getItem('mision1Completada') === 'true') {
+                document.getElementById('dialogo-alerta').style.display = 'block';
+            } else {
+                localStorage.setItem('misionElegida', mision);
+                window.location.href = 'mision.html';
+            }
         }
+
+        window.onload = () => {
+            if(localStorage.getItem('mision1Completada') === 'true') {
+                const btn1 = document.getElementById('btn-mision-1');
+                btn1.style.background = 'red';
+                btn1.style.borderColor = 'darkred';
+                btn1.style.animation = 'none'; // Detener pulso
+                btn1.innerHTML = "✓";
+            }
+        };
     </script>
 </body>
 </html>
