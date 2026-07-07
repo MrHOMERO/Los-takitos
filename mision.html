@@ -9,7 +9,7 @@
             margin: 0; background: #000; color: white; font-family: 'Courier New', monospace; 
             height: 100vh; display: flex; flex-direction: column; align-items: center;
             background-image: url('https://github.com/MrHOMERO/Los-takitos/raw/06e012f27cc8a6a49e529252620b5c76e1b1edfb/extensi%C3%B3n%20izquierda%20picante%20prime.jpg');
-            background-size: cover; background-position: center;
+            background-size: cover; background-position: center; overflow: hidden;
         }
 
         #personaje { width: 200px; height: 200px; background: url('https://github.com/MrHOMERO/Los-takitos/raw/06e012f27cc8a6a49e529252620b5c76e1b1edfb/retouch_2026063003370289.png'); background-size: contain; background-repeat: no-repeat; margin-top: 50px; }
@@ -24,12 +24,13 @@
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
 
-        #contenedor-barras { display: flex; gap: 30px; margin-top: auto; margin-bottom: 50px; }
-        .barra-caja { width: 50px; height: 150px; background: rgba(0,0,0,0.7); border: 2px solid #00FFFF; position: relative; cursor: pointer; }
+        #contenedor-barras { display: flex; gap: 20px; margin-top: auto; margin-bottom: 70px; }
+        .barra-caja { width: 60px; height: 150px; background: rgba(0,0,0,0.7); border: 2px solid #00FFFF; position: relative; cursor: pointer; }
         .barra-progreso { position: absolute; bottom: 0; width: 100%; height: 0%; background: #00FFFF; transition: height 0.1s; }
         .timer-barra { position: absolute; top: -30px; width: 100%; text-align: center; color: #FFF; font-weight: bold; }
+        .nombre-habilidad { position: absolute; bottom: -35px; width: 100%; text-align: center; font-size: 0.65rem; color: #FFD700; text-transform: uppercase; }
         
-        #reloj-central { position: fixed; top: 50%; font-size: 5rem; color: #FFD700; display: none; text-shadow: 0 0 10px #000; z-index: 200; }
+        #reloj-central { position: fixed; top: 50%; font-size: 5rem; color: #FFD700; display: none; text-shadow: 0 0 10px #000; z-index: 200; pointer-events: none; }
     </style>
 </head>
 <body>
@@ -40,7 +41,7 @@
 
     <div id="dialogo-mision">
         <h2>INICIO DE MISIÓN</h2>
-        <p>Restauración de Ecos: Selecciona una habilidad para cargar su energía. Tienes 10 segundos para maximizar cada una.</p>
+        <p>Restauración de Ecos: Selecciona una esencia para cargar su energía. Tienes 10 segundos por cada una.</p>
         <button onclick="cerrarDialogo()" style="background:#FFD700; border:none; padding:10px 20px; cursor:pointer; font-weight:bold;">ACEPTAR</button>
     </div>
 
@@ -48,9 +49,9 @@
     <div id="reloj-central"></div>
 
     <div id="contenedor-barras">
-        <div class="barra-caja" onclick="iniciarSecuencia(0)"><div class="barra-progreso" id="b0"></div><div id="t0" class="timer-barra"></div></div>
-        <div class="barra-caja" onclick="iniciarSecuencia(1)"><div class="barra-progreso" id="b1"></div><div id="t1" class="timer-barra"></div></div>
-        <div class="barra-caja" onclick="iniciarSecuencia(2)"><div class="barra-progreso" id="b2"></div><div id="t2" class="timer-barra"></div></div>
+        <div class="barra-caja" onclick="iniciarSecuencia(0)"><div class="barra-progreso" id="b0"></div><div id="t0" class="timer-barra"></div><div class="nombre-habilidad">SABIDURÍA</div></div>
+        <div class="barra-caja" onclick="iniciarSecuencia(1)"><div class="barra-progreso" id="b1"></div><div id="t1" class="timer-barra"></div><div class="nombre-habilidad">INTELIGENCIA</div></div>
+        <div class="barra-caja" onclick="iniciarSecuencia(2)"><div class="barra-progreso" id="b2"></div><div id="t2" class="timer-barra"></div><div class="nombre-habilidad">PODER</div></div>
     </div>
 
     <script>
@@ -58,7 +59,6 @@
 
         function cerrarDialogo() {
             document.getElementById('dialogo-mision').style.display = 'none';
-            // Activar música al primer toque/interacción
             const audio = document.getElementById('musica-mision');
             audio.volume = 0.3;
             audio.play().catch(() => {});
@@ -94,6 +94,10 @@
                     barraActiva = -1; 
                     usadas[idx] = true; 
                     timerDiv.innerText = "OK"; 
+                    if(usadas.every(u => u)) {
+                        localStorage.setItem('nivelesFinales', JSON.stringify(niveles));
+                        setTimeout(() => window.location.href = 'resultado_tarjeta.html', 500);
+                    }
                 }
                 tiempo--;
             }, 1000);
@@ -101,7 +105,8 @@
 
         document.body.onclick = (e) => {
             if(barraActiva !== -1) {
-                niveles[barraActiva] = Math.min(niveles[barraActiva] + 2.5, 100);
+                // 0.5% por toque (200 toques = 100%)
+                niveles[barraActiva] = Math.min(niveles[barraActiva] + 0.5, 100);
                 document.getElementById('b' + barraActiva).style.height = niveles[barraActiva] + "%";
             }
         };
