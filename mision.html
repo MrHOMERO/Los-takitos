@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Misión: Entrenamiento</title>
     <style>
         body { 
@@ -14,45 +14,55 @@
 
         #personaje { width: 200px; height: 200px; background: url('https://github.com/MrHOMERO/Los-takitos/raw/06e012f27cc8a6a49e529252620b5c76e1b1edfb/retouch_2026063003370289.png'); background-size: contain; background-repeat: no-repeat; margin-top: 50px; }
 
-        /* Estilo del cuadro de diálogo */
         #dialogo-mision {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 80%; max-width: 350px; padding: 25px;
             background: rgba(0, 0, 0, 0.9);
             border: 3px solid #FFD700;
-            color: #FFD700; /* Texto Amarillo */
+            color: #FFD700;
             text-align: center; border-radius: 15px; z-index: 100;
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
 
         #contenedor-barras { display: flex; gap: 30px; margin-top: auto; margin-bottom: 50px; }
-        .barra-caja { width: 50px; height: 150px; background: rgba(0,0,0,0.7); border: 2px solid #00FFFF; position: relative; }
+        .barra-caja { width: 50px; height: 150px; background: rgba(0,0,0,0.7); border: 2px solid #00FFFF; position: relative; cursor: pointer; }
         .barra-progreso { position: absolute; bottom: 0; width: 100%; height: 0%; background: #00FFFF; transition: height 0.1s; }
+        .timer-barra { position: absolute; top: -30px; width: 100%; text-align: center; color: #FFF; font-weight: bold; }
         
-        #reloj-central { position: fixed; top: 50%; font-size: 5rem; color: #FFD700; display: none; text-shadow: 0 0 10px #000; }
+        #reloj-central { position: fixed; top: 50%; font-size: 5rem; color: #FFD700; display: none; text-shadow: 0 0 10px #000; z-index: 200; }
     </style>
 </head>
 <body>
 
-    <!-- Cuadro de diálogo inicial -->
+    <audio id="musica-mision" loop>
+        <source src="https://github.com/MrHOMERO/Los-takitos/raw/5ccbc797e782bc7c36acefb6d47a7c877ca62fe8/musicafondomapa.mp3" type="audio/mpeg">
+    </audio>
+
     <div id="dialogo-mision">
         <h2>INICIO DE MISIÓN</h2>
         <p>Restauración de Ecos: Selecciona una habilidad para cargar su energía. Tienes 10 segundos para maximizar cada una.</p>
-        <button onclick="document.getElementById('dialogo-mision').style.display='none'" style="background:#FFD700; border:none; padding:10px; cursor:pointer;">ACEPTAR</button>
+        <button onclick="cerrarDialogo()" style="background:#FFD700; border:none; padding:10px 20px; cursor:pointer; font-weight:bold;">ACEPTAR</button>
     </div>
 
     <div id="personaje"></div>
     <div id="reloj-central"></div>
 
     <div id="contenedor-barras">
-        <div class="barra-caja" onclick="iniciarSecuencia(0)"><div class="barra-progreso" id="b0"></div><div id="t0" style="position:absolute; top:-25px; width:100%;"></div></div>
-        <div class="barra-caja" onclick="iniciarSecuencia(1)"><div class="barra-progreso" id="b1"></div><div id="t1" style="position:absolute; top:-25px; width:100%;"></div></div>
-        <div class="barra-caja" onclick="iniciarSecuencia(2)"><div class="barra-progreso" id="b2"></div><div id="t2" style="position:absolute; top:-25px; width:100%;"></div></div>
+        <div class="barra-caja" onclick="iniciarSecuencia(0)"><div class="barra-progreso" id="b0"></div><div id="t0" class="timer-barra"></div></div>
+        <div class="barra-caja" onclick="iniciarSecuencia(1)"><div class="barra-progreso" id="b1"></div><div id="t1" class="timer-barra"></div></div>
+        <div class="barra-caja" onclick="iniciarSecuencia(2)"><div class="barra-progreso" id="b2"></div><div id="t2" class="timer-barra"></div></div>
     </div>
 
     <script>
-        // Lógica de juego mantenida igual
         let niveles = [0,0,0], usadas = [false,false,false], barraActiva = -1;
+
+        function cerrarDialogo() {
+            document.getElementById('dialogo-mision').style.display = 'none';
+            // Activar música al primer toque/interacción
+            const audio = document.getElementById('musica-mision');
+            audio.volume = 0.3;
+            audio.play().catch(() => {});
+        }
 
         function iniciarSecuencia(idx) {
             if(usadas[idx] || barraActiva !== -1) return;
@@ -64,7 +74,10 @@
                 reloj.innerText = contador > 0 ? contador : "¡YA!";
                 if(contador === 0) {
                     clearInterval(id);
-                    setTimeout(() => { reloj.style.display = 'none'; comenzarCuentaRegresiva(idx); }, 500);
+                    setTimeout(() => { 
+                        reloj.style.display = 'none'; 
+                        comenzarCuentaRegresiva(idx); 
+                    }, 500);
                 }
                 contador--;
             }, 800);
@@ -76,7 +89,12 @@
             let timerDiv = document.getElementById('t' + idx);
             let interval = setInterval(() => {
                 timerDiv.innerText = tiempo;
-                if(tiempo <= 0) { clearInterval(interval); barraActiva = -1; usadas[idx] = true; timerDiv.innerText = ""; }
+                if(tiempo <= 0) { 
+                    clearInterval(interval); 
+                    barraActiva = -1; 
+                    usadas[idx] = true; 
+                    timerDiv.innerText = "OK"; 
+                }
                 tiempo--;
             }, 1000);
         }
