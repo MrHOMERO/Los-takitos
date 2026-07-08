@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Combate: Data Core B</title>
+    <title>Combate: Data Core B - Sabiduría</title>
     <style>
         body { margin: 0; height: 100vh; background: #000; overflow: hidden; font-family: 'Courier New', monospace; color: white; display: flex; flex-direction: column; align-items: center; justify-content: space-between; }
         
@@ -10,19 +10,21 @@
             width: 100vw; height: 100vh;
             background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/69e9fcf7e0cb94f8660692c4b6eb8efe77e9307d/fondomapa%20(1).jpg');
             background-size: cover; background-position: center;
-            display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 50px;
+            display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 100px;
         }
 
-        .personaje { height: 125px; width: auto; object-fit: contain; }
+        /* Personajes aumentados a 200px */
+        .personaje { height: 200px; width: auto; object-fit: contain; }
 
-        /* Estilo Globos de texto */
-        .globo { position: absolute; top: 25%; background: rgba(255,255,255,0.9); color: black; padding: 15px; border-radius: 15px; font-weight: bold; display: none; z-index: 200; box-shadow: 0 0 10px white; }
-        #globo-jugador { left: 15%; }
-        #globo-enemigo { right: 15%; }
+        .globo { position: absolute; top: 20%; background: rgba(255,255,255,0.95); color: black; padding: 20px; border-radius: 20px; font-weight: bold; display: none; z-index: 200; box-shadow: 0 0 15px white; max-width: 300px; text-align: center; }
+        #globo-jugador { left: 10%; }
+        #globo-enemigo { right: 10%; }
 
         #anim-ready { position: absolute; top: 35%; font-size: 5rem; color: #FFD700; text-shadow: 0 0 20px red; display: none; z-index: 100; }
 
-        /* UI */
+        /* Cuadro de victoria estilo juego */
+        #dialogo-victoria { position: absolute; top: 30%; left: 20%; width: 60%; background: #000; border: 4px solid #FFD700; color: #FFF; padding: 30px; display: none; z-index: 500; font-size: 1.5rem; text-align: center; }
+
         .ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none; padding: 20px; box-sizing: border-box; }
         .hud-container { display: flex; width: 95%; justify-content: space-between; align-items: center; pointer-events: auto; }
         .hud { width: 40%; }
@@ -31,7 +33,7 @@
         .barra-guts { height: 100%; width: 0%; background: #00FFFF; transition: width 0.1s; }
         .reloj { font-size: 3rem; font-weight: bold; color: #FFD700; text-shadow: 0 0 10px #000; }
         .controles { pointer-events: auto; display: flex; gap: 15px; justify-content: center; margin-bottom: 40px; }
-        .btn-poder { padding: 15px 25px; background: rgba(0,0,0,0.8); border: 2px solid #00FFFF; color: #00FFFF; cursor: pointer; font-weight: bold; }
+        .btn-poder { padding: 15px 25px; background: rgba(0,0,0,0.8); border: 2px solid #00FFFF; color: #00FFFF; cursor: pointer; font-weight: bold; font-size: 1.2rem; }
     </style>
 </head>
 <body>
@@ -41,9 +43,14 @@
         <img class="personaje" src="https://github.com/MrHOMERO/Los-takitos/raw/d628822ee14e633ae13fc6a7e557a883ec790e4c/retouch_2026070702024056.png">
     </div>
 
-    <div id="globo-jugador" class="globo">¡Dime dónde está el código!</div>
-    <div id="globo-enemigo" class="globo">¡Solo te lo daré si me vences!</div>
+    <div id="globo-jugador" class="globo"></div>
+    <div id="globo-enemigo" class="globo"></div>
     <div id="anim-ready">READY!</div>
+
+    <div id="dialogo-victoria">
+        <p id="texto-final"></p>
+        <button onclick="window.location.href='intro_mundo1.html'" class="btn-poder">CONTINUAR</button>
+    </div>
 
     <div class="ui-layer">
         <div class="hud-container">
@@ -68,18 +75,36 @@
         let tiempo = 60, vidaJ = 100, gutsJ = 0, vidaS = 100, gutsS = 0, juegoActivo = false;
 
         async function secuenciaInicio() {
-            await new Promise(r => setTimeout(r, 1000));
-            document.getElementById('globo-jugador').style.display = 'block';
-            await new Promise(r => setTimeout(r, 2500));
-            document.getElementById('globo-jugador').style.display = 'none';
-            
-            document.getElementById('globo-enemigo').style.display = 'block';
-            await new Promise(r => setTimeout(r, 2500));
-            document.getElementById('globo-enemigo').style.display = 'none';
+            const gJ = document.getElementById('globo-jugador');
+            const gS = document.getElementById('globo-enemigo');
+            const ready = document.getElementById('anim-ready');
 
-            document.getElementById('anim-ready').style.display = 'block';
+            await new Promise(r => setTimeout(r, 1000));
+            
+            gJ.innerText = "He elegido la Sabiduría. Mi tiempo no será desperdiciado.";
+            gJ.style.display = 'block';
+            await new Promise(r => setTimeout(r, 3500));
+            gJ.style.display = 'none';
+            
+            gS.innerText = "¿Sabiduría? La verdad solo pertenece a quienes pueden protegerla con fuerza.";
+            gS.style.display = 'block';
+            await new Promise(r => setTimeout(r, 3500));
+            gS.style.display = 'none';
+            
+            gJ.innerText = "La verdadera fuerza reside en comprender, no en poseer. ¡Entrega el acceso!";
+            gJ.style.display = 'block';
+            await new Promise(r => setTimeout(r, 3500));
+            gJ.style.display = 'none';
+            
+            gS.innerText = "Entonces demuestra que tu sabiduría supera mi defensa. ¡Ven!";
+            gS.style.display = 'block';
+            await new Promise(r => setTimeout(r, 3000));
+            gS.style.display = 'none';
+
+            ready.style.display = 'block';
             await new Promise(r => setTimeout(r, 1500));
-            document.getElementById('anim-ready').style.display = 'none';
+            ready.style.display = 'none';
+            
             iniciarCombate();
         }
 
@@ -103,8 +128,14 @@
             if (!juegoActivo || gutsJ < coste) return;
             gutsJ -= coste; document.getElementById('guts-jugador').style.width = gutsJ + "%";
             vidaS = Math.max(0, vidaS - (coste + 5)); document.getElementById('vida-secuaz').style.width = vidaS + "%";
-            if(vidaS <= 0) { alert("¡VICTORIA! El secuaz confiesa: El código está en el servidor central."); window.location.href = 'intro_mundo1.html'; }
+            if(vidaS <= 0) { mostrarVictoria(); }
             setTimeout(respuestaEnemiga, 1000);
+        }
+
+        function mostrarVictoria() {
+            juegoActivo = false;
+            document.getElementById('dialogo-victoria').style.display = 'block';
+            document.getElementById('texto-final').innerText = "¡Maldición! Has vencido... pero el código que buscas está bajo el control de Mala Kai en su fortaleza del último planeta. ¡Ella te está esperando!";
         }
 
         function respuestaEnemiga() {
