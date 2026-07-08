@@ -2,68 +2,121 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Combate: Data Core B</title>
     <style>
-        body { 
-            margin: 0; height: 100vh; 
-            background: url('https://github.com/MrHOMERO/Los-takitos/raw/d628822ee14e633ae13fc6a7e557a883ec790e4c/fondo%20planeta1.jpg') no-repeat center center/cover; 
-            display: flex; flex-direction: column; align-items: center; justify-content: space-between; 
-            font-family: 'Courier New', monospace; color: white; overflow: hidden;
-        }
+        body { margin: 0; height: 100vh; background: #000; overflow: hidden; font-family: 'Courier New', monospace; color: white; display: flex; flex-direction: column; align-items: center; justify-content: space-between; }
         
-        /* HUD Superior */
-        .hud { display: flex; width: 95%; justify-content: space-between; align-items: center; padding-top: 20px; }
-        .barra-container { width: 40%; height: 25px; background: #333; border: 3px solid #fff; }
-        .barra-vida { height: 100%; width: 100%; background: linear-gradient(to right, #ff0000, #ffff00); transition: width 0.3s; }
-        .versus { font-size: 2rem; font-weight: bold; text-shadow: 2px 2px #000; }
+        #escenario {
+            width: 100vw; height: 100vh;
+            background-image: url('https://raw.githubusercontent.com/MrHOMERO/Los-takitos/69e9fcf7e0cb94f8660692c4b6eb8efe77e9307d/fondomapa%20(1).jpg');
+            background-size: cover; background-position: center;
+            display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 50px;
+        }
 
-        /* Arena */
-        .arena { display: flex; justify-content: space-around; width: 100%; align-items: flex-end; padding-bottom: 50px; }
-        .personaje { height: 350px; width: auto; object-fit: contain; }
+        .personaje { height: 125px; width: auto; object-fit: contain; }
 
-        /* Controles */
-        .controles { display: flex; gap: 15px; margin-bottom: 30px; }
-        .btn-poder { padding: 15px 25px; background: rgba(0,0,0,0.8); border: 2px solid #FFD700; color: #FFD700; cursor: pointer; font-weight: bold; text-transform: uppercase; }
+        /* Estilo Globos de texto */
+        .globo { position: absolute; top: 25%; background: rgba(255,255,255,0.9); color: black; padding: 15px; border-radius: 15px; font-weight: bold; display: none; z-index: 200; box-shadow: 0 0 10px white; }
+        #globo-jugador { left: 15%; }
+        #globo-enemigo { right: 15%; }
+
+        #anim-ready { position: absolute; top: 35%; font-size: 5rem; color: #FFD700; text-shadow: 0 0 20px red; display: none; z-index: 100; }
+
+        /* UI */
+        .ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none; padding: 20px; box-sizing: border-box; }
+        .hud-container { display: flex; width: 95%; justify-content: space-between; align-items: center; pointer-events: auto; }
+        .hud { width: 40%; }
+        .barra-container { width: 100%; height: 20px; background: rgba(0,0,0,0.7); border: 2px solid #fff; margin-bottom: 5px; }
+        .barra-vida { height: 100%; width: 100%; background: #ff0000; transition: width 0.3s; }
+        .barra-guts { height: 100%; width: 0%; background: #00FFFF; transition: width 0.1s; }
+        .reloj { font-size: 3rem; font-weight: bold; color: #FFD700; text-shadow: 0 0 10px #000; }
+        .controles { pointer-events: auto; display: flex; gap: 15px; justify-content: center; margin-bottom: 40px; }
+        .btn-poder { padding: 15px 25px; background: rgba(0,0,0,0.8); border: 2px solid #00FFFF; color: #00FFFF; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="hud">
-        <div class="barra-container"><div id="vida-jugador" class="barra-vida"></div></div>
-        <div class="versus">VS</div>
-        <div class="barra-container"><div id="vida-secuaz" class="barra-vida"></div></div>
+    <div id="escenario">
+        <img class="personaje" src="https://github.com/MrHOMERO/Los-takitos/raw/b06b4f465cac4963d117067da82fb82d179051b9/retouch_2026063003370289.png">
+        <img class="personaje" src="https://github.com/MrHOMERO/Los-takitos/raw/d628822ee14e633ae13fc6a7e557a883ec790e4c/retouch_2026070702024056.png">
     </div>
 
-    <div class="arena">
-        <img id="img-jugador" class="personaje" src="" alt="Jugador">
-        <!-- Secuaz con el nuevo permalink de cuerpo completo -->
-        <img src="https://github.com/MrHOMERO/Los-takitos/raw/d628822ee14e633ae13fc6a7e557a883ec790e4c/retouch_2026070702024056.png" class="personaje" alt="Secuaz">
-    </div>
+    <div id="globo-jugador" class="globo">¡Dime dónde está el código!</div>
+    <div id="globo-enemigo" class="globo">¡Solo te lo daré si me vences!</div>
+    <div id="anim-ready">READY!</div>
 
-    <div class="controles">
-        <button class="btn-poder" onclick="usarPoder(1)">Ataque Ligero</button>
-        <button class="btn-poder" onclick="usarPoder(2)">Ataque Potente</button>
-        <button class="btn-poder" onclick="usarPoder(3)">Golpe Crítico</button>
+    <div class="ui-layer">
+        <div class="hud-container">
+            <div class="hud">
+                <div>JUGADOR (GUTS)</div><div class="barra-container"><div id="guts-jugador" class="barra-guts"></div></div>
+                <div>VIDA JUGADOR</div><div class="barra-container"><div id="vida-jugador" class="barra-vida"></div></div>
+            </div>
+            <div class="reloj" id="tiempo">60</div>
+            <div class="hud">
+                <div>SECUAZ (GUTS)</div><div class="barra-container"><div id="guts-secuaz" class="barra-guts"></div></div>
+                <div>VIDA SECUAZ</div><div class="barra-container"><div id="vida-secuaz" class="barra-vida"></div></div>
+            </div>
+        </div>
+        <div class="controles">
+            <button class="btn-poder" onclick="atacarJugador(10)">LIGERO</button>
+            <button class="btn-poder" onclick="atacarJugador(25)">POTENTE</button>
+            <button class="btn-poder" onclick="atacarJugador(50)">CRÍTICO</button>
+        </div>
     </div>
 
     <script>
-        // Cargar jugador
-        document.getElementById('img-jugador').src = "https://github.com/MrHOMERO/Los-takitos/raw/b06b4f465cac4963d117067da82fb82d179051b9/retouch_2026063003370289.png";
-        
-        let vidaS = 100;
+        let tiempo = 60, vidaJ = 100, gutsJ = 0, vidaS = 100, gutsS = 0, juegoActivo = false;
 
-        function usarPoder(tipo) {
-            let dano = (tipo * 15) + Math.floor(Math.random() * 10);
-            vidaS = Math.max(0, vidaS - dano);
-            document.getElementById('vida-secuaz').style.width = vidaS + "%";
+        async function secuenciaInicio() {
+            await new Promise(r => setTimeout(r, 1000));
+            document.getElementById('globo-jugador').style.display = 'block';
+            await new Promise(r => setTimeout(r, 2500));
+            document.getElementById('globo-jugador').style.display = 'none';
             
-            if(vidaS <= 0) {
-                localStorage.setItem('mision2Completada', 'true');
-                alert("¡VICTORIA! El secuaz ha caído.");
-                window.location.href = 'intro_mundo1.html';
+            document.getElementById('globo-enemigo').style.display = 'block';
+            await new Promise(r => setTimeout(r, 2500));
+            document.getElementById('globo-enemigo').style.display = 'none';
+
+            document.getElementById('anim-ready').style.display = 'block';
+            await new Promise(r => setTimeout(r, 1500));
+            document.getElementById('anim-ready').style.display = 'none';
+            iniciarCombate();
+        }
+
+        function iniciarCombate() {
+            juegoActivo = true;
+            let timer = setInterval(() => {
+                tiempo--;
+                document.getElementById('tiempo').innerText = tiempo;
+                if(tiempo <= 0) { clearInterval(timer); window.location.href = 'intro_mundo1.html'; }
+            }, 1000);
+
+            setInterval(() => {
+                if (juegoActivo) {
+                    if (gutsJ < 100) { gutsJ += 2; document.getElementById('guts-jugador').style.width = gutsJ + "%"; }
+                    if (gutsS < 100) { gutsS += 2; document.getElementById('guts-secuaz').style.width = gutsS + "%"; }
+                }
+            }, 800);
+        }
+
+        function atacarJugador(coste) {
+            if (!juegoActivo || gutsJ < coste) return;
+            gutsJ -= coste; document.getElementById('guts-jugador').style.width = gutsJ + "%";
+            vidaS = Math.max(0, vidaS - (coste + 5)); document.getElementById('vida-secuaz').style.width = vidaS + "%";
+            if(vidaS <= 0) { alert("¡VICTORIA! El secuaz confiesa: El código está en el servidor central."); window.location.href = 'intro_mundo1.html'; }
+            setTimeout(respuestaEnemiga, 1000);
+        }
+
+        function respuestaEnemiga() {
+            if (vidaS <= 0) return;
+            if (gutsS >= 20) {
+                gutsS -= 20; document.getElementById('guts-secuaz').style.width = gutsS + "%";
+                vidaJ = Math.max(0, vidaJ - 15); document.getElementById('vida-jugador').style.width = vidaJ + "%";
+                if(vidaJ <= 0) { alert("¡HAS SIDO DERROTADO!"); window.location.href = 'intro_mundo1.html'; }
             }
         }
+
+        secuenciaInicio();
     </script>
 </body>
 </html>
